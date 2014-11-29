@@ -40,7 +40,7 @@ $mailData = array(
     );
 
 includeLang('lostpassword');
-$post = filter_input_array(INPUT_POST);
+
 $username = NULL;
 if (!empty($post)) {
     if(isset($post['pseudo']) && !empty($post['pseudo'])) {
