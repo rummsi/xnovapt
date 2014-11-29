@@ -49,19 +49,19 @@ $def_v = array_fill(0, count($def), array(0, 0, 0, 0));
 
 LoadCookies();
 
-if (!empty($_POST['reset'])) {
+if (!empty($post['reset'])) {
     foreach($_COOKIE as $elm => $con) {
         setcoookie($elm, '');
     }
 
-    $_POST = array();
+    $post = array();
 }
 
-if (!empty($_POST['suma'])) {
-    if (!empty($_POST['edf'])) setcoookie('edf', serialize($_POST['edf']), time()+60*60*24*30);
-    if (!empty($_POST['inv'])) setcoookie('inv', serialize($_POST['inv']), time()+60*60*24*30);
-    if (!empty($_POST['han'])) setcoookie('han', serialize($_POST['han']), time()+60*60*24*30);
-    if (!empty($_POST['def'])) setcoookie('def', serialize($_POST['def']), time()+60*60*24*30);
+if (!empty($post['suma'])) {
+    if (!empty($post['edf'])) setcoookie('edf', serialize($post['edf']), time()+60*60*24*30);
+    if (!empty($post['inv'])) setcoookie('inv', serialize($post['inv']), time()+60*60*24*30);
+    if (!empty($post['han'])) setcoookie('han', serialize($post['han']), time()+60*60*24*30);
+    if (!empty($post['def'])) setcoookie('def', serialize($post['def']), time()+60*60*24*30);
 
     LoadCookies();
 

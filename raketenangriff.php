@@ -36,11 +36,11 @@ $iraks = $planet['interplanetary_misil'];
 
 
 
-$g = intval($_GET['galaxy']);
-$s = intval($_GET['system']);
-$i = intval($_GET['planet']);
-$anz = intval($_POST['SendMI']);
-$pziel = $_POST['Target'];
+$g = intval($get['galaxy']);
+$s = intval($get['system']);
+$i = intval($get['planet']);
+$anz = intval($post['SendMI']);
+$pziel = $post['Target'];
 
 
 $currentplanet = doquery("SELECT * FROM {{table}} WHERE id={$user['current_planet']}",'planets',true);

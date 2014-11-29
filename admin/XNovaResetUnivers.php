@@ -124,7 +124,7 @@ function XNovaResetUnivers ( $CurrentUser ) {
 	return $Page;
 }
 
-	$mode      = $_POST['mode'];
+	$mode      = $post['mode'];
 	$PageTpl   = gettemplate("admin/reset_body");
 	$parse     = $lang;
 

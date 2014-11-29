@@ -40,8 +40,8 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
     }
 
     $shipyard = Legacies_Empire_Shipyard::factory($currentPlanet, $currentUser);
-    if (isset($_POST['fmenge']) && is_array($_POST['fmenge'])) {
-        foreach ($_POST['fmenge'] as $shipId => $count) {
+    if (isset($post['fmenge']) && is_array($post['fmenge'])) {
+        foreach ($post['fmenge'] as $shipId => $count) {
             $shipId = intval($shipId);
             if (in_array($shipId, $resource)) {
                 continue;

@@ -30,11 +30,11 @@
 
 function SetSelectedPlanet ( &$CurrentUser )
 {
-    if (!isset($_GET['cp']) || !isset($_GET['re'])) {
+    if (!isset($get['cp']) || !isset($get['re'])) {
         return;
     }
-	$SelectPlanet  = $_GET['cp'];
-	$RestorePlanet = $_GET['re'];
+	$SelectPlanet  = $get['cp'];
+	$RestorePlanet = $get['re'];
 
 	if (isset($SelectPlanet)      &&
 		is_numeric($SelectPlanet) &&

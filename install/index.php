@@ -56,8 +56,8 @@ include(ROOT_PATH . 'includes/strings.' . PHPEXT);
 include(ROOT_PATH . 'includes/databaseinfos.php');
 include(ROOT_PATH . 'includes/migrateinfo.php');
 
-$mode     = isset($_GET['mode']) ? strval($_GET['mode']) : 'intro';
-$page     = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$mode     = isset($get['mode']) ? strval($get['mode']) : 'intro';
+$page     = isset($get['page']) ? intval($get['page']) : 1;
 $nextPage = $page + 1;
 
 $mainTpl = gettemplate('install/ins_body');
@@ -73,10 +73,10 @@ switch ($mode) {
 
     case 'ins':
         if ($page == 1) {
-            if (isset($_GET['error']) && intval($_GET['error']) == 1) {
+            if (isset($get['error']) && intval($get['error']) == 1) {
 	            adminMessage ($lang['ins_error1'], $lang['ins_error']);
             }
-            elseif (isset($_GET['error']) && intval($_GET['error']) == 2) {
+            elseif (isset($get['error']) && intval($get['error']) == 2) {
 	            adminMessage ($lang['ins_error2'], $lang['ins_error']);
             }
 
@@ -85,11 +85,11 @@ switch ($mode) {
             $bloc['dpath'] = $dpath;
             $frame  = parsetemplate($subTpl, $bloc);
         } else if ($page == 2) {
-            $host   = $_POST['host'];
-            $user   = $_POST['user'];
-            $pass   = $_POST['passwort'];
-            $prefix = $_POST['prefix'];
-            $db     = $_POST['db'];
+            $host   = $post['host'];
+            $user   = $post['user'];
+            $pass   = $post['passwort'];
+            $prefix = $post['prefix'];
+            $db     = $post['db'];
 
             $connection = @mysql_connect($host, $user, $pass);
             if (!$connection) {
@@ -154,7 +154,7 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 3) {
-            if (isset($_GET['error']) && intval($_GET['error']) == 3) {
+            if (isset($get['error']) && intval($get['error']) == 3) {
             adminMessage($lang['ins_error3'], $lang['ins_error']);
             }
 
@@ -163,26 +163,26 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 4) {
-            $adm_user   = $_POST['adm_user'];
-            $adm_pass   = $_POST['adm_pass'];
-            $adm_email  = $_POST['adm_email'];
-            $adm_planet = $_POST['adm_planet'];
-            $adm_sex    = $_POST['adm_sex'];
+            $adm_user   = $post['adm_user'];
+            $adm_pass   = $post['adm_pass'];
+            $adm_email  = $post['adm_email'];
+            $adm_planet = $post['adm_planet'];
+            $adm_sex    = $post['adm_sex'];
             $md5pass    = md5($adm_pass);
 
-            if (!isset($_POST['adm_user'])) {
+            if (!isset($post['adm_user'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
-            if (!isset($_POST['adm_pass'])) {
+            if (!isset($post['adm_pass'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
-            if (!isset($_POST['adm_email'])) {
+            if (!isset($post['adm_email'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
-            if (!isset($_POST['adm_planet'])) {
+            if (!isset($post['adm_planet'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
@@ -272,10 +272,10 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 2) {
-            if ($_GET['error'] == 1) {
+            if ($get['error'] == 1) {
             adminMessage ($lang['ins_error1'], $lang['ins_error']);
             }
-            elseif ($_GET['error'] == 2) {
+            elseif ($get['error'] == 2) {
             adminMessage ($lang['ins_error2'], $lang['ins_error']);
             }
 
@@ -284,11 +284,11 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 3) {
-            $host   = $_POST['host'];
-            $user   = $_POST['user'];
-            $pass   = $_POST['passwort'];
-            $prefix = $_POST['prefix'];
-            $db     = $_POST['db'];
+            $host   = $post['host'];
+            $user   = $post['user'];
+            $pass   = $post['passwort'];
+            $prefix = $post['prefix'];
+            $db     = $post['db'];
 
             if (!mysql_connect($host, $user, $pass)) {
                 header("Location: ?mode=goto&page=2&error=1");

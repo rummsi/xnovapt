@@ -29,7 +29,7 @@
  */
 
 function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
-	global $lang, $_GET;
+	global $lang, $get;
 
 //	debug_print_backtrace();
 
@@ -58,7 +58,7 @@ function ShowTopNavigationBar ( $CurrentUser, $CurrentPlanet ) {
 					$parse['planetlist'] .= "selected=\"selected\" ";
 				}
 				$parse['planetlist'] .= "value=\"?cp=".$CurPlanet['id']."";
-				$parse['planetlist'] .= "&amp;mode=".$_GET['mode'];
+				$parse['planetlist'] .= "&amp;mode=".$get['mode'];
 				$parse['planetlist'] .= "&amp;re=0\">";
 
 				// Nom et coordonnées de la planete

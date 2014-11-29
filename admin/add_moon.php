@@ -36,14 +36,14 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 		includeLang('admin/addmoon');
 
-		$mode      = $_POST['mode'];
+		$mode      = $post['mode'];
 
 		$PageTpl   = gettemplate("admin/add_moon");
 		$parse     = $lang;
 
 		if ($mode == 'addit') {
-			$PlanetID  = $_POST['user'];
-			$MoonName  = $_POST['name'];
+			$PlanetID  = $post['user'];
+			$MoonName  = $post['name'];
 
 			$QrySelectPlanet  = "SELECT * FROM {{table}} ";
 			$QrySelectPlanet .= "WHERE ";

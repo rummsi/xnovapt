@@ -40,10 +40,10 @@ if(!isset($user['authlevel'])) {
 includeLang('messages');
 
 
-$OwnerID       = $_GET['id'];
-$MessCategory  = $_GET['messcat'];
-$MessPageMode  = (string) $_GET['mode'];
-$DeleteWhat    = $_POST['deletemessages'];
+$OwnerID       = $get['id'];
+$MessCategory  = $get['messcat'];
+$MessPageMode  = (string) $get['mode'];
+$DeleteWhat    = $post['deletemessages'];
 if (isset ($DeleteWhat)) {
 	$MessPageMode = "delete";
 }
@@ -87,31 +87,31 @@ while ($CurMess = mysql_fetch_array($UsrMess)) {
 				message ($lang['mess_no_ownerpl'], $lang['mess_error']);
 			}
 
-			if ($_POST) {
+			if ($post) {
 				$error = 0;
-				if (!$_POST["subject"]) {
+				if (!$post["subject"]) {
 					$error++;
 					$page .= "<center><br><font color=#FF0000>".$lang['mess_no_subject']."<br></font></center>";
 				}
-				if (!$_POST["text"]) {
+				if (!$post["text"]) {
 					$error++;
 					$page .= "<center><br><font color=#FF0000>".$lang['mess_no_text']."<br></font></center>";
 				}
 				if ($error == 0) {
 					$page .= "<center><font color=#00FF00>".$lang['mess_sended']."<br></font></center>";
 
-					$_POST['text'] = str_replace("'", '&#39;', $_POST['text']);
-//					$_POST['text'] = str_replace('\r\n', '<br />', $_POST['text']);
+					$post['text'] = str_replace("'", '&#39;', $post['text']);
+//					$post['text'] = str_replace('\r\n', '<br />', $post['text']);
 
 					$Owner   = $OwnerID;
 					$Sender  = $user['id'];
 					$From    = $user['username'] ." [".$user['galaxy'].":".$user['system'].":".$user['planet']."]";
-					$Subject = $_POST['subject'];
+					$Subject = $post['subject'];
 					if($game_config['enable_bbcode'] == 1) {
-										$Message = trim ( nl2br (bbcode ( image ( strip_tags ( $_POST['text'], '<br>' ) ) ) ) );
+										$Message = trim ( nl2br (bbcode ( image ( strip_tags ( $post['text'], '<br>' ) ) ) ) );
 
 					} else {
-$Message = trim ( nl2br ( strip_tags ( $_POST['text'], '<br>' ) ) ); }
+$Message = trim ( nl2br ( strip_tags ( $post['text'], '<br>' ) ) ); }
 					SendSimpleMessage ( $Owner, $Sender, '', 1, $From, $Subject, $Message);
 					$subject = "";
 					$text    = "";
@@ -137,11 +137,11 @@ $Message = trim ( nl2br ( strip_tags ( $_POST['text'], '<br>' ) ) ); }
 		case 'delete':
 			// -------------------------------------------------------------------------------------------------------
 			// Suppression des messages selectionnés
-			$DeleteWhat = $_POST['deletemessages'];
+			$DeleteWhat = $post['deletemessages'];
 			if       ($DeleteWhat == 'deleteall') {
 				doquery("DELETE FROM {{table}} WHERE `message_owner` = '". $user['id'] ."';", 'messages');
 			} elseif ($DeleteWhat == 'deletemarked') {
-				foreach($_POST as $Message => $Answer) {
+				foreach($post as $Message => $Answer) {
 					if (preg_match("/delmes/i", $Message) && $Answer == 'on') {
 						$MessId   = str_replace("delmes", "", $Message);
 						$MessHere = doquery("SELECT * FROM {{table}} WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $user['id'] ."';", 'messages');
@@ -151,11 +151,11 @@ $Message = trim ( nl2br ( strip_tags ( $_POST['text'], '<br>' ) ) ); }
 					}
 				}
 			} elseif ($DeleteWhat == 'deleteunmarked') {
-				foreach($_POST as $Message => $Answer) {
+				foreach($post as $Message => $Answer) {
 					$CurMess    = preg_match("/showmes/i", $Message);
 					$MessId     = str_replace("showmes", "", $Message);
 					$Selected   = "delmes".$MessId;
-					$IsSelected = $_POST[ $Selected ];
+					$IsSelected = $post[ $Selected ];
 					if (preg_match("/showmes/i", $Message) && !isset($IsSelected)) {
 						$MessHere = doquery("SELECT * FROM {{table}} WHERE `message_id` = '". $MessId ."' AND `message_owner` = '". $user['id'] ."';", 'messages');
 						if ($MessHere) {
@@ -164,7 +164,7 @@ $Message = trim ( nl2br ( strip_tags ( $_POST['text'], '<br>' ) ) ); }
 					}
 				}
 			}
-			$MessCategory = $_POST['category'];
+			$MessCategory = $post['category'];
 
 		case 'show':
 			// -------------------------------------------------------------------------------------------------------

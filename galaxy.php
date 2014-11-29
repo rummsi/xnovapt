@@ -56,8 +56,8 @@ require_once dirname(__FILE__) .'/common.php';
     CheckPlanetUsedFields($lunarow);
 
     if (!isset($mode)) {
-        if (isset($_GET['mode'])) {
-            $mode = intval($_GET['mode']);
+        if (isset($get['mode'])) {
+            $mode = intval($get['mode']);
         } else {
             $mode = 0;
         }
@@ -71,64 +71,64 @@ require_once dirname(__FILE__) .'/common.php';
         $galaxy = $CurrentGalaxy;
         $system = $CurrentSystem;
     } elseif ($mode == 1 || $mode == 3) {
-        if (isset($_POST["galaxyLeft"])) {
-            if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 1 || $_POST["galaxy"] > MAX_GALAXY_IN_WORLD) {
+        if (isset($post["galaxyLeft"])) {
+            if (!isset($post["galaxy"]) || $post["galaxy"] <= 1 || $post["galaxy"] > MAX_GALAXY_IN_WORLD) {
                 $galaxy = 1;
             } else {
-                $galaxy = intval($_POST["galaxy"]) - 1;
+                $galaxy = intval($post["galaxy"]) - 1;
             }
-        } elseif (isset($_POST["galaxyRight"])) {
-            if (!isset($_POST["galaxy"]) || $_POST["galaxy"] >= MAX_GALAXY_IN_WORLD) {
+        } elseif (isset($post["galaxyRight"])) {
+            if (!isset($post["galaxy"]) || $post["galaxy"] >= MAX_GALAXY_IN_WORLD) {
                 $galaxy = MAX_GALAXY_IN_WORLD;
             } else {
-                $galaxy = intval($_POST["galaxy"]) + 1;
+                $galaxy = intval($post["galaxy"]) + 1;
             }
-        } else if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 1 || $_POST["galaxy"] > MAX_GALAXY_IN_WORLD) {
+        } else if (!isset($post["galaxy"]) || $post["galaxy"] <= 1 || $post["galaxy"] > MAX_GALAXY_IN_WORLD) {
             $galaxy = 1;
         } else {
-            $galaxy = intval($_POST["galaxy"]);
+            $galaxy = intval($post["galaxy"]);
         }
 
-        if (isset($_POST["systemLeft"])) {
-            if (!isset($_POST["system"]) || $_POST["system"] <= 1 || $_POST["system"] > MAX_SYSTEM_IN_GALAXY) {
+        if (isset($post["systemLeft"])) {
+            if (!isset($post["system"]) || $post["system"] <= 1 || $post["system"] > MAX_SYSTEM_IN_GALAXY) {
                 $system = 1;
             } else {
-                $system = intval($_POST["system"]) - 1;
+                $system = intval($post["system"]) - 1;
             }
-        } elseif (isset($_POST["systemRight"])) {
-            if (!isset($_POST["system"]) || $_POST["system"] >= MAX_SYSTEM_IN_GALAXY) {
+        } elseif (isset($post["systemRight"])) {
+            if (!isset($post["system"]) || $post["system"] >= MAX_SYSTEM_IN_GALAXY) {
                 $system = MAX_SYSTEM_IN_GALAXY;
             } else {
-                $system = intval($_POST["system"]) + 1;
+                $system = intval($post["system"]) + 1;
             }
-        } else if (!isset($_POST["system"]) || $_POST["system"] <= 1 || $_POST["system"] > MAX_SYSTEM_IN_GALAXY) {
+        } else if (!isset($post["system"]) || $post["system"] <= 1 || $post["system"] > MAX_SYSTEM_IN_GALAXY) {
             $system = 1;
         } else {
-            $system = intval($_POST["system"]);
+            $system = intval($post["system"]);
         }
     } elseif ($mode == 2) {
-        if (!isset($_POST["galaxy"]) || $_POST["galaxy"] <= 0) {
+        if (!isset($post["galaxy"]) || $post["galaxy"] <= 0) {
             $galaxy = 1;
-        } else if ($_POST["galaxy"] >= MAX_GALAXY_IN_WORLD) {
+        } else if ($post["galaxy"] >= MAX_GALAXY_IN_WORLD) {
             $galaxy = MAX_GALAXY_IN_WORLD;
         } else {
-            $galaxy = intval($_POST["galaxy"]) + 1;
+            $galaxy = intval($post["galaxy"]) + 1;
         }
 
-        if (!isset($_POST["system"]) || $_POST["system"] <= 0) {
+        if (!isset($post["system"]) || $post["system"] <= 0) {
             $system = 1;
-        } else if ($_POST["system"] >= MAX_SYSTEM_IN_GALAXY) {
+        } else if ($post["system"] >= MAX_SYSTEM_IN_GALAXY) {
             $system = MAX_SYSTEM_IN_GALAXY;
         } else {
-            $system = intval($_POST["system"]) + 1;
+            $system = intval($post["system"]) + 1;
         }
 
-        if (!isset($_POST["planet"]) || $_POST["planet"] <= 0) {
+        if (!isset($post["planet"]) || $post["planet"] <= 0) {
             $planet = 1;
-        } else if ($_POST["planet"] >= MAX_PLANET_IN_SYSTEM) {
+        } else if ($post["planet"] >= MAX_PLANET_IN_SYSTEM) {
             $planet = MAX_PLANET_IN_SYSTEM;
         } else {
-            $planet = intval($_POST["planet"]) + 1;
+            $planet = intval($post["planet"]) + 1;
         }
     }
 

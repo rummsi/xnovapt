@@ -34,12 +34,12 @@ define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
-		if ($_POST && $mode == "change") {
-			if (isset($_POST["tresc"]) && $_POST["tresc"] != '') {
-				$game_config['tresc'] = $_POST['tresc'];
+		if ($post && $mode == "change") {
+			if (isset($post["tresc"]) && $post["tresc"] != '') {
+				$game_config['tresc'] = $post['tresc'];
 			}
-			if (isset($_POST["temat"]) && $_POST["temat"] != '') {
-				$game_config['temat'] = $_POST['temat'];
+			if (isset($post["temat"]) && $post["temat"] != '') {
+				$game_config['temat'] = $post['temat'];
 			}
 			if ($user['authlevel'] == LEVEL_ADMIN) {
 				$kolor = 'red';

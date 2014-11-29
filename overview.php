@@ -36,9 +36,9 @@ $lunarow = doquery("SELECT * FROM {{table}} WHERE `id_owner` = '" . $planetrow['
 
 //CheckPlanetUsedFields ($lunarow);
 
-$mode = isset($_GET['mode']) ? $_GET['mode'] : '';
-$_POST['deleteid'] = intval($_POST['deleteid']);
-$pl = mysql_real_escape_string(isset($_GET['pl']) ? $_GET['pl'] : 0);
+$mode = isset($get['mode']) ? $get['mode'] : '';
+$post['deleteid'] = intval($post['deleteid']);
+$pl = mysql_real_escape_string(isset($get['pl']) ? $get['pl'] : 0);
 
 includeLang('resources');
 includeLang('overview');
@@ -46,9 +46,9 @@ includeLang('overview');
 switch ($mode) {
     case 'renameplanet':
         // -----------------------------------------------------------------------------------------------
-        if ($_POST['action'] == $lang['namer']) {
+        if ($post['action'] == $lang['namer']) {
             // Reponse au changement de nom de la planete
-            $UserPlanet = addslashes(CheckInputStrings ($_POST['newname']));
+            $UserPlanet = addslashes(CheckInputStrings ($post['newname']));
             $newname = mysql_escape_string(trim($UserPlanet));
             if ($newname != "") {
                 // Deja on met jour la planete qu'on garde en memoire (pour le nom)
@@ -61,7 +61,7 @@ switch ($mode) {
                     doquery("UPDATE {{table}} SET `name` = '" . $newname . "' WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "' LIMIT 1;", "lunas");
                 }
             }
-        } elseif ($_POST['action'] == $lang['colony_abandon']) {
+        } elseif ($post['action'] == $lang['colony_abandon']) {
             // Cas d'abandon d'une colonie
             // Affichage de la forme d'abandon de colonie
             $parse = $lang;
@@ -74,9 +74,9 @@ switch ($mode) {
             $page .= parsetemplate(gettemplate('overview_deleteplanet'), $parse);
             // On affiche la forme pour l'abandon de la colonie
             display($page, $lang['rename_and_abandon_planet']);
-        } elseif ($_POST['kolonieloeschen'] == 1 && $_POST['deleteid'] == $user['current_planet']) {
+        } elseif ($post['kolonieloeschen'] == 1 && $post['deleteid'] == $user['current_planet']) {
                 // Controle du mot de passe pour abandon de colonie
-                if (md5($_POST['pw']) == $user["password"] && $user['id_planet'] != $user['current_planet']) {
+                if (md5($post['pw']) == $user["password"] && $user['id_planet'] != $user['current_planet']) {
 
                 include_once(ROOT_PATH . 'includes/functions/AbandonColony.' . PHPEXT);
                 if (CheckFleets($planetrow)){

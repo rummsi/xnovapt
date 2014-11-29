@@ -36,18 +36,18 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
 		includeLang('admin');
 
-		$mode      = $_POST['mode'];
+		$mode      = $post['mode'];
 
 		$PageTpl   = gettemplate("admin/banned");
 
 		$parse     = $lang;
 		if ($mode == 'banit') {
-			$name              = $_POST['name'];
-			$reas              = $_POST['why'];
-			$days              = $_POST['days'];
-			$hour              = $_POST['hour'];
-			$mins              = $_POST['mins'];
-			$secs              = $_POST['secs'];
+			$name              = $post['name'];
+			$reas              = $post['why'];
+			$days              = $post['days'];
+			$hour              = $post['hour'];
+			$mins              = $post['mins'];
+			$secs              = $post['secs'];
 
 			$admin             = $user['username'];
 			$mail              = $user['email'];

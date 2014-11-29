@@ -36,8 +36,8 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
 		includeLang('admin');
 
-		if ($_GET['cmd'] == 'sort') {
-			$TypeSort = $_GET['type'];
+		if ($get['cmd'] == 'sort') {
+			$TypeSort = $get['type'];
 		} else {
 			$TypeSort = "id";
 		}

@@ -33,19 +33,19 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
-	global $lang, $_POST;
+	global $lang, $post;
 
 	includeLang('marchand');
 
 	$parse   = $lang;
 
-	if ($_POST['ress'] != '') {
+	if ($post['ress'] != '') {
 		$PageTPL   = gettemplate('message_body');
 		$Error     = false;
 		$CheatTry  = false;
-		$Metal     = $_POST['metal'];
-		$Crystal   = $_POST['cristal'];
-		$Deuterium = $_POST['deut'];
+		$Metal     = $post['metal'];
+		$Crystal   = $post['cristal'];
+		$Deuterium = $post['deut'];
 		if ($Metal < 0) {
 			$Metal     *= -1;
 			$CheatTry   = true;
@@ -59,7 +59,7 @@ function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
 			$CheatTry   = true;
 		}
 		if ($CheatTry  == false) {
-			switch ($_POST['ress']) {
+			switch ($post['ress']) {
 				case 'metal':
 					$Necessaire   = (( $Crystal * 2) + ( $Deuterium * 4));
 					if ($CurrentPlanet['metal'] > $Necessaire) {
@@ -118,11 +118,11 @@ function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
 		}
 		$parse['mes']   = $Message;
 	} else {
-		if ($_POST['action'] != 2) {
+		if ($post['action'] != 2) {
 			$PageTPL = gettemplate('marchand_main');
 		} else {
 			$parse['mod_ma_res']   = "1";
-			switch ($_POST['choix']) {
+			switch ($post['choix']) {
 				case 'metal':
 					$PageTPL = gettemplate('marchand_metal');
 					$parse['mod_ma_res_a'] = "2";

@@ -35,15 +35,15 @@ require_once dirname(__FILE__) .'/common.php';
 	includeLang('stat');
 
 	$parse = $lang;
-	$who   = (isset($_POST['who']))   ? $_POST['who']   : $_GET['who'];
+	$who   = (isset($post['who']))   ? $post['who']   : $get['who'];
 	if (!isset($who)) {
 		$who   = 1;
 	}
-	$type  = (isset($_POST['type']))  ? $_POST['type']  : $_GET['type'];
+	$type  = (isset($post['type']))  ? $post['type']  : $get['type'];
 	if (!isset($type)) {
 		$type  = 1;
 	}
-	$range = (isset($_POST['range'])) ? $_POST['range'] : $_GET['range'];
+	$range = (isset($post['range'])) ? $post['range'] : $get['range'];
 	if (!isset($range)) {
 		$range = 1;
 	}

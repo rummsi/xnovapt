@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 function ShowOfficierPage ( &$CurrentUser ) {
-	global $lang, $resource, $reslist, $_GET;
+	global $lang, $resource, $reslist, $get;
 
 	includeLang('officier');
 
@@ -43,9 +43,9 @@ function ShowOfficierPage ( &$CurrentUser ) {
 	}
 
 	// Si recrutement d'un officier
-	if ($_GET['mode'] == 2) {
+	if ($get['mode'] == 2) {
 		if ($CurrentUser['rpg_points'] > 0) {
-			$Selected    = $_GET['offi'];
+			$Selected    = $get['offi'];
 			if ( in_array($Selected, $reslist['officier']) ) {
 				$Result = IsOfficierAccessible ( $CurrentUser, $Selected );
 				if ( $Result == 1 ) {

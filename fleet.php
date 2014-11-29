@@ -64,11 +64,11 @@ require_once dirname(__FILE__) .'/common.php';
 	);
 
 	// Histoire de recuperer les infos passées par galaxy
-	$galaxy         = $_GET['galaxy'];
-	$system         = $_GET['system'];
-	$planet         = $_GET['planet'];
-	$planettype     = $_GET['planettype'];
-	$target_mission = $_GET['target_mission'];
+	$galaxy         = $get['galaxy'];
+	$system         = $get['system'];
+	$planet         = $get['planet'];
+	$planettype     = $get['planettype'];
+	$target_mission = $get['target_mission'];
 
 	if (!$galaxy) {
 		$galaxy = $planetrow['galaxy'];
@@ -221,11 +221,11 @@ require_once dirname(__FILE__) .'/common.php';
 	}
 
 	// Prise des coordonnées sur la ligne de commande
-	$galaxy         = intval($_GET['galaxy']);
-	$system         = intval($_GET['system']);
-	$planet         = intval($_GET['planet']);
-	$planettype     = intval($_GET['planettype']);
-	$target_mission = intval($_GET['target_mission']);
+	$galaxy         = intval($get['galaxy']);
+	$system         = intval($get['system']);
+	$planet         = intval($get['planet']);
+	$planettype     = intval($get['planettype']);
+	$target_mission = intval($get['target_mission']);
 	$ShipData       = "";
 
 	foreach ($reslist['fleet'] as $n => $i) {

@@ -38,7 +38,7 @@ $parse = $lang;
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
 
 		// Système de suppression
-		extract($_GET);
+		extract($get);
 		if (isset($delete)) {
 			doquery("DELETE FROM {{table}} WHERE `messageid`=$delete", 'chat');
 		} elseif ($deleteall == 'yes') {

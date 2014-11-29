@@ -34,7 +34,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 
 function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
-	global $lang, $ProdGrid, $resource, $reslist, $game_config, $_POST;
+	global $lang, $ProdGrid, $resource, $reslist, $game_config, $post;
 
 	includeLang('resources');
 
@@ -50,8 +50,8 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 
 	$ValidList['percent'] = array (  0,  10,  20,  30,  40,  50,  60,  70,  80,  90, 100 );
 	$SubQry               = "";
-	if ($_POST) {
-		foreach($_POST as $Field => $Value) {
+	if ($post) {
+		foreach($post as $Field => $Value) {
 			$FieldName = $Field."_porcent";
 			if ( isset( $CurrentPlanet[ $FieldName ] ) ) {
 				if ( ! in_array( $Value, $ValidList['percent']) ) {

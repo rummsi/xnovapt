@@ -35,7 +35,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 	if ($user['authlevel'] >= 1) {
 		includeLang('admin/add_fleet');
-		$mode = $_GET['mode'];
+		$mode = $get['mode'];
 
 		if($mode != 'add') {
 			$parse['ID']     = $lang['Id'];
@@ -55,21 +55,21 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 			$parse['Traq']   = $lang['traq'];
 
 		} elseif($mode == 'add') {
-			$id     = $_POST['id'];
-			$cle    = $_POST['cle'];
-			$clourd = $_POST['clourd'];
-			$pt     = $_POST['pt'];
-			$gt     = $_POST['gt'];
-			$cruise = $_POST['cruise'];
-			$vb     = $_POST['vb'];
-			$colo   = $_POST['colo'];
-			$rc     = $_POST['rc'];
-			$spy    = $_POST['spy'];
-			$bomb   = $_POST['bomb'];
-			$solar  = $_POST['solar'];
-			$des    = $_POST['des'];
-			$rip    = $_POST['rip'];
-			$traq   = $_POST['traq'];
+			$id     = $post['id'];
+			$cle    = $post['cle'];
+			$clourd = $post['clourd'];
+			$pt     = $post['pt'];
+			$gt     = $post['gt'];
+			$cruise = $post['cruise'];
+			$vb     = $post['vb'];
+			$colo   = $post['colo'];
+			$rc     = $post['rc'];
+			$spy    = $post['spy'];
+			$bomb   = $post['bomb'];
+			$solar  = $post['solar'];
+			$des    = $post['des'];
+			$rip    = $post['rip'];
+			$traq   = $post['traq'];
 
 			$SqlAdd = "UPDATE {{table}} SET";
 			$SqlAdd .= "`light_hunter` = '".$cle."+light_hunter', ";
