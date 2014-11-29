@@ -35,7 +35,7 @@ define('DISABLE_IDENTITY_CHECK', true);
 require_once dirname(__FILE__) .'/common.php';
 
 includeLang('login');
-$post = filter_input_array(INPUT_POST);
+
 if (!empty($post)) {
     $userData = array(
         'username' => mysql_real_escape_string($post['username']),
@@ -95,7 +95,7 @@ EOF;
     $parse['PasswordLost'] = $lang['PasswordLost'];
 
     $page = parsetemplate(gettemplate('login_body'), $parse);
-    $get = filter_input_array(INPUT_GET);
+
     // Test pour prendre le nombre total de joueur et le nombre de joueurs connect�s
     if (isset($get['ucount']) && $get['ucount'] == 1) {
         $page = $PlayersOnline['onlinenow']."/".$Count['players'];

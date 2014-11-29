@@ -79,7 +79,7 @@ function mymail($to, $title, $body, $from = '')
 
     return mail($to, $title, $body, $head);
 }
-$post = filter_input_array(INPUT_POST);
+
 if ($post) {
     $errors = 0;
     $errorlist = "";
