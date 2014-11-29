@@ -34,14 +34,14 @@ require_once dirname(__FILE__) .'/common.php';
 
 	includeLang('buddy');
 
-$a = $_GET['a'];
-$e = $_GET['e'];
-$s = $_GET['s'];
-$u = intval( $_GET['u'] );
+$a = $get['a'];
+$e = $get['e'];
+$s = $get['s'];
+$u = intval( $get['u'] );
 
-if ( $s == 1 && isset( $_GET['bid'] ) ) {
+if ( $s == 1 && isset( $get['bid'] ) ) {
 	// Effacer une entree de la liste d'amis
-	$bid = intval( $_GET['bid'] );
+	$bid = intval( $get['bid'] );
 
 	$buddy = doquery( "SELECT * FROM {{table}} WHERE `id` = '".$bid."';", 'buddy', true );
 	if ( $buddy['owner'] == $user['id'] ) {
@@ -55,18 +55,18 @@ if ( $s == 1 && isset( $_GET['bid'] ) ) {
 	} elseif ( $buddy['sender'] == $user['id'] ) {
 		doquery( "DELETE FROM {{table}} WHERE `id` = '".$bid."';", 'buddy' );
 	}
-} elseif ( $_POST["s"] == 3 && $_POST["a"] == 1 && $_POST["e"] == 1 && isset( $_POST["u"] ) ) {
+} elseif ( $post["s"] == 3 && $post["a"] == 1 && $post["e"] == 1 && isset( $post["u"] ) ) {
 	// Traitement de l'enregistrement de la demande d'entree dans la liste d'amis
 	$uid = $user["id"];
-	$u = intval( $_POST["u"] );
+	$u = intval( $post["u"] );
 
 	$buddy = doquery( "SELECT * FROM {{table}} WHERE sender={$uid} AND owner={$u} OR sender={$u} AND owner={$uid}", 'buddy', true );
 
 	if ( !$buddy ) {
-		if ( strlen( $_POST['text'] ) > 5000 ) {
+		if ( strlen( $post['text'] ) > 5000 ) {
 			message( "Le texte ne doit pas faire plus de 5000 caract&egrave;res !", "Erreur" );
 		}
-		$text = mysql_escape_string( strip_tags( $_POST['text'] ) );
+		$text = mysql_escape_string( strip_tags( $post['text'] ) );
 		doquery( "INSERT INTO {{table}} SET sender={$uid}, owner={$u}, active=0, text='{$text}'", 'buddy' );
 		message( $lang['Request_sent'], $lang['Buddy_request'], 'buddy.php' );
 	} else {

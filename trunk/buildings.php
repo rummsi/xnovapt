@@ -38,7 +38,7 @@ require_once dirname(__FILE__) .'/common.php';
 	UpdatePlanetBatimentQueueList ( $planetrow, $user );
 	$IsWorking = HandleTechnologieBuild ( $planetrow, $user );
 
-	switch ($_GET['mode']) {
+	switch ($get['mode']) {
 		case 'fleet':
 			// --------------------------------------------------------------------------------------------------
 			FleetBuildingPage ( $planetrow, $user );

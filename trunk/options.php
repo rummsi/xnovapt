@@ -37,10 +37,10 @@ require_once dirname(__FILE__) .'/common.php';
     $lang['PHP_SELF'] = 'options.' . PHPEXT;
 
     $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
-    $mode = $_GET['mode'];
+    $mode = $get['mode'];
 
-    if ($_POST && $mode == "exit") { // Array ( [db_character]
-       if (isset($_POST["exit_modus"]) && $_POST["exit_modus"] == 'on' and $user['urlaubs_until'] <= time()){
+    if ($post && $mode == "exit") { // Array ( [db_character]
+       if (isset($post["exit_modus"]) && $post["exit_modus"] == 'on' and $user['urlaubs_until'] <= time()){
           $urlaubs_modus = "0";
           doquery("UPDATE {{table}} SET
              `urlaubs_modus` = '0',
@@ -70,18 +70,18 @@ require_once dirname(__FILE__) .'/common.php';
        message($lang['You_cant_exit_vmode'], $lan['Error'] ,"options.php",1);
        }
     }
-    if ($_POST && $mode == "change") { // Array ( [db_character]
+    if ($post && $mode == "change") { // Array ( [db_character]
        $iduser = $user["id"];
-       $avatar = $_POST["avatar"];
+       $avatar = $post["avatar"];
 
-	   if ($_POST["dpath"] != "")
-			$dpath = $_POST["dpath"];
+	   if ($post["dpath"] != "")
+			$dpath = $post["dpath"];
 		else
 			$dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
        // Gestion des options speciales pour les admins
        if ($user['authlevel'] != LEVEL_PLAYER) {
-          if ($_POST['adm_pl_prot'] == 'on') {
+          if ($post['adm_pl_prot'] == 'on') {
              doquery ("UPDATE {{table}} SET `id_level` = '".$user['authlevel']."' WHERE `id_owner` = '".$user['id']."';", 'planets');
           } else {
              doquery ("UPDATE {{table}} SET `id_level` = '0' WHERE `id_owner` = '".$user['id']."';", 'planets');
@@ -89,85 +89,85 @@ require_once dirname(__FILE__) .'/common.php';
        }
 
        // Mostrar skin
-       if (isset($_POST["design"]) && $_POST["design"] == 'on') {
+       if (isset($post["design"]) && $post["design"] == 'on') {
           $design = "1";
        } else {
           $design = "0";
        }
        // Desactivar comprobaci? de IP
-       if (isset($_POST["noipcheck"]) && $_POST["noipcheck"] == 'on') {
+       if (isset($post["noipcheck"]) && $post["noipcheck"] == 'on') {
           $noipcheck = "1";
        } else {
           $noipcheck = "0";
        }
        // Nombre de usuario
-       if (isset($_POST["db_character"]) && $_POST["db_character"] != '') {
-          $username = CheckInputStrings ( $_POST['db_character'] );
+       if (isset($post["db_character"]) && $post["db_character"] != '') {
+          $username = CheckInputStrings ( $post['db_character'] );
        } else {
           $username = $user['username'];
        }
        // Adresse e-Mail
-       if (isset($_POST["db_email"]) && $_POST["db_email"] != '') {
-          $db_email = CheckInputStrings ( $_POST['db_email'] );
+       if (isset($post["db_email"]) && $post["db_email"] != '') {
+          $db_email = CheckInputStrings ( $post['db_email'] );
        } else {
           $db_email = $user['email'];
        }
        // Cantidad de sondas de espionaje
-       if (isset($_POST["spio_anz"]) && is_numeric($_POST["spio_anz"])) {
-          $spio_anz = $_POST["spio_anz"];
+       if (isset($post["spio_anz"]) && is_numeric($post["spio_anz"])) {
+          $spio_anz = $post["spio_anz"];
        } else {
           $spio_anz = "1";
        }
        // Mostrar tooltip durante
-       if (isset($_POST["settings_tooltiptime"]) && is_numeric($_POST["settings_tooltiptime"])) {
-          $settings_tooltiptime = $_POST["settings_tooltiptime"];
+       if (isset($post["settings_tooltiptime"]) && is_numeric($post["settings_tooltiptime"])) {
+          $settings_tooltiptime = $post["settings_tooltiptime"];
        } else {
           $settings_tooltiptime = "1";
        }
        // Maximo mensajes de flotas
-       if (isset($_POST["settings_fleetactions"]) && is_numeric($_POST["settings_fleetactions"])) {
-          $settings_fleetactions = $_POST["settings_fleetactions"];
+       if (isset($post["settings_fleetactions"]) && is_numeric($post["settings_fleetactions"])) {
+          $settings_fleetactions = $post["settings_fleetactions"];
        } else {
           $settings_fleetactions = "1";
        } //
        // Mostrar logos de los aliados
-       if (isset($_POST["settings_allylogo"]) && $_POST["settings_allylogo"] == 'on') {
+       if (isset($post["settings_allylogo"]) && $post["settings_allylogo"] == 'on') {
           $settings_allylogo = "1";
        } else {
           $settings_allylogo = "0";
        }
        // Espionaje
-       if (isset($_POST["settings_esp"]) && $_POST["settings_esp"] == 'on') {
+       if (isset($post["settings_esp"]) && $post["settings_esp"] == 'on') {
           $settings_esp = "1";
        } else {
           $settings_esp = "0";
        }
        // Escribir mensaje
-       if (isset($_POST["settings_wri"]) && $_POST["settings_wri"] == 'on') {
+       if (isset($post["settings_wri"]) && $post["settings_wri"] == 'on') {
           $settings_wri = "1";
        } else {
           $settings_wri = "0";
        }
        // A?dir a lista de amigos
-       if (isset($_POST["settings_bud"]) && $_POST["settings_bud"] == 'on') {
+       if (isset($post["settings_bud"]) && $post["settings_bud"] == 'on') {
           $settings_bud = "1";
        } else {
           $settings_bud = "0";
        }
        // Ataque con misiles
-       if (isset($_POST["settings_mis"]) && $_POST["settings_mis"] == 'on') {
+       if (isset($post["settings_mis"]) && $post["settings_mis"] == 'on') {
           $settings_mis = "1";
        } else {
           $settings_mis = "0";
        }
        // Ver reporte
-       if (isset($_POST["settings_rep"]) && $_POST["settings_rep"] == 'on') {
+       if (isset($post["settings_rep"]) && $post["settings_rep"] == 'on') {
           $settings_rep = "1";
        } else {
           $settings_rep = "0";
        }
        // Modo vacaciones
-       if (isset($_POST["urlaubs_modus"]) && $_POST["urlaubs_modus"] == 'on') {
+       if (isset($post["urlaubs_modus"]) && $post["urlaubs_modus"] == 'on') {
        //Selectionne si le joueur a des flottes en vol
        	$fleet  = doquery("SELECT COUNT(fleet_owner) AS `actcnt` FROM {{table}} WHERE `fleet_owner` = '".$user['id']."';", 'fleets', true);
        //Selectionne si le joueur a des batiments en construction
@@ -208,13 +208,13 @@ require_once dirname(__FILE__) .'/common.php';
        }
 
        // Borrar cuenta
-       if (isset($_POST["db_deaktjava"]) && $_POST["db_deaktjava"] == 'on') {
+       if (isset($post["db_deaktjava"]) && $post["db_deaktjava"] == 'on') {
           $db_deaktjava = "1";
        } else {
           $db_deaktjava = "0";
        }
-       $SetSort  = $_POST['settings_sort'];
-       $SetOrder = $_POST['settings_order'];
+       $SetSort  = $post['settings_sort'];
+       $SetOrder = $post['settings_order'];
 
        doquery("UPDATE {{table}} SET
        `email` = '$db_email',
@@ -240,16 +240,16 @@ require_once dirname(__FILE__) .'/common.php';
        `kolorpoziom` = '$kolorpoziom'
        WHERE `id` = '$iduser' LIMIT 1", "users");
 
-       if (isset($_POST["db_password"]) && md5($_POST["db_password"]) == $user["password"]) {
-          if (!empty($_POST['newpass1']) && !empty($_POST['newpass2']) && $_POST["newpass1"] == $_POST["newpass2"]) {
-             $newpass = md5($_POST["newpass1"]);
+       if (isset($post["db_password"]) && md5($post["db_password"]) == $user["password"]) {
+          if (!empty($post['newpass1']) && !empty($post['newpass2']) && $post["newpass1"] == $post["newpass2"]) {
+             $newpass = md5($post["newpass1"]);
              doquery("UPDATE {{table}} SET `password` = '{$newpass}' WHERE `id` = '{$user['id']}' LIMIT 1", "users");
              setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0); //le da el expire
              message($lang['succeful_changepass'], $lang['changue_pass'],"login.php",1);
           }
        }
-       if ($user['username'] != $_POST["db_character"]) {
-          $query = doquery("SELECT id FROM {{table}} WHERE username='{$_POST["db_character"]}'", 'users', true);
+       if ($user['username'] != $post["db_character"]) {
+          $query = doquery("SELECT id FROM {{table}} WHERE username='{$post["db_character"]}'", 'users', true);
           if (!$query) {
              doquery("UPDATE {{table}} SET username='{$username}' WHERE id='{$user['id']}' LIMIT 1", "users");
              setcookie(COOKIE_NAME, "", time()-100000, "/", "", 0); //le da el expire

@@ -45,10 +45,10 @@ require_once dirname(__FILE__) .'/common.php';
 		1 => 10,
 		);
 
-	$g = $_POST['galaxy'];
-	$s = $_POST['system'];
-	$p = $_POST['planet'];
-	$t = $_POST['planet_type'];
+	$g = $post['galaxy'];
+	$s = $post['system'];
+	$p = $post['planet'];
+	$t = $post['planet_type'];
 
 	if (!$g) {
 		$g = $planetrow['galaxy'];
@@ -66,21 +66,21 @@ require_once dirname(__FILE__) .'/common.php';
 	// Verifions si nous avons bien tout ce que nous voullons envoyer
 	$FleetHiddenBlock  = "";
 	foreach ($reslist['fleet'] as $n => $i) {
-		if ($i > 200 && $i < 300 && $_POST["ship$i"] > "0") {
-			if ($_POST["ship$i"] > $planetrow[$resource[$i]]) {
+		if ($i > 200 && $i < 300 && $post["ship$i"] > "0") {
+			if ($post["ship$i"] > $planetrow[$resource[$i]]) {
 				$page .= $lang['fl_noenought'];
 				$speedalls[$i]             = GetFleetMaxSpeed ( "", $i, $user );
 			} else {
-				$fleet['fleetarray'][$i]   = $_POST["ship$i"];
+				$fleet['fleetarray'][$i]   = $post["ship$i"];
 				// Tableau des vaisseaux avec leur nombre
-				$fleet['fleetlist']       .= $i . "," . $_POST["ship$i"] . ";";
+				$fleet['fleetlist']       .= $i . "," . $post["ship$i"] . ";";
 				// Nombre total de vaisseaux
-				$fleet['amount']          += $_POST["ship$i"];
+				$fleet['amount']          += $post["ship$i"];
 				// Tableau des vitesses
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"consumption". $i ."\" value=\"". GetShipConsumption ( $i, $user ) ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"speed". $i ."\"       value=\"". GetFleetMaxSpeed ( "", $i, $user ) ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"capacity". $i ."\"    value=\"". $pricelist[$i]['capacity'] ."\" />";
-				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"ship". $i ."\"        value=\"". $_POST["ship$i"] ."\" />";
+				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"ship". $i ."\"        value=\"". $post["ship$i"] ."\" />";
 				$speedalls[$i]             = GetFleetMaxSpeed ( "", $i, $user );
 			}
 		}
@@ -104,9 +104,9 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "<input type=\"hidden\" name=\"thisgalaxy\"     value=\"". $planetrow['galaxy'] ."\" />";
 	$page .= "<input type=\"hidden\" name=\"thissystem\"     value=\"". $planetrow['system'] ."\" />";
 	$page .= "<input type=\"hidden\" name=\"thisplanet\"     value=\"". $planetrow['planet'] ."\" />";
-	$page .= "<input type=\"hidden\" name=\"galaxyend\"      value=\"". intval($_POST['galaxy']) ."\" />";
-	$page .= "<input type=\"hidden\" name=\"systemend\"      value=\"". intval($_POST['system']) ."\" />";
-	$page .= "<input type=\"hidden\" name=\"planetend\"      value=\"". intval($_POST['planet']) ."\" />";
+	$page .= "<input type=\"hidden\" name=\"galaxyend\"      value=\"". intval($post['galaxy']) ."\" />";
+	$page .= "<input type=\"hidden\" name=\"systemend\"      value=\"". intval($post['system']) ."\" />";
+	$page .= "<input type=\"hidden\" name=\"planetend\"      value=\"". intval($post['planet']) ."\" />";
 	$page .= "<input type=\"hidden\" name=\"speedfactor\"    value=\"". GetGameSpeedFactor () ."\" />";
 	$page .= "<input type=\"hidden\" name=\"thisplanettype\" value=\"". $planetrow['planet_type'] ."\" />";
 	$page .= "<input type=\"hidden\" name=\"thisresource1\"  value=\"". floor($planetrow['metal']) ."\" />";
@@ -273,8 +273,8 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "</tr>";
 	$page .= "</table>";
 	$page .= "</div></center>";
-	$page .= "<input type=\"hidden\" name=\"maxepedition\" value=\"". $_POST['maxepedition'] ."\" />";
-	$page .= "<input type=\"hidden\" name=\"curepedition\" value=\"". $_POST['curepedition'] ."\" />";
+	$page .= "<input type=\"hidden\" name=\"maxepedition\" value=\"". $post['maxepedition'] ."\" />";
+	$page .= "<input type=\"hidden\" name=\"curepedition\" value=\"". $post['curepedition'] ."\" />";
 	$page .= "<input type=\"hidden\" name=\"target_mission\" value=\"". $target_mission ."\" />";
 	$page .= "</form>";
 	$page .= "<script>javascript:shortInfo(); </script>";

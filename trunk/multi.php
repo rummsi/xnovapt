@@ -36,7 +36,7 @@ includeLang('messages');
 includeLang('system');
 
 
-$Mode = $_GET['mode'];
+$Mode = $get['mode'];
 
 
 if ($Mode != 'add') {
@@ -49,7 +49,7 @@ if ($Mode != 'add') {
 
 }
 if ($mode == 'add') {
-    $Texte = $_POST['texte'];
+    $Texte = $post['texte'];
     $Joueur = $user['username'];
 
     $SQLAjoutDeclaration = "INSERT INTO {{table}} SET ";

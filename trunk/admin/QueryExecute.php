@@ -38,9 +38,9 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse   = $lang;
 
-		if ($_POST['really_do_it'] == 'on') {
+		if ($post['really_do_it'] == 'on') {
 
-			mysql_query ($_POST['qry_sql']);
+			mysql_query ($post['qry_sql']);
 			AdminMessage ($lang['qry_succesful'], 'Succes', '?');
 
 		} else {

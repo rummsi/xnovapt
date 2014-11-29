@@ -30,7 +30,7 @@
 
 function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $ThePlanet)
 {
-	global $lang, $resource, $reslist, $dpath, $game_config, $_GET;
+	global $lang, $resource, $reslist, $dpath, $game_config, $get;
 
 
 	$NoResearchMessage = "";
@@ -46,9 +46,9 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 	}
 
 	// Boucle d'interpretation des eventuelles commandes
-	if (isset($_GET['cmd'])) {
-		$TheCommand = $_GET['cmd'];
-		$Techno     = $_GET['tech'];
+	if (isset($get['cmd'])) {
+		$TheCommand = $get['cmd'];
+		$Techno     = $get['tech'];
 		if ( is_numeric($Techno) ) {
 			if ( in_array($Techno, $reslist['tech']) ) {
 				// Bon quand on arrive ici ... On sait deja qu'on a une technologie valide

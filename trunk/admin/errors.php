@@ -39,7 +39,7 @@ $parse = $lang;
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
 
 		// Supprimer les erreurs
-		extract($_GET);
+		extract($get);
 		if (isset($delete)) {
 			doquery("DELETE FROM {{table}} WHERE `error_id`=$delete", 'errors');
 		} elseif ($deleteall == 'yes') {

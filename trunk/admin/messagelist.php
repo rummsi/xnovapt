@@ -39,14 +39,14 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$BodyTpl    = gettemplate('admin/messagelist_body');
 		$RowsTpl    = gettemplate('admin/messagelist_table_rows');
 
-        $Prev       = ( !empty($_POST['prev'])   ) ? true : false;
-        $Next       = ( !empty($_POST['next'])   ) ? true : false;
-        $DelSel     = ( !empty($_POST['delsel']) ) ? true : false;
-        $DelDat     = ( !empty($_POST['deldat']) ) ? true : false;
-        $CurrPage   = ( !empty($_POST['curr'])   ) ? $_POST['curr'] : 1;
-        $Selected   = ( !empty($_POST['sele'])   ) ? $_POST['sele'] : 0;
-        $SelType    = $_POST['type'];
-        $SelPage    = $_POST['page'];
+        $Prev       = ( !empty($post['prev'])   ) ? true : false;
+        $Next       = ( !empty($post['next'])   ) ? true : false;
+        $DelSel     = ( !empty($post['delsel']) ) ? true : false;
+        $DelDat     = ( !empty($post['deldat']) ) ? true : false;
+        $CurrPage   = ( !empty($post['curr'])   ) ? $post['curr'] : 1;
+        $Selected   = ( !empty($post['sele'])   ) ? $post['sele'] : 0;
+        $SelType    = $post['type'];
+        $SelPage    = $post['page'];
 
         $ViewPage = 1;
         if ( $Selected != $SelType ) {
@@ -73,15 +73,15 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $ViewPage = $MaxPage;
             }
         } elseif ($DelSel == true) {
-            foreach($_POST['sele'] as $MessId => $Value) {
+            foreach($post['sele'] as $MessId => $Value) {
                 if ($Value = "on") {
                     doquery ( "DELETE FROM {{table}} WHERE `message_id` = '". $MessId ."';", 'messages');
                 }
             }
         } elseif ($DelDat == true) {
-            $SelDay    = $_POST['selday'];
-            $SelMonth  = $_POST['selmonth'];
-            $SelYear   = $_POST['selyear'];
+            $SelDay    = $post['selday'];
+            $SelMonth  = $post['selmonth'];
+            $SelYear   = $post['selyear'];
             $LimitDate = mktime (0,0,0, $SelMonth, $SelDay, $SelYear );
             if ($LimitDate != false) {
                 doquery ( "DELETE FROM {{table}} WHERE `message_time` <= '". $LimitDate ."';", 'messages');
@@ -136,9 +136,9 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$display            = parsetemplate($BodyTpl , $parse);
 
-		if (isset($_POST['delit'])) {
-			doquery ("DELETE FROM {{table}} WHERE `message_id` = '". $_POST['delit'] ."';", 'messages');
-			AdminMessage ( $lang['mlst_mess_del'] ." ( ". $_POST['delit'] ." )", $lang['mlst_title'], "./messagelist.".PHPEXT, 3);
+		if (isset($post['delit'])) {
+			doquery ("DELETE FROM {{table}} WHERE `message_id` = '". $post['delit'] ."';", 'messages');
+			AdminMessage ( $lang['mlst_mess_del'] ." ( ". $post['delit'] ." )", $lang['mlst_title'], "./messagelist.".PHPEXT, 3);
 		}
 		display ($display, $lang['mlst_title'], false, '', true);
 	} else {

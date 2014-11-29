@@ -33,20 +33,20 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 
-$mode = $_GET['mode'];
-$a = $_GET['a'];
+$mode = $get['mode'];
+$a = $get['a'];
 /*
   Este script es original xD
   La funcion de este script es administrar una variable del $user
   Permite agregar y quitar arrays...
 */
 //Lets start!
-if(isset($_GET['mode'])){
-	if($_POST){
+if(isset($get['mode'])){
+	if($post){
 		//Pegamos el texto :P
-		if($_POST["n"] == ""){$_POST["n"] = "Unbenannt";}
+		if($post["n"] == ""){$post["n"] = "Unbenannt";}
 
-		$r = strip_tags($_POST[n]).",".intval($_POST[g]).",".intval($_POST[s]).",".intval($_POST[p]).",".intval($_POST[t])."\r\n";
+		$r = strip_tags($post[n]).",".intval($post[g]).",".intval($post[s]).",".intval($post[p]).",".intval($post[t])."\r\n";
 		$user['fleet_shortcut'] .= $r;
 		doquery("UPDATE {{table}} SET fleet_shortcut='{$user[fleet_shortcut]}' WHERE id={$user[id]}","users");
 		message("Le raccourcis a &eacute;t&eacute; enregistr&eacute; !","Enregistrment","fleetshortcut.php");
@@ -70,11 +70,11 @@ if(isset($_GET['mode'])){
 	$page .= "</th></tr>";
 	$page .= '<tr><td colspan=2 class=c><a href=fleetshortcut.php>Effacer</a></td></tr></tr></table></form>';
 }
-elseif(isset($_GET['a'])){
-	if($_POST){
+elseif(isset($get['a'])){
+	if($post){
 		//Armamos el array...
 		$scarray = explode("\r\n",$user['fleet_shortcut']);
-		if($_POST["delete"]){
+		if($post["delete"]){
 			unset($scarray[$a]);
 			$user['fleet_shortcut'] =  implode("\r\n",$scarray);
 			doquery("UPDATE {{table}} SET fleet_shortcut='{$user[fleet_shortcut]}' WHERE id={$user[id]}","users");
@@ -82,11 +82,11 @@ elseif(isset($_GET['a'])){
 		}
 		else{
 			$r = explode(",",$scarray[$a]);
-			$r[0] = strip_tags($_POST['n']);
-			$r[1] = intval($_POST['g']);
-			$r[2] = intval($_POST['s']);
-			$r[3] = intval($_POST['p']);
-			$r[4] = intval($_POST['t']);
+			$r[0] = strip_tags($post['n']);
+			$r[1] = intval($post['g']);
+			$r[2] = intval($post['s']);
+			$r[3] = intval($post['p']);
+			$r[4] = intval($post['t']);
 			$scarray[$a] = implode(",",$r);
 			$user['fleet_shortcut'] =  implode("\r\n",$scarray);
 			doquery("UPDATE {{table}} SET fleet_shortcut='{$user[fleet_shortcut]}' WHERE id={$user[id]}","users");

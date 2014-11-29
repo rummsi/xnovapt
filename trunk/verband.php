@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	includeLang('fleet');
 
-	$fleetid = $_POST['fleetid'];
+	$fleetid = $post['fleetid'];
 
 	if (!is_numeric($fleetid) || empty($fleetid)) {
 		header("Location: overview.php");
@@ -52,7 +52,7 @@ require_once dirname(__FILE__) .'/common.php';
 		message('Votre flotte est d�j� sur le chemin du retour!', 'Erreur');
 	}
 
-	if (!isset($_POST['send'])) {
+	if (!isset($post['send'])) {
 		SetSelectedPlanet ( $user );
 
 		$planetrow = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
@@ -290,11 +290,11 @@ require_once dirname(__FILE__) .'/common.php';
 	if (!$planetrow) {
 		message('WTF! FEHLER!', 'ERROR');
 	} //uno nunca sabe xD
-	$galaxy = intval($_GET['galaxy']);
-	$system = intval($_GET['system']);
-	$planet = intval($_GET['planet']);
-	$planettype = intval($_GET['planettype']);
-	$target_mission = intval($_GET['target_mission']);
+	$galaxy = intval($get['galaxy']);
+	$system = intval($get['system']);
+	$planet = intval($get['planet']);
+	$planettype = intval($get['planettype']);
+	$target_mission = intval($get['target_mission']);
 
 	foreach($reslist['fleet'] as $n => $i) {
 		if ($planetrow[$resource[$i]] > 0) {

@@ -46,11 +46,11 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
     $parse['adm_sub_form3'] = "";
 
     // Afficher les templates
-    if (isset($_GET['result'])) {
+    if (isset($get['result'])) {
 
-        switch ($_GET['result']){
+        switch ($get['result']){
             case 'usr_search':
-                $pattern = mysql_real_escape_string($_GET['player']);
+                $pattern = mysql_real_escape_string($get['player']);
                 $SelUser = doquery("SELECT * FROM {{table}} WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", 'users', true);
                 $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $SelUser['id_planet'] ."';", 'planets', true);
 
@@ -68,7 +68,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 break;
 
             case 'usr_data':
-                $pattern = mysql_real_escape_string($_GET['player']);
+                $pattern = mysql_real_escape_string($get['player']);
                 $SelUser = doquery("SELECT * FROM {{table}} WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", 'users', true);
                 $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $SelUser['id_planet'] ."';", 'planets', true);
 
@@ -109,15 +109,15 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 break;
 
             case 'usr_level':
-                if (!isset($_GET['s']) || !isset($_SESSION['CSRF']) || $_GET['s'] !== $_SESSION['CSRF']) {
+                if (!isset($get['s']) || !isset($_SESSION['CSRF']) || $get['s'] !== $_SESSION['CSRF']) {
                     AdminMessage(
                         'One have tried to overcome administration privilleges.',
                         'Hacking attempt');
                     break;
                 }
 
-                $player = isset($_GET['player']) ? mysql_real_escape_string($_GET['player']) : '';
-                $level  = isset($_GET['authlvl']) ? mysql_real_escape_string($_GET['authlvl']) : '';
+                $player = isset($get['player']) ? mysql_real_escape_string($get['player']) : '';
+                $level  = isset($get['authlvl']) ? mysql_real_escape_string($get['authlvl']) : '';
 
                 if ($level >= $user['authlevel'] && $user['authlevel'] != LEVEL_ADMIN) {
                     AdminMessage('Not enough privilleges to promote user.', $lang['adm_mod_level']);
@@ -138,7 +138,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 break;
 
             case 'ip_search':
-                $pattern = isset($_GET['ip']) ? mysql_real_escape_string($_GET['ip']) : '';
+                $pattern = isset($get['ip']) ? mysql_real_escape_string($get['ip']) : '';
                 $SelUser    = doquery("SELECT * FROM {{table}} WHERE `user_lastip` = '". $pattern ."' LIMIT 10;", 'users');
                 $bloc                   = $lang;
                 $bloc['adm_this_ip']    = $pattern;
@@ -155,13 +155,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
     }
 
     // Traiter les reponses aux formulaires
-    if (isset($_GET['action'])) {
+    if (isset($get['action'])) {
         $bloc = $lang;
 
         $_SESSION['CSRF'] = sha1(uniqid(null, true));
         $bloc['csrf_hack'] = $_SESSION['CSRF'];
 
-        switch ($_GET['action']){
+        switch ($get['action']){
             case 'usr_search':
                 $SubPanelTPL            = gettemplate('admin/admin_panel_frm1');
                 break;

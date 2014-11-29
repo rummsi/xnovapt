@@ -33,16 +33,16 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 $users   = doquery("SELECT * FROM {{table}} WHERE id='".$user['id']."';", 'users');
 $annonce = doquery("SELECT * FROM {{table}} ", 'annonce');
-$action  = $_GET['action'];
+$action  = $get['action'];
 
 if ($action == 5) {
-	$metalvendre = $_POST['metalvendre'];
-	$cristalvendre = $_POST['cristalvendre'];
-	$deutvendre = $_POST['deutvendre'];
+	$metalvendre = $post['metalvendre'];
+	$cristalvendre = $post['cristalvendre'];
+	$deutvendre = $post['deutvendre'];
 
-	$metalsouhait = $_POST['metalsouhait'];
-	$cristalsouhait = $_POST['cristalsouhait'];
-	$deutsouhait = $_POST['deutsouhait'];
+	$metalsouhait = $post['metalsouhait'];
+	$cristalsouhait = $post['cristalsouhait'];
+	$deutsouhait = $post['deutsouhait'];
 
 	while ($v_annonce = mysql_fetch_array($users)) {
 		$user = $v_annonce['username'];

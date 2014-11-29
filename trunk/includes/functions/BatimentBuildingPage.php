@@ -29,7 +29,7 @@
  */
 
 function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
-	global $lang, $resource, $reslist, $dpath, $game_config, $_GET;
+	global $lang, $resource, $reslist, $dpath, $game_config, $get;
 
 	CheckPlanetUsedFields ( $CurrentPlanet );
 
@@ -38,13 +38,13 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 	$Allowed['3'] = array( 12, 14, 21, 22, 23, 24, 34, 41, 42, 43);
 
 	// Boucle d'interpretation des eventuelles commandes
-	if (isset($_GET['cmd'])) {
+	if (isset($get['cmd'])) {
 		// On passe une commande
 		$bThisIsCheated = false;
 		$bDoItNow       = false;
-		$TheCommand     = $_GET['cmd'];
-		$Element        = $_GET['building'];
-		$ListID         = $_GET['listid'];
+		$TheCommand     = $get['cmd'];
+		$Element        = $get['building'];
+		$ListID         = $get['listid'];
 		if       ( isset ( $Element )) {
 			if ( !strchr ( $Element, " ") ) {
 				if ( !strchr ( $Element, ",") ) {

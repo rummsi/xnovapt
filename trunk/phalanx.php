@@ -56,10 +56,10 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 
 		if ($DoScan == true) {
-			$Galaxy  = $_GET["galaxy"];
-			$System  = $_GET["system"];
-			$Planet  = $_GET["planet"];
-			$PlType  = $_GET["planettype"];
+			$Galaxy  = $get["galaxy"];
+			$System  = $get["system"];
+			$Planet  = $get["planet"];
+			$PlType  = $get["planettype"];
 
 			$TargetInfo = doquery("SELECT * FROM {{table}} WHERE `galaxy` = '". $Galaxy ."' AND `system` = '". $System ."' AND `planet` = '". $Planet ."' AND `planet_type` = '". $PlType ."';", 'planets', true);
 			$TargetName = $TargetInfo['name'];

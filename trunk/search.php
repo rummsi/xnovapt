@@ -32,15 +32,15 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
-$searchtext = mysql_escape_string($_POST['searchtext']);
-$type = $_POST['type'];
+$searchtext = mysql_escape_string($post['searchtext']);
+$type = $post['type'];
 
 $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
 includeLang('search');
 $i = 0;
 //creamos la query
-$searchtext = mysql_escape_string($_POST["searchtext"]);
+$searchtext = mysql_escape_string($post["searchtext"]);
 switch($type){
 	case "playername":
 		$table = gettemplate('search_user_table');
@@ -122,10 +122,10 @@ if(isset($searchtext) && isset($type)){
 }
 
 //el resto...
-$lang['type_playername'] = ($_POST["type"] == "playername") ? " SELECTED" : "";
-$lang['type_planetname'] = ($_POST["type"] == "planetname") ? " SELECTED" : "";
-$lang['type_allytag'] = ($_POST["type"] == "allytag") ? " SELECTED" : "";
-$lang['type_allyname'] = ($_POST["type"] == "allyname") ? " SELECTED" : "";
+$lang['type_playername'] = ($post["type"] == "playername") ? " SELECTED" : "";
+$lang['type_planetname'] = ($post["type"] == "planetname") ? " SELECTED" : "";
+$lang['type_allytag'] = ($post["type"] == "allytag") ? " SELECTED" : "";
+$lang['type_allyname'] = ($post["type"] == "allyname") ? " SELECTED" : "";
 $lang['searchtext'] = $searchtext;
 $lang['search_results'] = $search_results;
 //esto es algo repetitivo ... w

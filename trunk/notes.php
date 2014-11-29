@@ -34,8 +34,8 @@ require_once dirname(__FILE__) .'/common.php';
 
 $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
-$a = $_GET['a'];
-$n = intval($_GET['n']);
+$a = $get['a'];
+$n = intval($get['n']);
 $lang['Please_Wait'] = "Patientez...";
 
 //lenguaje
@@ -43,21 +43,21 @@ includeLang('notes');
 
 $lang['PHP_SELF'] = 'notes.'.PHPEXT;
 
-if($_POST["s"] == 1 || $_POST["s"] == 2){//Edicion y agregar notas
+if($post["s"] == 1 || $post["s"] == 2){//Edicion y agregar notas
 
 	$time = time();
-	$priority = $_POST["u"];
-	$title = ($_POST["title"]) ? mysql_escape_string(strip_tags($_POST["title"])) : $lang['NoTitle'];
-	$text = ($_POST["text"]) ? mysql_escape_string(strip_tags($_POST["text"])) : $lang['NoText'];
+	$priority = $post["u"];
+	$title = ($post["title"]) ? mysql_escape_string(strip_tags($post["title"])) : $lang['NoTitle'];
+	$text = ($post["text"]) ? mysql_escape_string(strip_tags($post["text"])) : $lang['NoText'];
 
-	if($_POST["s"] ==1){
+	if($post["s"] ==1){
 		doquery("INSERT INTO {{table}} SET owner={$user['id']}, time=$time, priority=$priority, title='$title', text='$text'","notes");
 		message($lang['NoteAdded'], $lang['Please_Wait'],'notes.'.PHPEXT,"3");
-	}elseif($_POST["s"] == 2){
+	}elseif($post["s"] == 2){
 		/*
 		  pequeño query para averiguar si la nota que se edita es del propio jugador
 		*/
-		$id = intval($_POST["n"]);
+		$id = intval($post["n"]);
 		$note_query = doquery("SELECT * FROM {{table}} WHERE id=$id AND owner=".$user["id"],"notes");
 
 		if(!$note_query){ error($lang['notpossiblethisway'],$lang['Notes']); }
@@ -67,9 +67,9 @@ if($_POST["s"] == 1 || $_POST["s"] == 2){//Edicion y agregar notas
 	}
 
 }
-elseif($_POST){//Borrar
+elseif($post){//Borrar
 
-	foreach($_POST as $a => $b){
+	foreach($post as $a => $b){
 		/*
 		  Los checkbox marcados tienen la palabra delmes seguido del id.
 		  Y cada array contiene el valor "y" para compro
@@ -91,7 +91,7 @@ elseif($_POST){//Borrar
 	}else{header("Location: notes.". PHPEXT);}
 
 }else{//sin post...
-	if($_GET["a"] == 1){//crear una nueva nota.
+	if($get["a"] == 1){//crear una nueva nota.
 		/*
 		  Formulario para crear una nueva nota.
 		*/
@@ -113,7 +113,7 @@ elseif($_POST){//Borrar
 		display($page,$lang['Notes'],false);
 
 	}
-	elseif($_GET["a"] == 2){//editar
+	elseif($get["a"] == 2){//editar
 		/*
 		  Formulario donde se puestra la nota y se puede editar.
 		*/

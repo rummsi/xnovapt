@@ -38,12 +38,12 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['dpath'] = $dpath;
 		$parse = $lang;
 
-		$mode = $_GET['mode'];
+		$mode = $get['mode'];
 
 		if ($mode != 'change') {
 			$parse['Name'] = "Nom du joueur";
 		} elseif ($mode == 'change') {
-			$nam = $_POST['nam'];
+			$nam = $post['nam'];
 			doquery("DELETE FROM {{table}} WHERE who2='{$nam}'", 'banned');
 			doquery("UPDATE {{table}} SET bana=0, banaday=0 WHERE username='{$nam}'", "users");
 			message("Le joueur {$nam} a bien &eacute;t&eacute; d&eacute;banni!", 'Information');

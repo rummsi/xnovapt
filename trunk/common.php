@@ -51,7 +51,8 @@ $game_config   = array();
 $user          = array();
 $lang          = array();
 $IsUserChecked = false;
-
+$post = filter_input_array(INPUT_POST);
+$get = filter_input_array(INPUT_GET);
 define('DEFAULT_SKINPATH', 'skins/xnova/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
 define('TEMPLATE_NAME', 'OpenGame');

@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 
-$Id                  = $_GET['techid'];
+$Id                  = $get['techid'];
 $PageTPL             = gettemplate('techtree_details');
 $RowsTPL             = gettemplate('techtree_details_rows');
 
