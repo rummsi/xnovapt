@@ -127,7 +127,7 @@ $lang['ov_back_moon']        = " alla luna ";
 $lang['ov_une_hostile']      = "Una ";
 $lang['ov_hostile']          = " flotta nemica di ";
 $lang['ov_message']          = "Invia messaggio";
+$lang['Overview']     	  = 'Riepilogo';
 
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
-?>

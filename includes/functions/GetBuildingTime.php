@@ -32,7 +32,7 @@ function GetBuildingTime ($user, $planet, $Element) {
 	global $pricelist, $resource, $reslist, $game_config;
 
 
-	$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
+	@$level = ($planet[$resource[$Element]]) ? $planet[$resource[$Element]] : $user[$resource[$Element]];
 	if       (in_array($Element, $reslist['build'])) {
 		// Pour un batiment ...
 		$cost_metal   = floor($pricelist[$Element]['metal']   * pow($pricelist[$Element]['factor'], $level));
@@ -47,7 +47,7 @@ function GetBuildingTime ($user, $planet, $Element) {
 		if       ( $intergal_lab < "1" ) {
 			$lablevel = $planet[$resource['31']];
 		} elseif ( $intergal_lab >= "1" ) {
-			$empire = doquery("SELECT * FROM {{table}} WHERE id_owner='". $user[id] ."';", 'planets');
+			@$empire = doquery("SELECT * FROM {{table}} WHERE id_owner='". $user[id] ."';", 'planets');
 			$NbLabs = 0;
 			while ($colonie = mysql_fetch_array($empire)) {
 				$techlevel[$NbLabs] = $colonie[$resource['31']];
@@ -57,7 +57,7 @@ function GetBuildingTime ($user, $planet, $Element) {
 				$lablevel = 0;
 				for ($lab = 1; $lab <= $intergal_lab; $lab++) {
 					asort($techlevel);
-					$lablevel += $techlevel[$lab - 1];
+					@$lablevel += $techlevel[$lab - 1];
 				}
 			}
 		}
@@ -75,5 +75,3 @@ function GetBuildingTime ($user, $planet, $Element) {
 
 	return max(1, $time);
 }
-
-?>

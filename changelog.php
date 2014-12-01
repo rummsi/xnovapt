@@ -42,16 +42,15 @@ foreach($lang['changelog'] as $a => $b)
 	$parse['version_number'] = $a;
 	$parse['description'] = nl2br($b);
 
-	$body .= parsetemplate($template, $parse);
+	@$body .= parsetemplate($template, $parse);
 
 }
 
 $parse = $lang;
 $parse['body'] = $body;
 
-$page .= parsetemplate(gettemplate('changelog_body'), $parse);
+@$page .= parsetemplate(gettemplate('changelog_body'), $parse);
 
 display($page,"Change Log");
 
 // Created by Perberos. All rights reversed (C) 2006
-?>

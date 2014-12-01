@@ -32,8 +32,8 @@ require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function FleetBuildingPage(&$currentPlanet, &$currentUser)
 {
-    global $lang, $resource, $dpath;
-
+    global $lang, $resource, $dpath, $post;
+    includeLang('tech');
     // S'il n'y a pas de Chantier
     if (!isset($currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]]) || $currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]] == 0) {
         message($lang['need_hangar'], $lang['tech'][Legacies_Empire::ID_BUILDING_SHIPYARD]);
@@ -79,14 +79,14 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
 
             // Construction des 3 cases de la ligne d'un element dans la page d'achat !
             // Début de ligne
-            $PageTable .= "\n<tr>";
+            @$PageTable .= "\n<tr>";
 
             // Imagette + Link vers la page d'info
             $PageTable .= "<th class=l>";
             $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">";
             $PageTable .= "<img border=0 src=\"".$dpath."gebaeude/".$shipId.".gif\" align=top width=120 height=120></a>";
             $PageTable .= "</th>";
-
+            $shipIdName = $lang['tech'][$shipId];
             // Description
             $PageTable .= "<td class=l>";
             $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">".$shipIdName."</a> ".$shipIdNbre."<br />";
@@ -139,7 +139,7 @@ function FleetBuildingPage(&$currentPlanet, &$currentUser)
     $parse['buildlist']    = $PageTable;
     // Et la liste de constructions en cours dans $BuildQueue;
     $parse['buildinglist'] = $BuildQueue;
-    $page .= parsetemplate(gettemplate('buildings_fleet'), $parse);
+    @$page .= parsetemplate(gettemplate('buildings_fleet'), $parse);
 
     display($page, $lang['Fleet']);
 }

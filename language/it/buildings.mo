@@ -63,5 +63,4 @@ $lang['attention']        = "Attento, il ban &egrave; vicino, imbroglione! La tu
 $lang['no_laboratory']    = "&Egrave; necessario un laboratorio di ricerca!";
 $lang['need_hangar']      = "&Egrave; necessario il cantiere spaziale";
 $lang['labo_on_update']   = "Impossibile ricercare mentre si aggiorna il laboratorio!";
-
-?>
+$lang['Buildings']    	  = 'Strutture';

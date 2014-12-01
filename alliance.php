@@ -29,7 +29,7 @@
  */
 
 define('INSTALL' , false);
-
+global $get;
 $mode = $get['mode'];
 if (empty($mode))   { unset($mode); }
 $a     = intval($get['a']);
@@ -69,16 +69,16 @@ echo 'parent.location="../";';
 echo '</script>';
 }
 
-$mode     = $get['mode'];
-$yes      = $get['yes'];
-$edit     = $get['edit'];
-$allyid   = intval($get['allyid']);
-$show     = intval($get['show']);
-$sort     = intval($get['sort']);
-$sendmail = intval($get['sendmail']);
-$t        = $get['t'];
-$a        = intval($get['a']);
-$tag      = mysql_real_escape_string($get['tag']);
+@$mode     = $get['mode'];
+@$yes      = $get['yes'];
+@$edit     = $get['edit'];
+@$allyid   = intval($get['allyid']);
+@$show     = intval($get['show']);
+@$sort     = intval($get['sort']);
+@$sendmail = intval($get['sendmail']);
+@$t        = $get['t'];
+@$a        = intval($get['a']);
+@$tag      = mysql_real_escape_string($get['tag']);
 
 includeLang('alliance');
 
@@ -203,7 +203,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 
 				str_replace('%s', $post['atag'], $lang['alliance_has_been_maked']) . "<br><br>", "", $lang['Ok']);
 		} else {
-			$page .= parsetemplate(gettemplate('alliance_make'), $lang);
+			@$page .= parsetemplate(gettemplate('alliance_make'), $lang);
 		}
 
 		display($page, $lang['make_alliance']);
@@ -294,7 +294,7 @@ if ($user['ally_id'] == 0) { // Sin alianza
 		/*
 	  Vista normal de cuando no se tiene ni solicitud ni alianza
 	*/
-		$page .= parsetemplate(gettemplate('alliance_defaultmenu'), $lang);
+		@$page .= parsetemplate(gettemplate('alliance_defaultmenu'), $lang);
 		display($page, $lang['alliance']);
 	}
 }
@@ -309,52 +309,52 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 
 	$allianz_raenge = unserialize($ally['ally_ranks']);
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['onlinestatus'] == 1 || $ally['ally_owner'] == $user['id']) {
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['onlinestatus'] == 1 || $ally['ally_owner'] == $user['id']) {
 		$user_can_watch_memberlist_status = true;
 	} else
 		$user_can_watch_memberlist_status = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['memberlist'] == 1 || $ally['ally_owner'] == $user['id']) {
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['memberlist'] == 1 || $ally['ally_owner'] == $user['id']) {
 		$user_can_watch_memberlist = true;
 	} else
 		$user_can_watch_memberlist = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['mails'] == 1 || $ally['ally_owner'] == $user['id']) {
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['mails'] == 1 || $ally['ally_owner'] == $user['id']) {
 		$user_can_send_mails = true;
 	} else
 		$user_can_send_mails = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['kick'] == 1 || $ally['ally_owner'] == $user['id']) {
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['kick'] == 1 || $ally['ally_owner'] == $user['id']) {
 		$user_can_kick = true;
 	} else
 		$user_can_kick = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['rechtehand'] == 1 || $ally['ally_owner'] == $user['id'])
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['rechtehand'] == 1 || $ally['ally_owner'] == $user['id'])
 		$user_can_edit_rights = true;
 	else
 		$user_can_edit_rights = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['delete'] == 1 || $ally['ally_owner'] == $user['id'])
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['delete'] == 1 || $ally['ally_owner'] == $user['id'])
 		$user_can_exit_alliance = true;
 	else
 		$user_can_exit_alliance = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['bewerbungen'] == 1 || $ally['ally_owner'] == $user['id'])
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['bewerbungen'] == 1 || $ally['ally_owner'] == $user['id'])
 		$user_bewerbungen_einsehen = true;
 	else
 		$user_bewerbungen_einsehen = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['bewerbungenbearbeiten'] == 1 || $ally['ally_owner'] == $user['id'])
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['bewerbungenbearbeiten'] == 1 || $ally['ally_owner'] == $user['id'])
 		$user_bewerbungen_bearbeiten = true;
 	else
 		$user_bewerbungen_bearbeiten = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['administrieren'] == 1 || $ally['ally_owner'] == $user['id'])
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['administrieren'] == 1 || $ally['ally_owner'] == $user['id'])
 		$user_admin = true;
 	else
 		$user_admin = false;
 
-	if ($allianz_raenge[$user['ally_rank_id']-1]['onlinestatus'] == 1 || $ally['ally_owner'] == $user['id'])
+	if (@$allianz_raenge[$user['ally_rank_id']-1]['onlinestatus'] == 1 || $ally['ally_owner'] == $user['id'])
 		$user_onlinestatus = true;
 	else
 		$user_onlinestatus = false;
@@ -398,7 +398,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			message($lang['Denied_access'], $lang['Members_list']);
 		}
 		// El orden de aparicion
-		if ($sort2) {
+		if (@$sort2) {
 			$sort1 = intval($get['sort1']);
 			$sort2 = intval($get['sort2']);
 
@@ -461,9 +461,9 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 			$page_list .= parsetemplate($template, $u);
 		}
 		// para cambiar el link de ordenar.
-		if ($sort2 == 1) {
+		if (@$sort2 == 1) {
 			$s = 2;
-		} elseif ($sort2 == 2) {
+		} elseif (@$sort2 == 2) {
 			$s = 1;
 		} else {
 			$s = 1;
@@ -478,7 +478,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		$parse['s'] = $s;
 		$parse['list'] = $page_list;
 
-		$page .= parsetemplate(gettemplate('alliance_memberslist_table'), $parse);
+		@$page .= parsetemplate(gettemplate('alliance_memberslist_table'), $parse);
 
 		display($page, $lang['Members_list']);
 	}
@@ -701,7 +701,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 
 		$lang['list'] = $list;
 		$lang['dpath'] = $dpath;
-		$page .= parsetemplate(gettemplate('alliance_admin_laws'), $lang);
+		@$page .= parsetemplate(gettemplate('alliance_admin_laws'), $lang);
 
 		display($page, $lang['Law_settings']);
 	}
@@ -713,14 +713,14 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		// post!
 		if ($post) {
 			if (!get_magic_quotes_gpc()) {
-				$post['owner_range'] = stripslashes($post['owner_range']);
-				$post['web'] = stripslashes($post['web']);
-				$post['image'] = stripslashes($post['image']);
-				$post['text'] = stripslashes($post['text']);
+				@$post['owner_range'] = stripslashes($post['owner_range']);
+				@$post['web'] = stripslashes($post['web']);
+				@$post['image'] = stripslashes($post['image']);
+				@$post['text'] = stripslashes($post['text']);
 			}
 		}
 
-		if ($post['options']) {
+		if (@$post['options']) {
 			$ally['ally_owner_range'] = mysql_real_escape_string(htmlspecialchars(strip_tags($post['owner_range'])));
 
 			$ally['ally_web'] = mysql_real_escape_string(htmlspecialchars(strip_tags($post['web'])));
@@ -765,11 +765,11 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 	  Depende del $t, muestra el formulario para cada tipo de texto.
 	*/
 		if ($t == 3) {
-			$lang['request_type'] = $lang['Show_of_request_text'];
+			$lang['request_type'] = $lang['Request_text'];
 		} elseif ($t == 2) {
-			$lang['request_type'] = $lang['Internal_text_of_alliance'];
+			$lang['request_type'] = $lang['Internal_text'];
 		} else {
-			$lang['request_type'] = $lang['Public_text_of_alliance'];
+			$lang['request_type'] = $lang['External_text'];
 		}
 
 		if ($t == 2) {
@@ -792,7 +792,7 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 		$lang['Transfer_alliance'] = MessageForm("Abandonner / Transf&eacute;rer L'alliance", "", "?mode=admin&edit=give", $lang['Continue']);
 		$lang['Disolve_alliance'] = MessageForm("Dissoudre L'alliance", "", "?mode=admin&edit=exit", $lang['Continue']);
 
-		$page .= parsetemplate(gettemplate('alliance_admin'), $lang);
+		@$page .= parsetemplate(gettemplate('alliance_admin'), $lang);
 		display($page, $lang['Alliance_admin']);
 	}
 
@@ -805,9 +805,9 @@ elseif ($user['ally_id'] != 0 && $user['ally_request'] == 0) { // Con alianza
 while($data=mysql_fetch_array($selection)){
   $select.='<OPTION VALUE="'.$data['id'].'">'.$data['username'];
 }
-  $page .= '<br><form method="post" action="alliance.php?mode=admin&edit=give"><table width="600" border="0" cellpadding="0" cellspacing="1" ALIGN="center">';
+        @$page .= '<br><form method="post" action="alliance.php?mode=admin&edit=give"><table width="600" border="0" cellpadding="0" cellspacing="1" ALIGN="center">';
 	$page .= '<tr><td class="c" colspan="4" align="center">A qui voulez vous donner l alliance ?</td></tr>';
-  $page .= '<tr>';
+        $page .= '<tr>';
 	$page .= "<th colspan=\"3\">Choisissez le joueur a qui vous souhaitez donner l alliance :</th><th colspan=\"1\"><SELECT NAME=\"id\">$select</SELECT></th>";
 	$page .= '</tr>';
 	$page .= '<tr><th colspan="4"><INPUT TYPE="submit" VALUE="Donner"></th></tr>';
@@ -850,7 +850,7 @@ while($data=mysql_fetch_array($selection)){
 		$template = gettemplate('alliance_admin_members_row');
 		$f_template = gettemplate('alliance_admin_members_function');
 		// El orden de aparicion
-		if ($sort2) {
+		if (@$sort2) {
 			// agregar el =0 para las coordenadas...
 			if ($sort1 == 1) {
 				$sort = " ORDER BY `username`";
@@ -913,14 +913,14 @@ while($data=mysql_fetch_array($selection)){
 			}
 			$u["dpath"] = $dpath;
 			// por el formulario...
-			if ($rank != $u['id']) {
+			if (@$rank != $u['id']) {
 				$u['ally_range'] = $ally_range;
 			} else {
 				$u['ally_range'] = '';
 			}
 			$u['ally_register_time'] = date("Y-m-d h:i:s", $u['ally_register_time']);
 			$page_list .= parsetemplate($template, $u);
-			if ($rank == $u['id']) {
+			if (@$rank == $u['id']) {
 				$r['Rank_for'] = str_replace("%s", $u['username'], $lang['Rank_for']);
 				$r['options'] .= "<option value=\"0\">{$lang['Novate']}</option>";
 
@@ -937,9 +937,9 @@ while($data=mysql_fetch_array($selection)){
 			}
 		}
 		// para cambiar el link de ordenar.
-		if ($sort2 == 1) {
+		if (@$sort2 == 1) {
 			$s = 2;
-		} elseif ($sort2 == 2) {
+		} elseif (@$sort2 == 2) {
 			$s = 1;
 		} else {
 			$s = 1;
@@ -951,7 +951,7 @@ while($data=mysql_fetch_array($selection)){
 
 		$lang['memberslist'] = $page_list;
 		$lang['s'] = $s;
-		$page .= parsetemplate(gettemplate('alliance_admin_members_table'), $lang);
+		@$page .= parsetemplate(gettemplate('alliance_admin_members_table'), $lang);
 
 		display($page, $lang['Members_administrate']);
 		// a=9 es para cambiar la etiqueta de la etiqueta.
@@ -1073,7 +1073,7 @@ while($data=mysql_fetch_array($selection)){
 		$parse['Change']             = $lang['Change'];
 		$parse['name']               = 'newname';
 		$parse['Return_to_overview'] = $lang['Return_to_overview'];
-		$page .= parsetemplate(gettemplate('alliance_admin_rename'), $parse);
+		@$page .= parsetemplate(gettemplate('alliance_admin_rename'), $parse);
 		display($page, $lang['Alliance_admin']);
 
 	}
@@ -1098,7 +1098,7 @@ while($data=mysql_fetch_array($selection)){
 		$parse['Change']             = $lang['Change'];
 		$parse['name']               = 'newtag';
 		$parse['Return_to_overview'] = $lang['Return_to_overview'];
-		$page .= parsetemplate(gettemplate('alliance_admin_rename'), $parse);
+		@$page .= parsetemplate(gettemplate('alliance_admin_rename'), $parse);
 		display($page, $lang['Alliance_admin']);
 	}
 
@@ -1164,7 +1164,7 @@ while($data=mysql_fetch_array($selection)){
 		if ($ally['ally_owner'] != $user['id']) {
 			$lang['ally_owner'] .= MessageForm($lang['Exit_of_this_alliance'], "", "?mode=exit", $lang['Continue']);
 		} else {
-			$lang['ally_owner'] .= '';
+			@$lang['ally_owner'] .= '';
 		}
 		// La imagen de logotipo
 		$lang['ally_image'] = ($ally['ally_image'] != '')?
@@ -1191,9 +1191,7 @@ while($data=mysql_fetch_array($selection)){
 		$lang['ally_members'] = $ally['ally_members'];
 		$lang['ally_name'] = $ally['ally_name'];
 
-		$page .= parsetemplate(gettemplate('alliance_frontpage'), $lang);
+		@$page .= parsetemplate(gettemplate('alliance_frontpage'), $lang);
 		display($page, $lang['your_alliance']);
 	}
 }
-
-?>

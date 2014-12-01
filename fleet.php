@@ -112,7 +112,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "</tr>";
 
 	// Gestion des flottes du joueur actif
-	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", "fleets");
+	@$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", "fleets");
 	$i  = 0;
 
 
@@ -231,7 +231,7 @@ require_once dirname(__FILE__) .'/common.php';
 	foreach ($reslist['fleet'] as $n => $i) {
 		if ($planetrow[$resource[$i]] > 0) {
 			$page .= "<tr height=\"20\">";
-			$page .= "<th><a title=\"". $lang['fl_fleetspeed'] . $CurrentShipSpeed ."\">" . $lang['tech'][$i] . "</a></th>";
+			@$page .= "<th><a title=\"". $lang['fl_fleetspeed'] . $CurrentShipSpeed ."\">" . $lang['tech'][$i] . "</a></th>";
 			$page .= "<th>". pretty_number ($planetrow[$resource[$i]]);
 			$ShipData .= "<input type=\"hidden\" name=\"maxship". $i ."\" value=\"". $planetrow[$resource[$i]] ."\" />";
 			$ShipData .= "<input type=\"hidden\" name=\"consumption". $i ."\" value=\"". GetShipConsumption ( $i, $user ) ."\" />";
@@ -284,4 +284,3 @@ require_once dirname(__FILE__) .'/common.php';
 
 // Updated by Chlorel. 16 Jan 2008 (String extraction, bug corrections, code uniformisation
 // Created by Perberos. All rights reversed (C) 2006
-?>

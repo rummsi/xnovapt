@@ -31,8 +31,8 @@
 require_once ROOT_PATH . 'includes/classes/Legacies/Empire/Shipyard.php';
 
 function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
-    global $lang, $resource, $dpath;
-
+    global $lang, $resource, $dpath, $post;
+    includeLang('fleet');
     // S'il n'y a pas de Chantier
     if (!isset($currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]]) || $currentPlanet[$resource[Legacies_Empire::ID_BUILDING_SHIPYARD]] == 0) {
         message($lang['need_hangar'], $lang['tech'][Legacies_Empire::ID_BUILDING_SHIPYARD]);
@@ -40,8 +40,8 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
     }
 
     $shipyard = Legacies_Empire_Shipyard::factory($currentPlanet, $currentUser);
-    if (isset($post['fmenge']) && is_array($post['fmenge'])) {
-        foreach ($post['fmenge'] as $shipId => $count) {
+    if (isset($_POST['fmenge']) && is_array($_POST['fmenge'])) {
+        foreach ($_POST['fmenge'] as $shipId => $count) {
             $shipId = intval($shipId);
             if (in_array($shipId, $resource)) {
                 continue;
@@ -77,7 +77,7 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
             $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">";
             $PageTable .= "<img border=0 src=\"".$dpath."gebaeude/".$shipId.".gif\" align=top width=120 height=120></a>";
             $PageTable .= "</th>";
-
+            @$shipIdName = $lang['tech'][$shipId];
             // Description
             $PageTable .= "<td class=l>";
             $PageTable .= "<a href=infos.".PHPEXT."?gid=".$shipId.">".$shipIdName."</a> ".$shipIdNbre."<br>";
@@ -133,7 +133,7 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
     // Et la liste de constructions en cours dans $BuildQueue;
     $parse['buildinglist'] = $BuildQueue;
     // fragmento de template
-    $page .= parsetemplate(gettemplate('buildings_defense'), $parse);
+    @$page .= parsetemplate(gettemplate('buildings_defense'), $parse);
 
     display($page, $lang['Defense']);
 
@@ -143,4 +143,3 @@ function DefensesBuildingPage ( &$currentPlanet, $currentUser ) {
 // - 1.1 Correction mise en place d'une limite max d'elements constructibles par ligne
 // - 1.2 Correction limitation bouclier meme si en queue de fabrication
 //
-?>
