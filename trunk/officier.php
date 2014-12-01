@@ -109,10 +109,9 @@ function ShowOfficierPage ( &$CurrentUser ) {
 }
 
 	$page = ShowOfficierPage ( $user );
-	display($page, $lang['officier']);
+	display($page, $lang['Officier']);
 
 // -----------------------------------------------------------------------------------------------------------
 // History version
 // 1.0 - Version originelle (Tom1991)
 // 1.1 - Réécriture Chlorel pour integration complete dans XNova
-?>

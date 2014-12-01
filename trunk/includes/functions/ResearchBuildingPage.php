@@ -191,7 +191,7 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 					}
 				}
 				$RowParse['tech_link']  = $TechnoLink;
-				$TechnoList            .= parsetemplate($TechRowTPL, $RowParse);
+				@$TechnoList            .= parsetemplate($TechRowTPL, $RowParse);
 			}
 		}
 	}
@@ -199,7 +199,7 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 	$PageParse                = $lang;
 	$PageParse['noresearch']  = $NoResearchMessage;
 	$PageParse['technolist']  = $TechnoList;
-	$Page                    .= parsetemplate(gettemplate('buildings_research'), $PageParse);
+	@$Page                    .= parsetemplate(gettemplate('buildings_research'), $PageParse);
 
 	display( $Page, $lang['Research'] );
 }
@@ -208,4 +208,3 @@ function ResearchBuildingPage (&$CurrentPlanet, $CurrentUser, $InResearch, $TheP
 // 1.0 - Release initiale / modularisation / Reecriture / Commentaire / Mise en forme
 // 1.1 - BUG affichage de la techno en cours
 // 1.2 - Restructuration modification pour permettre d'annuller proprement une techno en cours
-?>

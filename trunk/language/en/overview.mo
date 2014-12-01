@@ -127,7 +127,7 @@ $lang['ov_back_moon']        = " the moon ";
 $lang['ov_une_hostile']      = "A ";
 $lang['ov_hostile']          = " hostile ";
 $lang['ov_message']          = "Send a message";
+$lang['Overview']     	  	 = 'Overview';
 
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
-?>

@@ -46,7 +46,7 @@ includeLang('overview');
 switch ($mode) {
     case 'renameplanet':
         // -----------------------------------------------------------------------------------------------
-        if ($post['action'] == $lang['namer']) {
+        if (@$post['action'] == $lang['namer']) {
             // Reponse au changement de nom de la planete
             $UserPlanet = addslashes(CheckInputStrings ($post['newname']));
             $newname = mysql_real_escape_string(trim($UserPlanet));
@@ -61,7 +61,7 @@ switch ($mode) {
                     doquery("UPDATE {{table}} SET `name` = '" . $newname . "' WHERE `galaxy` = '" . $planetrow['galaxy'] . "' AND `system` = '" . $planetrow['system'] . "' AND `lunapos` = '" . $planetrow['planet'] . "' LIMIT 1;", "lunas");
                 }
             }
-        } elseif ($post['action'] == $lang['colony_abandon']) {
+        } elseif (@$post['action'] == $lang['colony_abandon']) {
             // Cas d'abandon d'une colonie
             // Affichage de la forme d'abandon de colonie
             $parse = $lang;
@@ -74,7 +74,7 @@ switch ($mode) {
             $page .= parsetemplate(gettemplate('overview_deleteplanet'), $parse);
             // On affiche la forme pour l'abandon de la colonie
             display($page, $lang['rename_and_abandon_planet']);
-        } elseif ($post['kolonieloeschen'] == 1 && $post['deleteid'] == $user['current_planet']) {
+        } elseif (@$post['kolonieloeschen'] == 1 && $post['deleteid'] == $user['current_planet']) {
                 // Controle du mot de passe pour abandon de colonie
                 if (md5($post['pw']) == $user["password"] && $user['id_planet'] != $user['current_planet']) {
 
@@ -114,9 +114,9 @@ switch ($mode) {
         $parse['galaxy_planet'] = $planetrow['planet'];
         $parse['planet_name'] = $planetrow['name'];
 
-        $page .= parsetemplate(gettemplate('overview_renameplanet'), $parse);
+        @$page .= parsetemplate(gettemplate('overview_renameplanet'), $parse);
         // On affiche la page permettant d'abandonner OU de renomme une Colonie / Planete
-        display($page, $lang['rename_and_abandon_planet']);
+        display($page, $lang['ov_rena_dele']);
         break;
 
     default:
@@ -379,19 +379,19 @@ switch ($mode) {
             $parse['u_user_rank'] = $StatRecord['total_rank'];
             $parse['user_username'] = $user['username'];
 
-            if (count($fpage) > 0) {
+            if (@count($fpage) > 0) {
                 ksort($fpage);
                 foreach ($fpage as $time => $content) {
-                    $flotten .= $content . "\n";
+                    @$flotten .= $content . "\n";
                 }
             }
 
-            $parse['fleet_list'] = $flotten;
+            @$parse['fleet_list'] = $flotten;
             $parse['energy_used'] = $planetrow["energy_max"] - $planetrow["energy_used"];
 
             $parse['Have_new_message'] = $Have_new_message;
-            $parse['Have_new_level_mineur'] = $HaveNewLevelMineur;
-            $parse['Have_new_level_raid'] = $HaveNewLevelRaid;
+            @$parse['Have_new_level_mineur'] = $HaveNewLevelMineur;
+            @$parse['Have_new_level_raid'] = $HaveNewLevelRaid;
             $parse['time'] = "<div id=\"dateheure\"></div>";
             $parse['dpath'] = $dpath;
             $parse['planet_image'] = $planetrow['image'];
@@ -481,5 +481,3 @@ switch ($mode) {
             break;
         }
 }
-
-?>

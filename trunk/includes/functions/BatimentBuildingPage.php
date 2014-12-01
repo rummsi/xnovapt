@@ -42,9 +42,9 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 		// On passe une commande
 		$bThisIsCheated = false;
 		$bDoItNow       = false;
-		$TheCommand     = $get['cmd'];
-		$Element        = $get['building'];
-		$ListID         = $get['listid'];
+		@$TheCommand     = $get['cmd'];
+		@$Element        = $get['building'];
+		@$ListID         = $get['listid'];
 		if       ( isset ( $Element )) {
 			if ( !strchr ( $Element, " ") ) {
 				if ( !strchr ( $Element, ",") ) {
@@ -58,7 +58,7 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 					$bThisIsCheated = true;
 				}
 				} else {
-                $bThisIsCheated = true;
+                @$bThisIsCheated = true;
             }
 			} else {
 				$bThisIsCheated = true;
@@ -195,8 +195,7 @@ function BatimentBuildingPage (&$CurrentPlanet, $CurrentUser) {
 
 	$parse['BuildingsList']        = $BuildingPage;
 
-	$page                         .= parsetemplate(gettemplate('buildings_builds'), $parse);
+	@$page                         .= parsetemplate(gettemplate('buildings_builds'), $parse);
 
-	display($page, $lang['Builds']);
+	display($page, $lang['Buildings']);
 }
-?>

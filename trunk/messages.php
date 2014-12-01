@@ -40,7 +40,7 @@ if(!isset($user['authlevel'])) {
 includeLang('messages');
 
 
-$OwnerID       = $get['id'];
+@$OwnerID       = $get['id'];
 $MessCategory  = $get['messcat'];
 $MessPageMode  = (string) $get['mode'];
 $DeleteWhat    = $post['deletemessages'];
@@ -340,5 +340,3 @@ $Message = trim ( nl2br ( strip_tags ( $post['text'], '<br>' ) ) ); }
 // 1.0 - Version originelle (Tom1991)
 // 1.1 - Mise a plat, linearisation, suppression des doublons / triplons / 'n'gnions dans le code (Chlorel)
 // 1.2 - Regroupage des 2 fichiers vers 1 seul plus simple a mettre en oeuvre et a gerer !
-
-?>

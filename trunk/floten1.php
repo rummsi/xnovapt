@@ -66,16 +66,16 @@ require_once dirname(__FILE__) .'/common.php';
 	// Verifions si nous avons bien tout ce que nous voullons envoyer
 	$FleetHiddenBlock  = "";
 	foreach ($reslist['fleet'] as $n => $i) {
-		if ($i > 200 && $i < 300 && $post["ship$i"] > "0") {
+		if ($i > 200 && $i < 300 && @$post["ship$i"] > "0") {
 			if ($post["ship$i"] > $planetrow[$resource[$i]]) {
 				$page .= $lang['fl_noenought'];
 				$speedalls[$i]             = GetFleetMaxSpeed ( "", $i, $user );
 			} else {
 				$fleet['fleetarray'][$i]   = $post["ship$i"];
 				// Tableau des vaisseaux avec leur nombre
-				$fleet['fleetlist']       .= $i . "," . $post["ship$i"] . ";";
+				@$fleet['fleetlist']       .= $i . "," . $post["ship$i"] . ";";
 				// Nombre total de vaisseaux
-				$fleet['amount']          += $post["ship$i"];
+				@$fleet['amount']          += $post["ship$i"];
 				// Tableau des vitesses
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"consumption". $i ."\" value=\"". GetShipConsumption ( $i, $user ) ."\" />";
 				$FleetHiddenBlock         .= "<input type=\"hidden\" name=\"speed". $i ."\"       value=\"". GetFleetMaxSpeed ( "", $i, $user ) ."\" />";
@@ -91,7 +91,7 @@ require_once dirname(__FILE__) .'/common.php';
 	} else {
 		$speedallsmin = min($speedalls);
 	}
-	$page .= "<script type=\"text/javascript\" src=\"scripts/flotten.js\"></script>";
+	@$page .= "<script type=\"text/javascript\" src=\"scripts/flotten.js\"></script>";
 	$page .= "<script type=\"text/javascript\">\n";
 	$page .= "function getStorageFaktor() {\n";
 	$page .= "	return 1\n";
@@ -275,7 +275,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$page .= "</div></center>";
 	$page .= "<input type=\"hidden\" name=\"maxepedition\" value=\"". $post['maxepedition'] ."\" />";
 	$page .= "<input type=\"hidden\" name=\"curepedition\" value=\"". $post['curepedition'] ."\" />";
-	$page .= "<input type=\"hidden\" name=\"target_mission\" value=\"". $target_mission ."\" />";
+	@$page .= "<input type=\"hidden\" name=\"target_mission\" value=\"". $target_mission ."\" />";
 	$page .= "</form>";
 	$page .= "<script>javascript:shortInfo(); </script>";
 
@@ -283,4 +283,3 @@ require_once dirname(__FILE__) .'/common.php';
 
 // Updated by Chlorel. 16 Jan 2008 (String extraction, bug corrections, code uniformisation
 // Created by Perberos. All rights reversed (C) 2006
-?>

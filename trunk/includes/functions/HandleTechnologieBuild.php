@@ -38,7 +38,7 @@ function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser ) {
 			$WorkingPlanet = doquery("SELECT * FROM {{table}} WHERE `id` = '". $CurrentUser['b_tech_planet'] ."';", 'planets', true);
 		}
 
-		if ($WorkingPlanet) {
+		if (@$WorkingPlanet) {
 			$ThePlanet = $WorkingPlanet;
 		} else {
 			$ThePlanet = $CurrentPlanet;
@@ -97,4 +97,3 @@ function HandleTechnologieBuild ( &$CurrentPlanet, &$CurrentUser ) {
 // History revision
 // 1.0 - mise en forme modularisation version initiale
 // 1.1 - Correction retour de fonction (retourne un tableau a la place d'un flag)
-?>

@@ -39,13 +39,13 @@ function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
 
 	$parse   = $lang;
 
-	if ($post['ress'] != '') {
+	if (@$post['ress'] != '') {
 		$PageTPL   = gettemplate('message_body');
 		$Error     = false;
 		$CheatTry  = false;
-		$Metal     = $post['metal'];
-		$Crystal   = $post['cristal'];
-		$Deuterium = $post['deut'];
+		@$Metal     = $post['metal'];
+		@$Crystal   = $post['cristal'];
+		@$Deuterium = $post['deut'];
 		if ($Metal < 0) {
 			$Metal     *= -1;
 			$CheatTry   = true;
@@ -154,4 +154,3 @@ function ModuleMarchand ( $CurrentUser, &$CurrentPlanet ) {
 // 1.0 - Version originelle (Tom1991)
 // 1.1 - Version 2.0 de Tom1991 ajout java
 // 1.2 - R��criture Chlorel passage aux template, optimisation des appels et des requetes SQL
-?>

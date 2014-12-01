@@ -66,9 +66,9 @@ require_once dirname(__FILE__) .'/common.php';
 			$missiontype = array();
 		}
 	} elseif ($post['planettype'] == "1" || $post['planettype'] == "3") {
-		if ($post['ship208'] >= 1 && !$UsedPlanet) {
+		if (@$post['ship208'] >= 1 && !$UsedPlanet) {
 			$missiontype = array(7 => $lang['type_mission'][7]);
-		} elseif ($post['ship210'] >= 1 && !$YourPlanet) {
+		} elseif (@$post['ship210'] >= 1 && !$YourPlanet) {
 			$missiontype = array(6 => $lang['type_mission'][6]);
 		}
 
@@ -280,4 +280,3 @@ require_once dirname(__FILE__) .'/common.php';
 
 // Updated by Chlorel. 16 Jan 2008 (String extraction, bug corrections, code uniformisation)
 // Created by Perberos. All rights reversed (C) 2006
-?>
