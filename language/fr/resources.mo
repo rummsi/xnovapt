@@ -43,7 +43,7 @@ $lang['Storage_state'] = 'Etat des d&eacute;p&ocirc;ts';
 $lang['Calcule'] = 'Calculer';
 $lang['o/o'] = '%';
 $lang['k'] = 'k';
+$lang['Resources']    = 'Ressources';
 
 // Created by Perberos. All rights reserved (C) 2006 
 // Complet by XNova Team. All rights reversed (C) 2008
-?>

@@ -35,11 +35,11 @@ require_once dirname(__FILE__) .'/common.php';
 	includeLang('stat');
 
 	$parse = $lang;
-	$who   = (isset($post['who']))   ? $post['who']   : $get['who'];
+	@$who   = (isset($post['who']))   ? $post['who']   : $get['who'];
 	if (!isset($who)) {
 		$who   = 1;
 	}
-	$type  = (isset($post['type']))  ? $post['type']  : $get['type'];
+	@$type  = (isset($post['type']))  ? $post['type']  : $get['type'];
 	if (!isset($type)) {
 		$type  = 1;
 	}
@@ -95,7 +95,7 @@ require_once dirname(__FILE__) .'/common.php';
 			$LastPage = floor($MaxAllys['count'] / 100);
 		}
 		$parse['range'] = "";
-		for ($Page = 0; $Page <= $LastPage; $Page++) {
+		for (@$Page = 0; $Page <= @$LastPage; $Page++) {
 			$PageValue      = ($Page * 100) + 1;
 			$PageRange      = $PageValue + 99;
 			$parse['range'] .= "<option value=\"". $PageValue ."\"". (($range == $PageValue) ? " SELECTED" : "") .">". $PageValue ."-". $PageRange ."</option>";
@@ -107,7 +107,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$query = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '2' AND `stat_code` = '1' ORDER BY `". $Order ."` DESC LIMIT ". $start .",100;", 'statpoints');
 
 		$start++;
-		$parse['stat_date']   = $game_config['stats'];
+		@$parse['stat_date']   = $game_config['stats'];
 		$parse['stat_values'] = "";
 		while ($StatRow = mysql_fetch_assoc($query)) {
 			$parse['ally_rank']       = $start;
@@ -148,10 +148,10 @@ require_once dirname(__FILE__) .'/common.php';
 			$LastPage = floor($MaxUsers['count'] / 100);
 		}
 		$parse['range'] = "";
-		for ($Page = 0; $Page <= $LastPage; $Page++) {
+		for (@$Page = 0; $Page <= @$LastPage; $Page++) {
 			$PageValue      = ($Page * 100) + 1;
 			$PageRange      = $PageValue + 99;
-			$parse['range'] .= "<option value=\"". $PageValue ."\"". (($start == $PageValue) ? " SELECTED" : "") .">". $PageValue ."-". $PageRange ."</option>";
+			@$parse['range'] .= "<option value=\"". $PageValue ."\"". (($start == $PageValue) ? " SELECTED" : "") .">". $PageValue ."-". $PageRange ."</option>";
 		}
 
 		$parse['stat_header'] = parsetemplate(gettemplate('stat_playertable_header'), $parse);
@@ -160,7 +160,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$query = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' ORDER BY `". $Order ."` DESC LIMIT ". $start .",100;", 'statpoints');
 
 		$start++;
-		$parse['stat_date']   = $game_config['stats'];
+		@$parse['stat_date']   = $game_config['stats'];
 		$parse['stat_values'] = "";
 		while ($StatRow = mysql_fetch_assoc($query)) {
 			$parse['stat_date']       = date("d M Y - H:i:s", $StatRow['stat_date']);
@@ -213,4 +213,3 @@ require_once dirname(__FILE__) .'/common.php';
 // -----------------------------------------------------------------------------------------------------------
 // History version
 // 1.0 - R��criture module
-?>
