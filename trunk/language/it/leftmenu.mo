@@ -35,51 +35,51 @@ $lang['qry']   = 'Esegui codice SQL';
 
 $lang['Multiverse']   = '<b>XNova</b> Uni';
 
-$lang['Overview']     = 'Riepilogo';
-$lang['Officiers']    = 'Ufficiali';
+$lang['lft_Overview']     = 'Riepilogo';
+$lang['lft_Officiers']    = 'Ufficiali';
 
-$lang['Buildings']    = 'Strutture';
-$lang['Research']     = 'Laboratorio';
-$lang['Shipyard']     = 'Cantiere spaziale';
-$lang['Defense']      = 'Difese';
+$lang['lft_Buildings']    = 'Strutture';
+$lang['lft_Research']     = 'Laboratorio';
+$lang['lft_Shipyard']     = 'Cantiere spaziale';
+$lang['lft_Defense']      = 'Difese';
 
-$lang['multi']      = 'Dichiarazione di multi';
+$lang['lft_multi']      = 'Dichiarazione di multi';
 
-$lang['Resources']    = 'Risorse';
-$lang['Imperium']     = 'Impero';
-$lang['Marchand']     = 'Mercante';
-$lang['Annonces']     = 'Annunci';
-$lang['Technology']   = 'Tecnologie';
+$lang['lft_Resources']    = 'Risorse';
+$lang['lft_Imperium']     = 'Impero';
+$lang['lft_Marchand']     = 'Mercante';
+$lang['lft_Annonces']     = 'Annunci';
+$lang['lft_Technology']   = 'Tecnologie';
 
-$lang['Galaxy']       = 'Galassia';
-$lang['Fleet']        = 'Flotta';
+$lang['lft_Galaxy']       = 'Galassia';
+$lang['lft_Fleet']        = 'Flotta';
 
-$lang['Alliance']     = 'Alleanza';
-$lang['Chat']         = 'Chat';
-$lang['Statistics']   = 'Statistiche';
-$lang['Search']       = 'Cerca';
-$lang['blocked']      = 'Bannati';
-$lang['Records']      = 'Record';
+$lang['lft_Alliance']     = 'Alleanza';
+$lang['lft_Chat']         = 'Chat';
+$lang['lft_Statistics']   = 'Statistiche';
+$lang['lft_Search']       = 'Cerca';
+$lang['lft_blocked']      = 'Bannati';
+$lang['lft_Records']      = 'Record';
 
-$lang['Messages']     = 'Messaggi';
-$lang['Notes']        = 'Note';
-$lang['Buddylist']    = 'Lista amici';
+$lang['lft_Messages']     = 'Messaggi';
+$lang['lft_Notes']        = 'Note';
+$lang['lft_Buddylist']    = 'Lista amici';
 
-$lang['Board']        = 'Forum';
-$lang['Contact']      = 'Contatti';
-$lang['Options']      = 'Opzioni';
+$lang['lft_Board']        = 'Forum';
+$lang['lft_Contact']      = 'Contatti';
+$lang['lft_Options']      = 'Opzioni';
 
-$lang['Logout']       = 'Logout';
+$lang['lft_Logout']       = 'Logout';
 
-$lang['Help']         = 'Aiuto';
-$lang['Rules']        = 'Regole';
+$lang['lft_Help']         = 'Aiuto';
+$lang['lft_Rules']        = 'Regole';
 
 // User menu titles
-$lang['devlp']        = 'Sviluppo';
-$lang['navig']        = 'Navigazione';
-$lang['observ']       = 'Osservazione';
-$lang['commun']       = 'Comunit&agrave;';
-$lang['infog']        = 'Informazioni';
+$lang['lft_devlp']        = 'Sviluppo';
+$lang['lft_navig']        = 'Navigazione';
+$lang['lft_observ']       = 'Osservazione';
+$lang['lft_commun']       = 'Comunit&agrave;';
+$lang['lft_infog']        = 'Informazioni';
 
 // Administrator menu links
 $lang['adm_over']     = 'Riepilogo';
@@ -122,9 +122,7 @@ $lang['player']       = 'Giocatori';
 $lang['tool']         = 'Strumenti';
 
 // Informations serveur
-$lang['lm_ifo_serv']  = "Risorse";
-$lang['lm_ifo_game']  = "Gioco";
-$lang['lm_ifo_fleet'] = "Flotta";
-$lang['lm_ifo_queue'] = "Code";
-
-?>
+$lang['lft_lm_ifo_serv']  = "Risorse";
+$lang['lft_lm_ifo_game']  = "Gioco";
+$lang['lft_lm_ifo_fleet'] = "Flotta";
+$lang['lft_lm_ifo_queue'] = "Code";
