@@ -70,29 +70,53 @@ if(!file_exists($cacheFile) || (time() - filemtime($cacheFile)) > $timeDelay)
     $bloc['player']     = $lang['rec_playe'];
     $bloc['level']      = $lang['rec_nbre'];
     $parse['defenses']  = parsetemplate($headerTpl, $bloc);
-
-
+	
+	$PlanetTechs = array_merge($reslist[Legacies_Empire::TYPE_BUILDING], $reslist[Legacies_Empire::TYPE_SHIP], $reslist[Legacies_Empire::TYPE_DEFENSE]);
+	
     foreach($lang['tech'] as $element => $elementName)
     {
         if(!empty($elementName) && !empty($resource[$element]))
         {
             $data = array();
-            if($element >= 0 && $element <  100 || $element >= 200 && $element < 600)
+            if(in_array($element, $PlanetTechs))
             {
-                $record = doquery(sprintf(
-                    'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, p.%1$s AS level ' .
-                    'FROM {{table}}users AS u ' .
-                    'LEFT JOIN {{table}}planets AS p ON (u.id=p.id_owner) ' .
-                    'WHERE p.%1$s=(SELECT MAX(p2.%1$s) FROM {{table}}planets AS p2) AND p.%1$s>0 ' .
-                    'GROUP BY p.%1$s ORDER BY u.username ASC', $resource[$element]), '', true);
+				if (SHOW_ADMIN_IN_RECORDS == false)
+				{
+					$record = doquery(sprintf(
+						'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username  ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, p.%1$s AS level ' .
+						'FROM {{table}}users AS u ' .
+						'LEFT JOIN {{table}}planets AS p ON (u.id=p.id_owner) ' .
+						'WHERE p.%1$s=(SELECT MAX(p2.%1$s) FROM {{table}}planets AS p2) AND p.%1$s>0 ' .
+						'GROUP BY p.%1$s ORDER BY u.username ASC', $resource[$element]), '', true);
+				}
+				else
+				{
+					$record = doquery(sprintf(
+						'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, p.%1$s AS level ' .
+						'FROM {{table}}users AS u ' .
+						'LEFT JOIN {{table}}planets AS p ON (u.id=p.id_owner) ' .
+						'WHERE p.%1$s=(SELECT MAX(p2.%1$s) FROM {{table}}planets AS p2 WHERE u.id = p2.id_owner AND u.authlevel <> 3) AND p.%1$s>0 ' .
+						'GROUP BY p.%1$s ORDER BY u.username ASC', $resource[$element]), '', true);
+				}                
             }
-            else if($element >= 100 && $element < 200)
+            else if(in_array($element, $reslist[Legacies_Empire::TYPE_RESEARCH]))
             {
-                $record = doquery(sprintf(
+				if (SHOW_ADMIN_IN_RECORDS == false)
+				{
+					$record = doquery(sprintf(
+						'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, u.%1$s AS level ' .
+						'FROM {{table}}users AS u ' .
+						'WHERE u.%1$s=(SELECT MAX(u2.%1$s) FROM {{table}}users AS u2) AND u.%1$s>0 ' .
+						'GROUP BY u.%1$s ORDER BY u.username ASC', $resource[$element]), '', true);
+				}
+				else
+				{
+					$record = doquery(sprintf(
                     'SELECT IF(COUNT(u.username)<=10,GROUP_CONCAT(DISTINCT u.username ORDER BY u.username DESC SEPARATOR ", "),"Plus de 10 joueurs ont ce record") AS players, u.%1$s AS level ' .
                     'FROM {{table}}users AS u ' .
-                    'WHERE u.%1$s=(SELECT MAX(u2.%1$s) FROM {{table}}users AS u2) AND u.%1$s>0 ' .
+                    'WHERE u.%1$s=(SELECT MAX(u2.%1$s) FROM {{table}}users AS u2 WHERE u2.`authlevel` <> 3) AND u.%1$s>0 AND u.`authlevel` <> 3 ' .
                     'GROUP BY u.%1$s ORDER BY u.username ASC', $resource[$element]), '', true);
+				}				
             }
             else
             {

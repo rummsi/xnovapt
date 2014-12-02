@@ -127,8 +127,7 @@ $lang['type_planetname'] = ($post["type"] == "planetname") ? " SELECTED" : "";
 $lang['type_allytag'] = ($post["type"] == "allytag") ? " SELECTED" : "";
 $lang['type_allyname'] = ($post["type"] == "allyname") ? " SELECTED" : "";
 $lang['searchtext'] = $searchtext;
-$lang['search_results'] = $search_results;
+@$lang['search_results'] = $search_results;
 //esto es algo repetitivo ... w
 $page = parsetemplate(gettemplate('search_body'), $lang);
 display($page,$lang['Search']);
-?>

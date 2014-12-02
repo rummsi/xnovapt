@@ -37,7 +37,7 @@ includeLang('banned');
 
 $parse = $lang;
 $parse['dpath'] = $dpath;
-$parse['mf'] = $mf;
+@$parse['mf'] = $mf;
 
 
 $query = doquery("SELECT * FROM {{table}} ORDER BY `id`;",'banned');
@@ -53,12 +53,11 @@ while($u = mysql_fetch_array($query)){
 }
 
 if ($i=="0")
- $parse['banned'] .= "<tr><th class=b colspan=6>Il n'y a pas de joueurs bannis</th></tr>";
+ @$parse['banned'] .= "<tr><th class=b colspan=6>Il n'y a pas de joueurs bannis</th></tr>";
 else
-  $parse['banned'] .= "<tr><th class=b colspan=6>Il y a {$i} joueurs bannis</th></tr>";
+  @$parse['banned'] .= "<tr><th class=b colspan=6>Il y a {$i} joueurs bannis</th></tr>";
 
 display(parsetemplate(gettemplate('banned_body'), $parse),'Banned',true);
 
 
 // Created by e-Zobar (XNova Team). All rights reversed (C) 2008
-?>

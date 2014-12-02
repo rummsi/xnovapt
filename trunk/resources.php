@@ -128,7 +128,7 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 				} else {
 					$OptSelected    = "";
 				}
-				$CurrRow['option'] .= "<option value=\"".$OptValue."\"".$OptSelected.">".$OptValue."%</option>";
+				@$CurrRow['option'] .= "<option value=\"".$OptValue."\"".$OptSelected.">".$OptValue."%</option>";
 			}
 			$CurrRow['type']                     = $lang['tech'][$ProdID];
 			$CurrRow['level']                    = ($ProdID > 200) ? $lang['quantity'] : $lang['level'];
@@ -275,4 +275,3 @@ function BuildRessourcePage ( $CurrentUser, $CurrentPlanet ) {
 // -----------------------------------------------------------------------------------------------------------
 // History version
 // 1.0 - Passage en fonction pour utilisation XNova
-?>

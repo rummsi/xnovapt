@@ -38,7 +38,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$parse['tt_name'] = $ElementName;
 		if (!isset($resource[$Element])) {
 			$parse['Requirements']  = $lang['Requirements'];
-			$page                  .= parsetemplate($HeadTpl, $parse);
+			@$page                  .= parsetemplate($HeadTpl, $parse);
 		} else {
 			if (isset($requirements[$Element])) {
 				$parse['required_list'] = "";
@@ -75,4 +75,3 @@ require_once dirname(__FILE__) .'/common.php';
 // - 1.0 mise en conformité code avec skin XNova
 // - 1.1 ajout lien pour les details des technos
 // - 1.2 suppression du lien details ou il n'est pas necessaire
-?>
