@@ -81,7 +81,7 @@ require_once dirname(__FILE__) .'/common.php';
 
        // Gestion des options speciales pour les admins
        if ($user['authlevel'] != LEVEL_PLAYER) {
-          if ($post['adm_pl_prot'] == 'on') {
+          if (@$post['adm_pl_prot'] == 'on') {
              doquery ("UPDATE {{table}} SET `id_level` = '".$user['authlevel']."' WHERE `id_owner` = '".$user['id']."';", 'planets');
           } else {
              doquery ("UPDATE {{table}} SET `id_level` = '0' WHERE `id_owner` = '".$user['id']."';", 'planets');
@@ -216,7 +216,7 @@ require_once dirname(__FILE__) .'/common.php';
        $SetSort  = $post['settings_sort'];
        $SetOrder = $post['settings_order'];
 
-       doquery("UPDATE {{table}} SET
+       @doquery("UPDATE {{table}} SET
        `email` = '$db_email',
        `avatar` = '$avatar',
        `dpath` = '$dpath',
@@ -311,5 +311,3 @@ require_once dirname(__FILE__) .'/common.php';
        }
        die();
     }
-
-    ?>
