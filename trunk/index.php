@@ -1,36 +1,52 @@
 <?php
-/**
- * This file is part of XNova:Legacies
- *
- * @license http://www.gnu.org/licenses/gpl-3.0.txt
- * @see http://www.xnova-ng.org/
- *
- * Copyright (c) 2009-Present, XNova Support Team <http://www.xnova-ng.org>
- * All rights reserved.
- *
+
+/*
+ * XNovaPT
+ * Copyright (C) 2012
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *                                --> NOTICE <--
- *  This file is part of the core development branch, changing its contents will
- * make you unable to use the automatic updates manager. Please refer to the
- * documentation for further information about customizing XNova.
- *
+ * 
+ * You should read the GNU General Public License, see <http://www.gnu.org/licenses/>.
+ * 
+ * XNovaPT
+ * @author XNovaPT Team <xnovaptteam@gmail.com>
+ * @index.php
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 0.01  2/Dez/2014 20:51:25
  */
 
-if (filesize('Libraries/App/configs/config.php') == 0) {
-	header('location: install/');
-	exit();
+define('INSIDE', true);
+define('INSTALL', false);
+define('DISABLE_IDENTITY_CHECK', true);
+require_once dirname(__FILE__) . '/common.php';
+include 'Libraries/Classes/AbstractIndexPage.php';
+include 'Libraries/Pages/Error/ShowErrorPage.php';
+
+$page = HTTP::_GP('page', 'index');
+$mode = HTTP::_GP('mode', 'show');
+$mode = str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
+
+$pageClass = 'Show' . ucwords($page) . 'Page';
+
+includeLang('login');
+
+if (!file_exists('Libraries/Pages/Index/' . $pageClass . '.php')) {
+    ShowErrorPage::message('A página ' . ucwords($page) . ' não existe', $lang['Login_Error']);
 }
 
-header('location: login.php');
+// Added Autoload in feature Versions
+require(ROOT_PATH . 'Libraries/Pages/Index/' . $pageClass . '.php');
+
+$pageObj = new $pageClass;
+
+$pageObj->{$mode}();
+
+
