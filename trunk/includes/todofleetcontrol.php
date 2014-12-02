@@ -108,3 +108,6 @@ include(ROOT_PATH . 'includes/functions/BuildFleetEventTable.php');
 include(ROOT_PATH . 'includes/functions/ResetThisFuckingCheater.php');
 include(ROOT_PATH . 'includes/functions/IsVacationMode.php');
 
+include(ROOT_PATH . 'Libraries/Classes/Display.php');
+include(ROOT_PATH . 'Libraries/Classes/HTTP.php');
+include(ROOT_PATH . 'Libraries/Classes/Template.php');
