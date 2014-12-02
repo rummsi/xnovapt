@@ -35,7 +35,7 @@ require_once dirname(__FILE__) .'/common.php';
 $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
 
 $a = $get['a'];
-$n = intval($get['n']);
+@$n = intval($get['n']);
 $lang['Please_Wait'] = "Patientez...";
 
 //lenguaje
@@ -43,7 +43,7 @@ includeLang('notes');
 
 $lang['PHP_SELF'] = 'notes.'.PHPEXT;
 
-if($post["s"] == 1 || $post["s"] == 2){//Edicion y agregar notas
+if(@$post["s"] == 1 || @$post["s"] == 2){//Edicion y agregar notas
 
 	$time = time();
 	$priority = $post["u"];
@@ -80,7 +80,7 @@ elseif($post){//Borrar
 			$note_query = doquery("SELECT * FROM {{table}} WHERE id=$id AND owner={$user['id']}","notes");
 			//comprobamos,
 			if($note_query){
-				$deleted++;
+				@$deleted++;
 				doquery("DELETE FROM {{table}} WHERE `id`=$id;","notes");// y borramos
 			}
 		}
@@ -108,7 +108,7 @@ elseif($post){//Borrar
 		$parse['title'] = '';
 		$parse['inputs'] = '<input type=hidden name=s value=1>';
 
-		$page .= parsetemplate(gettemplate('notes_form'), $parse);
+		@$page .= parsetemplate(gettemplate('notes_form'), $parse);
 
 		display($page,$lang['Notes'],false);
 
@@ -127,7 +127,7 @@ elseif($post){//Borrar
 
 		$parse = array_merge($note,$lang);
 
-		$parse['c_Options'] = "<option value=2{$SELECTED[2]}>{$lang['Important']}</option>
+		@$parse['c_Options'] = "<option value=2{$SELECTED[2]}>{$lang['Important']}</option>
 			  <option value=1{$SELECTED[1]}>{$lang['Normal']}</option>
 			  <option value=0{$SELECTED[0]}>{$lang['Unimportant']}</option>";
 
@@ -135,7 +135,7 @@ elseif($post){//Borrar
 		$parse['TITLE'] = $lang['Editnote'];
 		$parse['inputs'] = '<input type=hidden name=s value=2><input type=hidden name=n value='.$note['id'].'>';
 
-		$page .= parsetemplate(gettemplate('notes_form'), $parse);
+		@$page .= parsetemplate(gettemplate('notes_form'), $parse);
 
 		display($page,$lang['Notes'],false);
 
@@ -159,20 +159,19 @@ elseif($post){//Borrar
 			$parse['NOTE_TITLE'] = $note['title'];
 			$parse['NOTE_TEXT'] = strlen($note['text']);
 
-			$list .= parsetemplate(gettemplate('notes_body_entry'), $parse);
+			@$list .= parsetemplate(gettemplate('notes_body_entry'), $parse);
 
 		}
 
 		if($count == 0){
-			$list .= "<tr><th colspan=4>{$lang['ThereIsNoNote']}</th>\n";
+			@$list .= "<tr><th colspan=4>{$lang['ThereIsNoNote']}</th>\n";
 		}
 
 		$parse = $lang;
 		$parse['BODY_LIST'] = $list;
 		//fragmento de template
-		$page .= parsetemplate(gettemplate('notes_body'), $parse);
+		@$page .= parsetemplate(gettemplate('notes_body'), $parse);
 
 		display($page,$lang['Notes'],false);
 	}
 }
-?>

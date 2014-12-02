@@ -91,7 +91,7 @@ function ShowLeftMenu ( $Level , $Template = 'left_menu') {
 	if ($game_config['enable_notes'] == 1) {
 		$parse['notes_link']  = "
 		<tr>
-			<td colspan=\"2\"><div><a href=\"#\" onClick=\"f(\'notes.php\', \'Report\');\" accesskey=\"n\">Notes</a></div></td>
+			<td colspan=\"2\"><div><a href=\"#\" onClick=\"f('notes.php', 'Report');\" accesskey=\"n\">Notes</a></div></td>
 		</tr>";
 	} else {
 		$parse['notes_link']  = "";
@@ -108,4 +108,3 @@ function ShowLeftMenu ( $Level , $Template = 'left_menu') {
 // History version
 // 1.0 - Passage en fonction pour XNova version future
 // 1.1 - Modification pour gestion Admin / Game OP / Modo
-?>

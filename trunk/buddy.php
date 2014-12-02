@@ -35,9 +35,9 @@ require_once dirname(__FILE__) .'/common.php';
 	includeLang('buddy');
 
 $a = $get['a'];
-$e = $get['e'];
-$s = $get['s'];
-$u = intval( $get['u'] );
+@$e = $get['e'];
+@$s = $get['s'];
+@$u = intval( $get['u'] );
 
 if ( $s == 1 && isset( $get['bid'] ) ) {
 	// Effacer une entree de la liste d'amis
@@ -227,4 +227,3 @@ $page .= "
 
 display ( $page, $lang['Buddy_list'], false );
 // Created by Perberos. All rights reversed (C) 2006
-?>
