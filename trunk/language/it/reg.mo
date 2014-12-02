@@ -73,8 +73,8 @@ $lang['error_emailexist']  = 'Questa email &egrave; gi&agrave; utilizzata!<br />
 $lang['error_sex']         = 'Errore nella sessione!<br />';
 $lang['error_mailsend']    = 'Si &egrave; verificato un errore durante l\'invio dell\'email! La password &egrave; :';
 $lang['return']            = '<a href="http://battlesclub.awardspace.info/reg.php"><FONT color="#45E525">registrazione</a> </FONT>';   
-$lang['reg_welldone']      = 'Registrazione terminata con successo!';    
+$lang['reg_welldone']      = 'Registrazione terminata con successo!';
+$lang['reg_go_back'] 	   = 'Ritorno';
 
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
-?>

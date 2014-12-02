@@ -55,7 +55,7 @@ function PlanetSizeRandomiser ($Position, $HomeWorld = false) {
 }
 
 function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $PlanetName = '', $HomeWorld = false) {
-	global $lang;
+	global $lang, $game_config;
 
 	// Avant tout, on verifie s'il existe deja une planete a cet endroit
 	$QrySelectPlanet  = "SELECT	`id` ";
@@ -207,5 +207,3 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $PlanetOwnerID, $Pla
 
 	return $RetValue;
 }
-
-?>
