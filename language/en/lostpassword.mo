@@ -32,9 +32,10 @@
 $lang['ResetPass'] = "Reset the password";
 $lang['TextPass1'] = "Please enter the email address of your account";
 $lang['TextPass2'] = "informed as to your options. It is also the one you used for registration. If you press 'Submit', a password is created when you receive it by e-mail to the address indicated.";
-$lang['pseudo']    = "Nickname";
-$lang['email']    = "E-Mail";
+$lang['pseudo'] = "Nickname";
+$lang['email'] = "E-Mail";
 $lang['ButtonSendPass'] = "Send";
 $lang['PassForm'] = "Form";
 $lang['Lost_FailUser'] = 'This player does not exist.<br><a href=login.php>Return</a>';
 $lang['Lost_Error'] = 'Error';
+$lang['go_back'] = 'Return to main';
