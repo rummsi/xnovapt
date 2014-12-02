@@ -33,7 +33,6 @@ define('INSTALL', false);
 define('IN_INSTALL', true);
 
 define('ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
-define('PHPEXT', include ROOT_PATH . 'extension.inc');
 
 define('DEFAULT_SKINPATH', '../skins/xnova/');
 define('TEMPLATE_DIR', realpath(ROOT_PATH . '/templates/'));
@@ -56,8 +55,8 @@ include(ROOT_PATH . 'includes/strings.php');
 include(ROOT_PATH . 'includes/databaseinfos.php');
 include(ROOT_PATH . 'includes/migrateinfo.php');
 
-$mode     = isset($get['mode']) ? strval($get['mode']) : 'intro';
-$page     = isset($get['page']) ? intval($get['page']) : 1;
+$mode     = isset($_GET['mode']) ? strval($_GET['mode']) : 'intro';
+$page     = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $nextPage = $page + 1;
 
 $mainTpl = gettemplate('install/ins_body');
@@ -73,10 +72,10 @@ switch ($mode) {
 
     case 'ins':
         if ($page == 1) {
-            if (isset($get['error']) && intval($get['error']) == 1) {
+            if (isset($_GET['error']) && intval($_GET['error']) == 1) {
 	            adminMessage ($lang['ins_error1'], $lang['ins_error']);
             }
-            elseif (isset($get['error']) && intval($get['error']) == 2) {
+            elseif (isset($_GET['error']) && intval($_GET['error']) == 2) {
 	            adminMessage ($lang['ins_error2'], $lang['ins_error']);
             }
 
@@ -85,11 +84,11 @@ switch ($mode) {
             $bloc['dpath'] = $dpath;
             $frame  = parsetemplate($subTpl, $bloc);
         } else if ($page == 2) {
-            $host   = $post['host'];
-            $user   = $post['user'];
-            $pass   = $post['passwort'];
-            $prefix = $post['prefix'];
-            $db     = $post['db'];
+            $host   = $_POST['host'];
+            $user   = $_POST['user'];
+            $pass   = $_POST['passwort'];
+            $prefix = $_POST['prefix'];
+            $db     = $_POST['db'];
 
             $connection = @mysql_connect($host, $user, $pass);
             if (!$connection) {
@@ -103,7 +102,7 @@ switch ($mode) {
                 exit();
             }
 
-            $dz = fopen("../config.php", "w");
+            $dz = fopen("../Libraries/App/configs/config.php", "w");
             if (!$dz) {
 	            header("Location: ?mode=ins&page=1&error=2");
 	            exit();
@@ -154,7 +153,7 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 3) {
-            if (isset($get['error']) && intval($get['error']) == 3) {
+            if (isset($_GET['error']) && intval($_GET['error']) == 3) {
             adminMessage($lang['ins_error3'], $lang['ins_error']);
             }
 
@@ -163,31 +162,31 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 4) {
-            $adm_user   = $post['adm_user'];
-            $adm_pass   = $post['adm_pass'];
-            $adm_email  = $post['adm_email'];
-            $adm_planet = $post['adm_planet'];
-            $adm_sex    = $post['adm_sex'];
+            $adm_user   = $_POST['adm_user'];
+            $adm_pass   = $_POST['adm_pass'];
+            $adm_email  = $_POST['adm_email'];
+            $adm_planet = $_POST['adm_planet'];
+            $adm_sex    = $_POST['adm_sex'];
             $md5pass    = md5($adm_pass);
 
-            if (!isset($post['adm_user'])) {
+            if (!isset($_POST['adm_user'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
-            if (!isset($post['adm_pass'])) {
+            if (!isset($_POST['adm_pass'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
-            if (!isset($post['adm_email'])) {
+            if (!isset($_POST['adm_email'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
-            if (!isset($post['adm_planet'])) {
+            if (!isset($_POST['adm_planet'])) {
                 header("Location: ?mode=ins&page=3&error=3");
                 exit();
             }
 
-            $config = include(ROOT_PATH . 'config.php');
+            $config = include(ROOT_PATH . 'Libraries/App/configs/config.php');
             $db_host   = $config['global']['database']['options']['hostname'];
             $db_user   = $config['global']['database']['options']['username'];
             $db_pass   = $config['global']['database']['options']['password'];
@@ -272,10 +271,10 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 2) {
-            if ($get['error'] == 1) {
+            if ($_GET['error'] == 1) {
             adminMessage ($lang['ins_error1'], $lang['ins_error']);
             }
-            elseif ($get['error'] == 2) {
+            elseif ($_GET['error'] == 2) {
             adminMessage ($lang['ins_error2'], $lang['ins_error']);
             }
 
@@ -284,11 +283,11 @@ EOF;
             $bloc['dpath']        = $dpath;
             $frame  = parsetemplate ( $subTpl, $bloc );
         } elseif ($page == 3) {
-            $host   = $post['host'];
-            $user   = $post['user'];
-            $pass   = $post['passwort'];
-            $prefix = $post['prefix'];
-            $db     = $post['db'];
+            $host   = $_POST['host'];
+            $user   = $_POST['user'];
+            $pass   = $_POST['passwort'];
+            $prefix = $_POST['prefix'];
+            $db     = $_POST['db'];
 
             if (!mysql_connect($host, $user, $pass)) {
                 header("Location: ?mode=goto&page=2&error=1");
@@ -300,7 +299,7 @@ EOF;
                 exit();
             }
 
-            $dz = fopen("../config.php", "w");
+            $dz = fopen("../Libraries/App/configs/config.php", "w");
             if (!$dz) {
                 header("Location: ?mode=ins&page=1&error=2");
                 exit();
