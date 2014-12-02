@@ -38,3 +38,4 @@ $lang['ButtonSendPass'] = "Invia";
 $lang['PassForm'] = "Recupero password";
 $lang['Lost_FailUser'] = 'Questo giocatore non esiste.<br><a href=login.php>Ritorno</a>';
 $lang['Lost_Error'] = 'Errore';
+$lang['go_back'] = 'Ritorno';
