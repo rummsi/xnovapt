@@ -28,7 +28,7 @@
  *
  */
 
-if (filesize('config.php') == 0) {
+if (filesize('Libraries/App/configs/config.php') == 0) {
 	header('location: install/');
 	exit();
 }
