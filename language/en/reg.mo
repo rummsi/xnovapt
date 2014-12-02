@@ -28,52 +28,51 @@
  *
  */
 
-
 if (!defined('INSIDE')) {
-	die("attemp hacking");
+    die("attemp hacking");
 }
 
 // Registration form
-$lang['registry']          = 'Register';
-$lang['form']              = 'Registration Form';
-$lang['Register']          = 'SteadGame Registration';
-$lang['Undefined']         = '- Undefined -';
-$lang['Male']              = 'Male';
-$lang['Female']            = 'Female';
-$lang['Multiverse']        = 'XNova';
-$lang['E-Mail']            = 'E-Mail address';
-$lang['MainPlanet']        = 'Main planet\'s name';
-$lang['GameName']          = 'In-Game Name';
-$lang['Sex']               = 'Sex';
-$lang['accept']            = 'I accept the agreement';
-$lang['signup']            = ' Signup ';
-$lang['neededpass']        = 'Password';
-$lang['code_secu']          = 'Security';
+$lang['registry'] = 'Register';
+$lang['form'] = 'Registration Form';
+$lang['Register'] = 'SteadGame Registration';
+$lang['Undefined'] = '- Undefined -';
+$lang['Male'] = 'Male';
+$lang['Female'] = 'Female';
+$lang['Multiverse'] = 'XNova';
+$lang['E-Mail'] = 'E-Mail address';
+$lang['MainPlanet'] = 'Main planet\'s name';
+$lang['GameName'] = 'In-Game Name';
+$lang['Sex'] = 'Sex';
+$lang['accept'] = 'I accept the agreement';
+$lang['signup'] = ' Signup ';
+$lang['neededpass'] = 'Password';
+$lang['code_secu'] = 'Security';
 
 // Send
-$lang['mail_welcome']      = 'Thank you for registering at SteadGame({gameurl}) \nYour password is: {password}\n\nHave fun!\n{gameurl}';
-$lang['mail_title']        = 'Registration';
+$lang['mail_welcome'] = 'Thank you for registering at SteadGame({gameurl}) \nYour password is: {password}\n\nHave fun!\n{gameurl}';
+$lang['mail_title'] = 'Registration';
 $lang['thanksforregistry'] = 'Thank you for signing up! You will receive an email with your password.';
 $lang['sender_message_ig'] = 'Admin';
-$lang['subject_message_ig']= 'Welcome';
-$lang['text_message_ig']   = 'Welcome to SteadGame, we wish you all the best and goodluck!';
+$lang['subject_message_ig'] = 'Welcome';
+$lang['text_message_ig'] = 'Welcome to SteadGame, we wish you all the best and goodluck!';
 
 
 // Errors
-$lang['error_secu']        = 'Security code invalid!<br />';
-$lang['error_mail']        = 'E-mail invalid!<br />';
-$lang['error_planet']      = 'Error in planet name!<br />';
-$lang['error_hplanetnum']  = 'You must use alphanumeric characters to name your planet!<br />';
-$lang['error_character']   = 'Error in your name!<br />';
-$lang['error_charalpha']   = 'The username must be alphanumeric characters!<br />';
-$lang['error_password']    = 'Your password must be 4 character\'s minimum!<br />';
-$lang['error_rgt']         = 'You must accept the Terms of Usage.<<br />';
-$lang['error_userexist']   = 'Player name already exists.<br />';
-$lang['error_emailexist']  = 'E-Mail is already in use.<br />';
-$lang['error_sex']         = 'Error in sex!<br />';
-$lang['error_mailsend']    = 'An error occurred while sending the email! Your password is: ';
-$lang['reg_welldone']      = 'Registration complete!';
+$lang['error_secu'] = 'Security code invalid!<br />';
+$lang['error_mail'] = 'E-mail invalid!<br />';
+$lang['error_planet'] = 'Error in planet name!<br />';
+$lang['error_hplanetnum'] = 'You must use alphanumeric characters to name your planet!<br />';
+$lang['error_character'] = 'Error in your name!<br />';
+$lang['error_charalpha'] = 'The username must be alphanumeric characters!<br />';
+$lang['error_password'] = 'Your password must be 4 character\'s minimum!<br />';
+$lang['error_rgt'] = 'You must accept the Terms of Usage.<<br />';
+$lang['error_userexist'] = 'Player name already exists.<br />';
+$lang['error_emailexist'] = 'E-Mail is already in use.<br />';
+$lang['error_sex'] = 'Error in sex!<br />';
+$lang['error_mailsend'] = 'An error occurred while sending the email! Your password is: ';
+$lang['reg_welldone'] = 'Registration complete!';
+$lang['reg_go_back'] = 'Return to main';
 
 // Created by Perberos. All rights reversed (C) 2006
 // Complet by XNova Team. All rights reversed (C) 2008
-?>
