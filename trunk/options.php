@@ -34,7 +34,7 @@ require_once dirname(__FILE__) .'/common.php';
 
     includeLang('options');
 
-    $lang['PHP_SELF'] = 'options.' . PHPEXT;
+    $lang['PHP_SELF'] = 'options.php';
 
     $dpath = (!$user["dpath"]) ? DEFAULT_SKINPATH : $user["dpath"];
     $mode = $get['mode'];
