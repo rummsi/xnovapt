@@ -37,7 +37,7 @@ class Database
 function doquery($query, $table, $fetch = false)
 {
     if (!isset(Database::$config)) {
-        $config = require dirname(dirname(__FILE__)) . '/config.php';
+        $config = require dirname(dirname(__FILE__)) . '/Libraries/App/configs/config.php';
     }
 
     if(!isset(Database::$dbHandle))
