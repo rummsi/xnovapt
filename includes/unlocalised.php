@@ -95,7 +95,7 @@ function GetFleetMaxSpeed ($FleetArray, $Fleet, $Player) {
         }
     }
     if ($Fleet != 0) {
-        $ShipSpeed = $speedalls[$Ship];
+        @$ShipSpeed = $speedalls[$Ship];
         $speedalls = $ShipSpeed;
     }
 
