@@ -64,3 +64,4 @@ $lang['no_laboratory']    = "Requires Research Laboratory!";
 $lang['need_hangar']      = "Shipyard required";
 $lang['labo_on_update']   = "Impossible to research while upgrading Research Laboratory!";
 $lang['Buildings']    	  = 'Buildings';
+$lang['Shipyard']     	  = 'Shipyard';
