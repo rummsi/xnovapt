@@ -231,4 +231,4 @@ $lang['changelog']   = array(
 - Base du repack a Tom1991',
 );
 
-?>
+$lang['title_changelog']= 'Change Log';
