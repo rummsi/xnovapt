@@ -104,7 +104,7 @@ function display ($page, $title = '', $topnav = true, $metatags = '', $AdminPage
 	}
 
 	if ($topnav) {
-		$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
+	//$DisplayPage .= ShowTopNavigationBar( $user, $planetrow );
 	}
 	$DisplayPage .= "<center>\n". $page ."\n</center>\n";
 	// Affichage du Debug si necessaire
@@ -181,5 +181,3 @@ function CalculateMaxPlanetFields (&$planet) {
 
 	return $planet["field_max"] + ($planet[ $resource[33] ] * 5);
 }
-
-?>
