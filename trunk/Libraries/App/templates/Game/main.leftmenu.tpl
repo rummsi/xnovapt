@@ -62,6 +62,9 @@
                                 <td colspan="2"><div><a href="game.php?page=fleet1" accesskey="t" target="_self">{$lang['lft_Fleet']}</a></div></td>
                             </tr>
                             <tr>
+                                <td colspan="2"><div><a href="game.php?page=movement" accesskey="t" target="_self">{$lang['lft_movement']}</a></div></td>
+                            </tr>
+                            <tr>
                                 <td colspan="2"><div><a href="game.php?page=messages" accesskey="c" target="_self">{$lang['lft_Messages']}</a></div></td>
                             </tr>
                             <tr>

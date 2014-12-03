@@ -126,3 +126,5 @@ $lang['lft_lm_ifo_serv'] = "Ressources";
 $lang['lft_lm_ifo_game'] = "Jeu";
 $lang['lft_lm_ifo_fleet'] = "Flotte";
 $lang['lft_lm_ifo_queue'] = "Queues";
+
+$lang['lft_movement'] 	  = 'Mouvement';
