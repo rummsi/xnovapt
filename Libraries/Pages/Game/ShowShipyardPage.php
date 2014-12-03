@@ -79,17 +79,12 @@ class ShowShipyardPage extends AbstractGamePage {
                 'speed' => $shipyard->getBuildTime($item['ship_id'], 1)
             ));
         }
-        $parse = array(
-            'data' => json_encode($data)
-        );
-        $BuildQueue = parsetemplate(gettemplate('buildings_script'), $parse);
 
         $this->tplObj->assign(array(
             'title' => $lang['Shipyard'],
             'types' => $types,
             'shipyard' => $shipyard,
             'resource' => $resource,
-            'buildinglist' => $BuildQueue,
             'data' => json_encode($data),
         ));
 
