@@ -164,6 +164,6 @@ $lang['Want_go_out'] = 'Vuoi veramente uscire dall\'alleanza?';
 
 
 $lang['Denied_access'] = 'Non si dispone dei diritti necessari!';
+$lang['New_tag'] = 'Nuovo tag';
 
 // Created by Ichigo. All rights reversed (C) 2006 
-?>
