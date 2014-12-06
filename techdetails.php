@@ -52,6 +52,6 @@ if ($Id == 12) {
 $parse['Liste'] = $Liste;
 $page = parsetemplate($PageTPL, $parse);
 
-display ($page, $lang['Tech'], false, '', false);
+display ($page, $lang['Tech']);
 
 ?>
