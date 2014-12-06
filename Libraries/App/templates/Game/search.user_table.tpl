@@ -1,4 +1,3 @@
-
 <table width="519">
 	<tr>
 	  <td class="c">{Name}</td>
