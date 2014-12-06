@@ -45,6 +45,8 @@
 	$QryTableAnnonce     = "CREATE TABLE `{{table}}` ( ";
 	$QryTableAnnonce    .= "`id` int(11) NOT NULL auto_increment, ";
 	$QryTableAnnonce    .= "`user` text collate latin1_general_ci NOT NULL, ";
+	$QryTableAnnonce    .= "`user_id` int(11) NOT NULL, ";
+	$QryTableAnnonce    .= "`date` int(11) NOT NULL, ";
 	$QryTableAnnonce    .= "`galaxie` int(11) NOT NULL, ";
 	$QryTableAnnonce    .= "`systeme` int(11) NOT NULL, ";
 	$QryTableAnnonce    .= "`metala` bigint(11) NOT NULL, ";
