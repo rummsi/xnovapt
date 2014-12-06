@@ -28,40 +28,12 @@
  *
  */
 
-define('INSIDE' , true);
-define('INSTALL' , false);
-require_once dirname(__FILE__) .'/common.php';
 
-includeLang('messages');
-includeLang('system');
+$lang['multi_declare'] = 'DECLARATION DE MULTICOMPTE';
+$lang['fst_player_imp'] = "Premier joueur implique";
+$lang['scd_player_imp'] = "Deuxième joueur implique";
+$lang['trd_player_imp'] = "Troisieme joueur implique";
+$lang['multi_motive'] = "Raison du multicompte";
 
-
-$Mode = $get['mode'];
-
-
-if ($Mode != 'add') {
-
-    $parse['Declaration']     = $lang['Declaration'];
-    $parse['DeclarationText'] = $lang['DeclarationText'];
-
-    $page = parsetemplate(gettemplate('multi'), $parse);
-    display($page, $lang['messages']);
-
-}
-if ($mode == 'add') {
-    $Texte = $post['texte'];
-    $Joueur = $user['username'];
-
-    $SQLAjoutDeclaration = "INSERT INTO {{table}} SET ";
-    $SQLAjoutDeclaration .= "`player` = '". $Joueur ."', ";
-	$SQLAjoutDeclaration .= "`text` = '". $Texte ."';";
-    doquery($SQLAjoutDeclaration, 'multi');
-
-
-    message($lang['sys_request_ok'],$lang['sys_ok']);
-
-}
-// D�claration des multi compte
-// Par Tom pour XNova
-?>
-
+$lang['multi_message_content'] = "Merci, votre demande a ete prise en compte. Les autres joueurs que vous avez implique doivent egalement et imperativement suivre cette procedure aussi.<br><a href='game.php?page=multi'>Retour</a>";
+$lang['multi_message_add'] = "Ajout";
