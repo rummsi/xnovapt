@@ -40,6 +40,9 @@ class ShowBuildingsPage extends AbstractGamePage {
 
         includeLang('buildings');
 
+        // Mise a jour de la liste de construction si necessaire
+        UpdatePlanetBatimentQueueList($planetrow, $user);
+        $IsWorking = HandleTechnologieBuild($planetrow, $user);
         CheckPlanetUsedFields($planetrow);
         // Tables des batiments possibles par type de planete
         $Allowed['1'] = array(1, 2, 3, 4, 12, 14, 15, 21, 22, 23, 24, 31, 33, 34, 44);
@@ -116,25 +119,10 @@ class ShowBuildingsPage extends AbstractGamePage {
         } else {
             $CanBuildElement = false;
         }
-        foreach ($lang['tech'] as $Element => $ElementName) {
-            if (in_array($Element, $Allowed[$planetrow['planet_type']])) {
-                $CurrentMaxFields = CalculateMaxPlanetFields($planetrow);
-                if ($planetrow["field_current"] < ($CurrentMaxFields - $Queue['lenght'])) {
-                    $RoomIsOk = true;
-                } else {
-                    $RoomIsOk = false;
-                }
-                if (IsTechnologieAccessible($user, $planetrow, $Element)) {
-                    $HaveRessources = IsElementBuyable($user, $planetrow, $Element, true, false);
-                    $parse = array();
-                }
-            }
-        }
 
         $this->tplObj->assign(array(
             'title' => $lang['Buildings'],
             'Queue_lenght' => $Queue['lenght'],
-            'RoomIsOk' => $RoomIsOk,
             'Allowed' => $Allowed,
             'resource' => $resource,
             'CanBuildElement' => $CanBuildElement,

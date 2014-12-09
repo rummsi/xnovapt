@@ -52,7 +52,7 @@ function InsertBuildListScript ( $CallProgram ) {
 	$BuildListScript .= "		if ( s < 0 ) {\n";
 	$BuildListScript .= "			if (1) {\n";
 	$BuildListScript .= "				blc.innerHTML = \"". $lang['completed'] ."<br>\" + \"<a href=game.php?page=". $CallProgram ."&planet=\" + pl + \">". $lang['continue'] ."</a>\";\n";
-	$BuildListScript .= "				window.setTimeout('document.location.href=\"game.php?page=". $CallProgram .".php?planet=' + pl + '\";', 2000);\n";
+	$BuildListScript .= "				window.setTimeout('document.location.href=\"game.php?page=". $CallProgram ."&planet=' + pl + '\";', 2000);\n";
 	$BuildListScript .= "			} else {\n";
 	$BuildListScript .= "				timeout = 0;\n";
 	$BuildListScript .= "				blc.innerHTML = \"". $lang['completed'] ."<br>\" + \"<a href=game.php?page=". $CallProgram ."&planet=\" + pl + \">". $lang['continue'] ."</a>\";\n";

@@ -19,18 +19,27 @@
                 </tr>
                 {foreach $lang['tech'] as $Element => $ElementName}
                     {if in_array($Element, $Allowed[$planetrow['planet_type']])}
+                        {$CurrentMaxFields = CalculateMaxPlanetFields($planetrow)}
+                        {if ($planetrow["field_current"] < ($CurrentMaxFields - $Queue['lenght']))}
+                            {$RoomIsOk = true}
+                        {else}
+                            {$RoomIsOk = false}
+                        {/if}
                         {if IsTechnologieAccessible($user, $planetrow, $Element)}
+                            {$HaveRessources = IsElementBuyable($user, $planetrow, $Element, true, false)}
+                            {$ElementBuildTime = GetBuildingTime($user, $planetrow, $Element)}
                     <tr>
                         <td class="l">
                             <a href="game.php?page=infos&gid={$Element}">
-                            <img border="0" src="{$dpath}gebaeude/{$Element}.gif" align="top" width="120" height="120">
+                                <img border="0" src="{$dpath}gebaeude/{$Element}.gif" align="top" width="120" height="120">
                             </a>
                         </td>
                         <td class="l">
-                            <a href="game.php?page=infos&gid={$Element}">{$ElementName}</a>{if $planetrow[$resource[$Element]] > 0}({$lang['level']}{$planetrow[$resource[$Element]]}){/if}<br>
+                        <a href="game.php?page=infos&gid={$Element}">{$ElementName}</a>
+                            {if $planetrow[$resource[$Element]] > 0}({$lang['level']}{$planetrow[$resource[$Element]]}){/if}<br>
                             {$lang['res']['descriptions'][$Element]}<br>
                             {GetElementPrice($user, $planetrow, $Element)}
-                            {ShowBuildTime(GetBuildingTime($user, $planetrow, $Element))}
+                            {ShowBuildTime($ElementBuildTime)}
                             {GetRestPrice($user, $planetrow, $Element)}
                         </td>
                         <td class="k">
@@ -51,13 +60,17 @@
                                         {/if}
                                     {else}
                                         {if IsElementBuyable($user, $planetrow, $Element, true, false) == true}
-                                            <a href="game.php?page=buildings&cmd=insert&building={$Element}"><font color=#00FF00>{$lang['BuildNextLevel']} {$planetrow[$resource[$Element]] + 1}</font></a>
+                                            <a href="game.php?page=buildings&cmd=insert&building={$Element}">
+                                                <font color=#00FF00>{$lang['BuildNextLevel']} {$planetrow[$resource[$Element]] + 1}</font>
+                                            </a>
                                         {else}
                                             <font color=#FF0000>{$lang['BuildNextLevel']} {$planetrow[$resource[$Element]] + 1}</font>
                                         {/if}
                                     {/if}
                                 {else}
-                                    <a href="game.php?page=buildings&cmd=insert&building={$Element}"><font color=#00FF00>{$lang['InBuildQueue']}</font></a>
+                                    <a href="game.php?page=buildings&cmd=insert&building={$Element}">
+                                        <font color=#00FF00>{$lang['InBuildQueue']}</font>
+                                    </a>
                                 {/if}
                             {elseif $RoomIsOk && !$CanBuildElement}
                                 {if $planetrow[$resource[$Element]] + 1 == 1}
