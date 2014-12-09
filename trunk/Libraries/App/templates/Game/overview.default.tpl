@@ -72,17 +72,17 @@
                         {if $planetrow['b_building'] != 0}
                             {*UpdatePlanetBatimentQueueList($planetrow, $user)*}
                             {if $planetrow['b_building'] != 0}
-                                {InsertBuildListScript("overview")}
+                                {InsertBuildListScript("buildings")}
                                 {$lang['tech'][$CurrBuild[0]]} ({$CurrBuild[1]})
                                 <br />
                                 <div id="blc" class="z">{pretty_time($RestTime)}</div>
-                                <!--<script language="JavaScript">
+                                <script language="JavaScript">
                                     pp = "{$RestTime}";
                                     pk = "{1}";
                                     pm = "cancel";
                                     pl = "{$PlanetID}";
                                     t();
-                                </script>-->
+                                </script>
                             {else}
                                 {$lang['Free']}
                             {/if}
