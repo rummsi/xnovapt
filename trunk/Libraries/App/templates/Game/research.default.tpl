@@ -11,6 +11,7 @@
                                 {foreach $lang['tech'] as $Tech => $TechName}
                                     {if $Tech > 105 && $Tech <= 199}
                                         {if IsTechnologieAccessible($user, $planetrow, $Tech)}
+                                            {$CanBeDone = IsElementBuyable($user, $planetrow, $Tech)}
                                             <tr>
                                                 <th class="l">
                                                     <a href="game.php?page=infos&gid={$Tech}">
@@ -25,9 +26,10 @@
                                                 </td>
                                                 <th class="l">
                                                     {if !$InResearch}
+                                                        {$LevelToDo = 1 + $user[$resource[$Tech]]}
                                                         {if $CanBeDone}
                                                             {if !CheckLabSettingsInQueue ($planetrow)}
-                                                                {if 1 + $user[$resource[$Tech]] == 1}
+                                                                {if $LevelToDo == 1}
                                                                     <font color=#FF0000>{$lang['Rechercher']}</font>
                                                                 {else}
                                                                     <font color=#FF0000>{$lang['Rechercher']}<br>{$lang['level']} {1 + $user[$resource[$Tech]]}</font>
@@ -42,15 +44,15 @@
                                                                 </a>
                                                             {/if}
                                                         {else}
-                                                            {if 1 + $user[$resource[$Tech]] == 1}
+                                                            {if $LevelToDo == 1}
                                                                 <font color=#FF0000>{$lang['Rechercher']}</font>
                                                             {else}
                                                                 <font color=#FF0000>{$lang['Rechercher']}<br>{$lang['level']} {1 + $user[$resource[$Tech]]}</font>
                                                             {/if}
                                                         {/if}
                                                     {else}
-                                                        {if ($ThePlanet["b_tech_id"] == $Tech)}
-                                                            {if ($ThePlanet['id'] != $planetrow['id'])}
+                                                        {if $ThePlanet["b_tech_id"] == $Tech}
+                                                            {if $ThePlanet['id'] != $planetrow['id']}
                                                                 <div id="brp" class="z"></div>
                                                                 <script   type="text/javascript">
                                                                 v = new Date();
