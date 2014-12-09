@@ -58,7 +58,7 @@ class ShowResearchPage extends AbstractGamePage {
         // Boucle d'interpretation des eventuelles commandes
         if (isset($_GET['cmd'])) {
             $TheCommand = $_GET['cmd'];
-            $Techno = $_GET['tech'];
+            $Techno = ltrim($_GET['tech'],0);
             if (is_numeric($Techno)) {
                 if (in_array($Techno, $reslist['tech'])) {
                     // Bon quand on arrive ici ... On sait deja qu'on a une technologie valide
@@ -74,11 +74,16 @@ class ShowResearchPage extends AbstractGamePage {
                                 $WorkingPlanet['metal'] += $costs['metal'];
                                 $WorkingPlanet['crystal'] += $costs['crystal'];
                                 $WorkingPlanet['deuterium'] += $costs['deuterium'];
-                                $WorkingPlanet['b_tech_id'] = 0;
-                                $WorkingPlanet["b_tech"] = 0;
-                                $user['b_tech_planet'] = 0;
-                                $UpdateData = true;
-                                $InResearch = false;
+                                if( $WorkingPlanet['id'] == $planetrow['id'] ) {
+                                    $planetrow['metal']      += $costs['metal'];
+                                    $planetrow['crystal']    += $costs['crystal'];
+                                    $planetrow['deuterium']  += $costs['deuterium'];
+                                }
+                                $WorkingPlanet['b_tech_id']   = 0;
+                                $WorkingPlanet["b_tech"]      = 0;
+                                $CurrentUser['b_tech_planet'] = 0;
+                                $UpdateData                   = true;
+                                $InResearch                   = false;
                             }
                             break;
                         case 'search':
