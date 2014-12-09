@@ -68,28 +68,38 @@ function ShowBuildingQueue ( $CurrentPlanet, $CurrentUser ) {
 				if ($ListID > 0) {
 					$ListIDRow .= "<tr>";
 					if ($BuildMode == 'build') {
-						$ListIDRow .= "	<td class=\"l\" colspan=\"2\">". $ListID .".: ". $ElementTitle ." ". $BuildLevel ."</td>";
+						$ListIDRow .= "
+                                <td class=\"l\" colspan=\"2\">". $ListID .".: ". $ElementTitle ." ". $BuildLevel ."</td>";
 					} else {
-						$ListIDRow .= "	<td class=\"l\" colspan=\"2\">". $ListID .".: ". $ElementTitle ." ". $BuildLevel ." ". $lang['destroy'] ."</td>";
+						$ListIDRow .= "
+                                <td class=\"l\" colspan=\"2\">". $ListID .".: ". $ElementTitle ." ". $BuildLevel ." ". $lang['destroy'] ."</td>";
 					}
-					$ListIDRow .= "	<td class=\"k\">";
+					$ListIDRow .= "
+                                <td class=\"k\">";
 					if ($ListID == 1) {
-						$ListIDRow .= "		<div id=\"blc\" class=\"z\">". $BuildTime ."<br>";
-						$ListIDRow .= "		<a href=\"game.php?page=buildings&listid=". $ListID ."&amp;cmd=cancel&amp;planet=". $PlanetID ."\">". $lang['DelFirstQueue'] ."</a></div>";
-						$ListIDRow .= "		<script language=\"JavaScript\">";
-						$ListIDRow .= "			pp = \"". $BuildTime ."\";\n";      // temps necessaire (a compter de maintenant et sans ajouter time() )
-						$ListIDRow .= "			pk = \"". $ListID ."\";\n";         // id index (dans la liste de construction)
-						$ListIDRow .= "			pm = \"cancel\";\n";                // mot de controle
-						$ListIDRow .= "			pl = \"". $PlanetID ."\";\n";       // id planete
-						$ListIDRow .= "			t();\n";
-						$ListIDRow .= "		</script>";
-						$ListIDRow .= "		<strong color=\"lime\"><br><font color=\"lime\">". date("j/m H:i:s" ,$BuildEndTime) ."</font></strong>";
+						$ListIDRow .= "
+                                    <div id=\"blc\" class=\"z\">". $BuildTime ."<br>
+                                        <a href=\"game.php?page=buildings&listid=". $ListID ."&amp;cmd=cancel&amp;planet=". $PlanetID ."\">". $lang['DelFirstQueue'] ."</a>
+                                    </div>
+                                    <script language=\"JavaScript\">";
+						$ListIDRow .= "
+                                        pp = \"". $BuildTime ."\";\n";      // temps necessaire (a compter de maintenant et sans ajouter time() )
+						$ListIDRow .= "                                        pk = \"". $ListID ."\";\n";         // id index (dans la liste de construction)
+						$ListIDRow .= "                                        pm = \"cancel\";\n";                // mot de controle
+						$ListIDRow .= "                                        pl = \"". $PlanetID ."\";\n";       // id planete
+						$ListIDRow .= "                                        t();\n";
+						$ListIDRow .= "                                    </script>";
+						$ListIDRow .= "
+                                    <strong color=\"lime\"><br><font color=\"lime\">". date("j/m H:i:s" ,$BuildEndTime) ."</font></strong>";
 					} else {
-						$ListIDRow .= "		<font color=\"red\">";
-						$ListIDRow .= "		<a href=\"game.php?page=buildings&listid=". $ListID ."&amp;cmd=remove&amp;planet=". $PlanetID ."\">". $lang['DelFromQueue'] ."</a></font>";
+						$ListIDRow .= "
+                                    <font color=\"red\">
+                                        <a href=\"game.php?page=buildings&listid=". $ListID ."&amp;cmd=remove&amp;planet=". $PlanetID ."\">". $lang['DelFromQueue'] ."</a>
+                                    </font>";
 					}
-					$ListIDRow .= "	</td>";
-					$ListIDRow .= "</tr>";
+					$ListIDRow .= "
+                                </td>
+                            </tr>";
 				}
 			}
 		}
