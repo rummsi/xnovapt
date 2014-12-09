@@ -39,6 +39,10 @@ class ShowResearchPage extends AbstractGamePage {
         global $planetrow, $user, $InResearch, $ThePlanet, $lang, $resource, $reslist, $game_config;
         includeLang('buildings');
 
+        // Mise a jour de la liste de construction si necessaire
+        UpdatePlanetBatimentQueueList($planetrow, $user);
+        $IsWorking = HandleTechnologieBuild($planetrow, $user);
+
         $NoResearchMessage = "";
         $bContinue = true;
         // Deja est qu'il y a un laboratoire sur la planete ???
@@ -123,21 +127,9 @@ class ShowResearchPage extends AbstractGamePage {
             }
         }
 
-        foreach ($lang['tech'] as $Tech => $TechName) {
-            if ($Tech > 105 && $Tech <= 199) {
-                if (IsTechnologieAccessible($user, $planetrow, $Tech)) {
-                    $building_level = $user[$resource[$Tech]];
-                    $tech_level = ($building_level == 0) ? "" : "( " . $lang['level'] . " " . $building_level . " )";
-                }
-            }
-        }
-
         $this->tplObj->assign(array(
             'title' => $lang['Research'],
-            'tech_level' => $tech_level,
             'InResearch' => $InResearch,
-            'CanBeDone' => IsElementBuyable($user, $planetrow, $Tech),
-            'LevelToDo' => $user[$resource[$Tech]] + 1,
             'ThePlanet' => $ThePlanet,
             'resource' => $resource,
         ));
