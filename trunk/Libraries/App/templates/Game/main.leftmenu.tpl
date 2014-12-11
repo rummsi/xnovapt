@@ -133,7 +133,7 @@
                             </tr>
                             {if $user['authlevel'] > 0}
                             <tr>
-                                <td colspan="2"><div><a href="admin/overview.php"><font color="lime">{$lang['user_level'][$user['authlevel']]}</font></a></div></td>
+                                <td colspan="2"><div><a href="admin.php?page=overview"><font color="lime">{$lang['user_level'][$user['authlevel']]}</font></a></div></td>
                             </tr>
                             {/if}
                             {if $game_config['link_enable'] == 1}
