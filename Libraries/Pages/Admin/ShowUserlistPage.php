@@ -32,7 +32,7 @@ class ShowUserlistPage extends AbstractAdminPage {
 
     function __construct() {
         parent::__construct();
-        $this->tplObj->compile_id = 'admin_xnovaresetunivers';
+        $this->tplObj->compile_id = 'admin_userslist';
     }
 
     function show() {
