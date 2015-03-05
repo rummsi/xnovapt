@@ -9,7 +9,7 @@
                                     </p>    
                                 </div>
                                 <div id="planetList">
-                                    {while $UserPlanet = mysql_fetch_array($planets_query)}
+                                    {while $UserPlanet = mysqli_fetch_array($planets_query)}
                                         {if $UserPlanet['id']}
                                             {if $UserPlanet['planet_type'] != 3}
                                             <div class="smallplanet" id="planet-{$UserPlanet['id']}">

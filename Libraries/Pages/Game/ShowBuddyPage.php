@@ -75,7 +75,7 @@ class ShowBuddyPage extends AbstractGamePage {
                 if (strlen(filter_input(INPUT_POST, 'text')) > 5000) {
                     ShowErrorPage::message("Le texte ne doit pas faire plus de 5000 caract&egrave;res !", "Erreur");
                 }
-                $text = mysql_escape_string(strip_tags(filter_input(INPUT_POST, 'text')));
+                $text = mysqli_escape_string(Database::$dbHandle, strip_tags(filter_input(INPUT_POST, 'text')));
                 doquery("INSERT INTO {{table}} SET sender={$uid}, owner={$u}, active=0, text='{$text}'", 'buddy');
                 ShowErrorPage::message($lang['Request_sent'], $lang['Buddy_request'], header("Refresh: 3;url=game.php?page=buddy"));
             } else {
@@ -101,7 +101,7 @@ class ShowBuddyPage extends AbstractGamePage {
         }
 
         $buddyrow = doquery("SELECT * FROM {{table}} " . $query, 'buddy');
-        while ($b = mysql_fetch_array($buddyrow)) {
+        while ($b = mysqli_fetch_array($buddyrow)) {
             $uid = ( $b["owner"] == $user["id"] ) ? $b["sender"] : $b["owner"];
             // query del user
             $u = doquery("SELECT id,username,galaxy,system,planet,onlinetime,ally_id,ally_name FROM {{table}} WHERE id=" . $uid, "users", true);

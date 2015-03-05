@@ -43,7 +43,7 @@
                                                     <th>{$lang['mess_subject']}</th>
                                                 </tr>
                                                 {if $MessCategory == 100}
-                                                {while $CurMess = mysql_fetch_array($UsrMess)}
+                                                {while $CurMess = mysqli_fetch_array($UsrMess)}
                                                 <tr>
                                                     <input name="showmes{$CurMess['message_id']}" type="hidden" value="1">
                                                     <th><input name="delmes{$CurMess['message_id']}" type="checkbox"></th>
@@ -67,7 +67,7 @@
                                                 </tr>
                                                 {/while}
                                                 {else}
-                                                {while $CurMess = mysql_fetch_array($UsrMess)}
+                                                {while $CurMess = mysqli_fetch_array($UsrMess)}
                                                 {if $CurMess['message_type'] == $MessCategory}
                                                 <tr>
                                                     <input name="showmes{$CurMess['message_id']}" type="hidden" value="1">

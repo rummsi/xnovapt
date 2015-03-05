@@ -50,7 +50,7 @@ class ShowFleet3Page extends AbstractGamePage {
         $UsedPlanet = false;
         $select = doquery("SELECT * FROM {{table}}", "planets");
 
-        while ($row = mysql_fetch_array($select)) {
+        while ($row = mysqli_fetch_array($select)) {
             if ($galaxy == $row['galaxy'] &&
                     $system == $row['system'] &&
                     $planet == $row['planet'] &&
