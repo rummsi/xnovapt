@@ -64,7 +64,7 @@ class ShowOverviewPage extends AbstractGamePage {
             $planets_query = doquery($QryPlanets, 'planets');
             $Colone = 1;
             $AllPlanets = "<tr>";
-            while ($UserPlanet = mysql_fetch_array($planets_query)) {
+            while ($UserPlanet = mysqli_fetch_array($planets_query)) {
                 PlanetResourceUpdate($user, $UserPlanet, time());
                 if ($UserPlanet["id"] != $user["current_planet"] && $UserPlanet['planet_type'] != 3) {
                     $AllPlanets .= "<th>" . $UserPlanet['name'] . "<br>";
