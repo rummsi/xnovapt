@@ -48,7 +48,7 @@ class ShowOverviewPage extends AbstractAdminPage {
             }
 
             $Last15Mins = doquery("SELECT * FROM {{table}} WHERE `onlinetime` >= '" . (time() - 15 * 60) . "' ORDER BY `" . $TypeSort . "` ASC;", 'users');
-            while ($TheUser = mysqli_fetch_array($Last15Mins)) {
+            while ($TheUser = mysql_fetch_array($Last15Mins)) {
                 $UserPoints = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $TheUser['id'] . "';", 'statpoints', true);
 
                 $this->tplObj->assign(array(

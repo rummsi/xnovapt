@@ -13,7 +13,7 @@
                     <th>{$lang['ban_to']}</th>
                     <th>{$lang['ban_by']}</th>
                 </tr>
-                {while $u = mysqli_fetch_array($query)}
+                {while $u = mysql_fetch_array($query)}
                     <tr>
                         <td class=b><center><b>{$u[1]}</center></td></b>
                         <td class=b><center><b>{$u[2]}</center></b></td>

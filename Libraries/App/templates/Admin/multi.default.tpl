@@ -12,7 +12,7 @@
                     <th width="80%">{$lang['adm_mt_text']}</th>
                 </tr>
                 {$i = 0}
-                {while $infos = mysqli_fetch_assoc($query)}
+                {while $infos = mysql_fetch_assoc($query)}
                 <tr>
                     <th>{$infos['player']}</th>
                     <th>{$infos['text']}</th>

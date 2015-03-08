@@ -55,7 +55,7 @@ class ShowGalaxyPage extends AbstractGamePage {
         $CanDestroy = $CurrentPlanet[$resource[213]] + $CurrentPlanet[$resource[214]];
 
         $maxfleet = doquery("SELECT * FROM {{table}} WHERE `fleet_owner` = '" . $user['id'] . "';", 'fleets');
-        $maxfleet_count = mysqli_num_rows($maxfleet);
+        $maxfleet_count = mysql_num_rows($maxfleet);
 
         CheckPlanetUsedFields($CurrentPlanet);
         CheckPlanetUsedFields($lunarow);

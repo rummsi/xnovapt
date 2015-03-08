@@ -18,7 +18,7 @@
                         <td class=c>{$lang['Subject']}</td>
                         <td class=c>{$lang['Size']}</td>
                     </tr>
-                    {while $note = mysqli_fetch_array($notes_query)}
+                    {while $note = mysql_fetch_array($notes_query)}
                         <!--{$count++}-->
                         {if $count == 0}
                             <tr>

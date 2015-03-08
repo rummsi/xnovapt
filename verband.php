@@ -42,11 +42,11 @@ require_once dirname(__FILE__) .'/common.php';
 
 	$query = doquery("SELECT * FROM {{table}} WHERE fleet_id = '" . $fleetid . "'", 'fleets');
 
-	if (mysqli_num_rows($query) != 1) {
+	if (mysql_num_rows($query) != 1) {
 		message('Cette flotte n\'existe pas (ou plus)!', 'Erreur');
 	}
 
-	$daten = mysqli_fetch_array($query);
+	$daten = mysql_fetch_array($query);
 
 	if ($daten['fleet_start_time'] <= time() || $daten['fleet_end_time'] < time() || $daten['fleet_mess'] == 1) {
 		message('Votre flotte est d�j� sur le chemin du retour!', 'Erreur');
@@ -104,10 +104,10 @@ require_once dirname(__FILE__) .'/common.php';
 		id = '" . $fleet['fleet_group'] . "'"
 		, 'aks');
 
-		if (mysqli_num_rows($aks) != 1) {
+		if (mysql_num_rows($aks) != 1) {
 			message('AKS nicht gefunden!', 'Fehler');
 		}
-		$aks = mysqli_num_rows($aks);
+		$aks = mysql_num_rows($aks);
 	}
 
 	$missiontype = array(1 => 'Attaquer',
@@ -172,7 +172,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", 'fleets');
 
 	$i = 0;
-	while ($f = mysqli_fetch_array($fq)) {
+	while ($f = mysql_fetch_array($fq)) {
 		$i++;
 
 		$page .= "<tr height=20><th>$i</th><th>";

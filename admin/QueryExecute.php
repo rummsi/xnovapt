@@ -40,7 +40,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		if ($post['really_do_it'] == 'on') {
 
-			mysqli_query ($post['qry_sql']);
+			mysql_query ($post['qry_sql']);
 			AdminMessage ($lang['qry_succesful'], 'Succes', '?');
 
 		} else {

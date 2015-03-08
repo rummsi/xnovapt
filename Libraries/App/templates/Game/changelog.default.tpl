@@ -1,18 +1,17 @@
 {block name="title" prepend}{/block}
 {block name="content"}
-                        <div id="inhalt">
-                            <dl id="changelog" class="major">{foreach $changelog as $main_version => $update_version}
-                                <dt class="header ">{$Version} {$main_version}</dt>
-                                <dd>
-                                    <dl class="minor">{foreach $update_version as $version_number => $description}
-                                        <dt class="version ">Update {$version_number}</dt>
-                                        <dd class="">
-                                            <ul>
-                                                {$description|nl2br}
-                                            </ul>
-                                        </dd>{/foreach}
-                                    </dl>
-                                </dd>{/foreach}
-                            </dl>
-                        </div>
+        <center>
+            <table width="668">
+                <tr>
+                    <td class="c">{$Version}</td>
+                    <td class="c">{$Description}</td>
+                </tr>
+                {foreach $changelog as $version_number => $description}
+                    <tr>
+                        <th width="42">{$version_number}</th>
+                        <td style="text-align:left" class=b>{$description|nl2br}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </center>
 {/block}

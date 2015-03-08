@@ -33,7 +33,7 @@
                     <th>{$lang['usr_current_page']}</th>
                 </tr>
                 {$Count = 0}
-                {while $TheUser = mysqli_fetch_array($Last15Mins)}
+                {while $TheUser = mysql_fetch_array($Last15Mins)}
                     {if $PrevIP != ""}
                         {if $PrevIP == !$TheUser['user_lastip']}
                             {$Color = "red"}

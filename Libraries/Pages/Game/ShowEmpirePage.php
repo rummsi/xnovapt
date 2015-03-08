@@ -56,7 +56,7 @@ class ShowEmpirePage extends AbstractGamePage {
         $planetsrow = doquery($QryPlanets, 'planets');
 
         $planet = array();
-        while ($p = mysqli_fetch_array($planetsrow)) {
+        while ($p = mysql_fetch_array($planetsrow)) {
             $planet[] = $p;
         }
 

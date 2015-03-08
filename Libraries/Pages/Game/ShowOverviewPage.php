@@ -49,6 +49,87 @@ class ShowOverviewPage extends AbstractGamePage {
 
         if ($user['id'] != '') {
             // -----------------------------------------------------------------------------------------------
+            // --- Gestion Officiers -------------------------------------------------------------------------
+            // Passage au niveau suivant, ajout du point de compétence et affichage du passage au nouveau level
+            $XpMinierUp = $user['lvl_minier'] * 5000;
+            $XpRaidUp = $user['lvl_raid'] * 10;
+            $XpMinier = $user['xpminier'];
+            $XPRaid = $user['xpraid'];
+            $LvlUpMinier = $user['lvl_minier'] + 1;
+            $LvlUpRaid = $user['lvl_raid'] + 1;
+
+            if (($LvlUpMinier + $LvlUpRaid) <= 100) {
+                if ($XpMinier >= $XpMinierUp) {
+                    $QryUpdateUser = "UPDATE {{table}} SET ";
+                    $QryUpdateUser .= "`lvl_minier` = '" . $LvlUpMinier . "', ";
+                    $QryUpdateUser .= "`rpg_points` = `rpg_points` + 1 ";
+                    $QryUpdateUser .= "WHERE ";
+                    $QryUpdateUser .= "`id` = '" . $user['id'] . "';";
+                    doquery($QryUpdateUser, 'users');
+                }
+                if ($XPRaid >= $XpRaidUp) {
+                    $QryUpdateUser = "UPDATE {{table}} SET ";
+                    $QryUpdateUser .= "`lvl_raid` = '" . $LvlUpRaid . "', ";
+                    $QryUpdateUser .= "`rpg_points` = `rpg_points` + 1 ";
+                    $QryUpdateUser .= "WHERE ";
+                    $QryUpdateUser .= "`id` = '" . $user['id'] . "';";
+                    doquery($QryUpdateUser, 'users');
+                }
+            }
+            // -----------------------------------------------------------------------------------------------
+            // --- Gestion des flottes personnelles ---------------------------------------------------------
+            // Toutes de vert vetues
+            $OwnFleets = doquery("SELECT * FROM {{table}} WHERE `fleet_owner` = '" . $user['id'] . "';", 'fleets');
+            $Record = 0;
+            while ($FleetRow = mysql_fetch_array($OwnFleets)) {
+                $Record++;
+                $StartTime = $FleetRow['fleet_start_time'];
+                $StayTime = $FleetRow['fleet_end_stay'];
+                $EndTime = $FleetRow['fleet_end_time'];
+                // Flotte a l'aller
+                $Label = "fs";
+                if ($StartTime > time()) {
+                    $fpage[$StartTime] = BuildFleetEventTable($FleetRow, 0, true, $Label, $Record);
+                }
+                if ($FleetRow['fleet_mission'] <> 4) {
+                    // Flotte en stationnement
+                    $Label = "ft";
+                    if ($StayTime > time()) {
+                        $fpage[$StayTime] = BuildFleetEventTable($FleetRow, 1, true, $Label, $Record);
+                    }
+                    // Flotte au retour
+                    $Label = "fe";
+                    if ($EndTime > time()) {
+                        $fpage[$EndTime] = BuildFleetEventTable($FleetRow, 2, true, $Label, $Record);
+                    }
+                }
+            } // End While
+            // -----------------------------------------------------------------------------------------------
+            // --- Gestion des flottes autres que personnelles ----------------------------------------------
+            // Flotte ennemies (ou amie) mais non personnelles
+            $OtherFleets = doquery("SELECT * FROM {{table}} WHERE `fleet_target_owner` = '" . $user['id'] . "';", 'fleets');
+            $Record = 2000;
+            while ($FleetRow = mysql_fetch_array($OtherFleets)) {
+                if ($FleetRow['fleet_owner'] != $user['id']) {
+                    if ($FleetRow['fleet_mission'] != 8) {
+                        $Record++;
+                        $StartTime = $FleetRow['fleet_start_time'];
+                        $StayTime = $FleetRow['fleet_end_stay'];
+                        if ($StartTime > time()) {
+                            $Label = "ofs";
+                            $fpage[$StartTime] = BuildFleetEventTable($FleetRow, 0, false, $Label, $Record);
+                        }
+                        if ($FleetRow['fleet_mission'] == 5) {
+                            // Flotte en stationnement
+                            $Label = "oft";
+                            if ($StayTime > time()) {
+                                $fpage[$StayTime] = BuildFleetEventTable($FleetRow, 1, false, $Label, $Record);
+                            }
+                        }
+                    }
+                }
+            }
+            // -----------------------------------------------------------------------------------------------
             // --- Gestion de la liste des planetes ----------------------------------------------------------
             // Planetes ...
             $Order = ($user['planet_sort_order'] == 1) ? "DESC" : "ASC";
@@ -64,7 +145,7 @@ class ShowOverviewPage extends AbstractGamePage {
             $planets_query = doquery($QryPlanets, 'planets');
             $Colone = 1;
             $AllPlanets = "<tr>";
-            while ($UserPlanet = mysqli_fetch_array($planets_query)) {
+            while ($UserPlanet = mysql_fetch_array($planets_query)) {
                 PlanetResourceUpdate($user, $UserPlanet, time());
                 if ($UserPlanet["id"] != $user["current_planet"] && $UserPlanet['planet_type'] != 3) {
                     $AllPlanets .= "<th>" . $UserPlanet['name'] . "<br>";
@@ -97,6 +178,38 @@ class ShowOverviewPage extends AbstractGamePage {
                     }
                 }
             }
+            // -----------------------------------------------------------------------------------------------
+            // --- Gestion des attaques missiles -------------------------------------------------------------
+            $iraks_query = doquery("SELECT * FROM {{table}} WHERE owner = '" . $user['id'] . "'", 'iraks');
+            $Record = 4000;
+            while ($irak = mysql_fetch_array($iraks_query)) {
+                $Record++;
+                $fpage[$irak['zeit']] = '';
+                if ($irak['zeit'] > time()) {
+                    $time = $irak['zeit'] - time();
+                    $fpage[$irak['zeit']] .= InsertJavaScriptChronoApplet("fm", $Record, $time, true);
+                    $planet_start = doquery("SELECT * FROM {{table}} WHERE
+						galaxy = '" . $irak['galaxy'] . "' AND
+						system = '" . $irak['system'] . "' AND
+						planet = '" . $irak['planet'] . "' AND
+						planet_type = '1'", 'planets');
+                    $user_planet = doquery("SELECT * FROM {{table}} WHERE
+						galaxy = '" . $irak['galaxy_angreifer'] . "' AND
+						system = '" . $irak['system_angreifer'] . "' AND
+						planet = '" . $irak['planet_angreifer'] . "' AND
+						planet_type = '1'", 'planets', true);
+                    if (mysql_num_rows($planet_start) == 1) {
+                        $planet = mysql_fetch_array($planet_start);
+                    }
+                    $fpage[$irak['zeit']] .= "<tr><th><div id=\"bxxfs$i\" class=\"z\"></div><font color=\"lime\">" . gmdate("H:i:s", $irak['zeit'] + 1 * 60 * 60) . "</font> </th><th colspan=\"3\"><font color=\"#0099FF\">Une attaque de missiles (" . $irak['anzahl'] . ") de " . $user_planet['name'] . " ";
+                    $fpage[$irak['zeit']] .= '<a href="game.php?page=galaxy&action=3&galaxy=' . $irak["galaxy_angreifer"] . '&system=' . $irak["system_angreifer"] . '&planet=' . $irak["planet_angreifer"] . '">[' . $irak["galaxy_angreifer"] . ':' . $irak["system_angreifer"] . ':' . $irak["planet_angreifer"] . ']</a>';
+                    $fpage[$irak['zeit']] .= ' arrive sur la plan&egrave;te' . $planet["name"] . ' ';
+                    $fpage[$irak['zeit']] .= '<a href="game.php?page=galaxy&action=3&galaxy=' . $irak["galaxy"] . '&system=' . $irak["system"] . '&planet=' . $irak["planet"] . '">[' . $irak["galaxy"] . ':' . $irak["system"] . ':' . $irak["planet"] . ']</a>';
+                    $fpage[$irak['zeit']] .= '</font>';
+                    $fpage[$irak['zeit']] .= InsertJavaScriptChronoApplet("fm", $Record, $time, false);
+                    $fpage[$irak['zeit']] .= "</th>";
+                }
+            }
 
             $StatRecord = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $user['id'] . "';", 'statpoints', true);
             $ile = $StatRecord['total_old_rank'] - $StatRecord['total_rank'];
@@ -107,7 +220,14 @@ class ShowOverviewPage extends AbstractGamePage {
             } elseif ($ile == 0) {
                 $parse['ile'] = "<font color=lightblue>" . $ile . "</font>";
             }
-
+            if (isset($fpage)) {
+                if (count($fpage) > 0) {
+                    ksort($fpage);
+                    foreach ($fpage as $time => $content) {
+                        $flotten .= $content . "\n";
+                    }
+                }
+            }
             $parse['energy_used'] = $planetrow["energy_max"] - $planetrow["energy_used"];
 
             $query = doquery('SELECT username FROM {{table}} ORDER BY register_time DESC', 'users', true);
@@ -125,6 +245,7 @@ class ShowOverviewPage extends AbstractGamePage {
             $this->tplObj->assign(array(
                 'title' => $lang['Overview'],
                 'OnlineUsers' => doquery("SELECT COUNT(*) FROM {{table}} WHERE onlinetime>='" . (time() - 15 * 60) . "'", 'users', 'true'),
+                'fleet_list' => $flotten,
                 'anothers_planets' => $AllPlanets,
                 'lvl_up_minier' => $LvlMinier * 5000,
                 'lvl_up_raid' => $LvlRaid * 10,

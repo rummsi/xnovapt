@@ -110,7 +110,7 @@ class ShowStatisticsPage extends AbstractGamePage {
             $start++;
             @$stat_date = $game_config['stats'];
             $parse['stat_values'] = "";
-            while ($StatRow = mysqli_fetch_assoc($query)) {
+            while ($StatRow = mysql_fetch_assoc($query)) {
                 $parse['ally_rank'] = $start;
 
                 $AllyRow = doquery("SELECT * FROM {{table}} WHERE `id` = '" . $StatRow['id_owner'] . "';", 'alliance', true);
@@ -178,7 +178,7 @@ class ShowStatisticsPage extends AbstractGamePage {
             $start++;
             @$parse['stat_date'] = $game_config['stats'];
             $parse['stat_values'] = "";
-            while ($StatRow = mysqli_fetch_assoc($query)) {
+            while ($StatRow = mysql_fetch_assoc($query)) {
                 $parse['stat_date'] = date("d M Y - H:i:s", $StatRow['stat_date']);
                 $parse['player_rank'] = $start;
 

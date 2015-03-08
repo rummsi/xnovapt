@@ -53,6 +53,7 @@
 		<tr>
                     <td colspan="4" class="c">{$lang['Events']}</td>
 		</tr>
+		{$fleet_list}
 		<tr>
                     <th>
                         {if $lunarow['id'] <> 0}

@@ -37,7 +37,7 @@ class Display {
         $DisplayPage .= "<center>\n" . $page . "\n</center>\n";
         $DisplayPage .= StdFooter();
         if (isset($link)) {
-            mysqli_close($link);
+            mysql_close($link);
         }
         echo $DisplayPage;
         die();
@@ -50,7 +50,7 @@ class Display {
         $DisplayPage .= "<center>\n" . $page . "\n</center>\n";
         $DisplayPage .= StdFooter();
         if (isset($link)) {
-            mysqli_close($link);
+            mysql_close($link);
         }
         echo $DisplayPage;
         die();

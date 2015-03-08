@@ -19,13 +19,13 @@
                 </tr>
             </table>
             {if $INPUT_POST}
-                {if mysqli_num_rows($search) != 0}
+                {if mysql_num_rows($search) != 0}
                     <br>
                     <table width=519>
                         <tr>
                             <td class=c colspan=3>{$searched_alliance_availables}</th>
                         </tr>
-                        {while $s = mysqli_fetch_array($search)}
+                        {while $s = mysql_fetch_array($search)}
                             <br>
                             <tr>
                                 <th><center>[<a href="game.php?page=alliance&mode=apply&allyid={$s['id']}">{$s['ally_tag']}</a>]</center></th>

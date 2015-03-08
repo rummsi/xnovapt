@@ -49,8 +49,8 @@ class ShowNotesPage extends AbstractGamePage {
         if (filter_input(INPUT_POST, 's') == 1 || filter_input(INPUT_POST, 's') == 2) {//Edicion y agregar notas
             $time = time();
             $priority = filter_input(INPUT_POST, 'u');
-            $title = (filter_input(INPUT_POST, 'title')) ? mysqli_real_escape_string(Database::$dbHandle, strip_tags(filter_input(INPUT_POST, 'title'))) : $lang['NoTitle'];
-            $text = (filter_input(INPUT_POST, 'text')) ? mysqli_real_escape_string(Database::$dbHandle, strip_tags(filter_input(INPUT_POST, 'text'))) : $lang['NoText'];
+            $title = (filter_input(INPUT_POST, 'title')) ? mysql_real_escape_string(strip_tags(filter_input(INPUT_POST, 'title'))) : $lang['NoTitle'];
+            $text = (filter_input(INPUT_POST, 'text')) ? mysql_real_escape_string(strip_tags(filter_input(INPUT_POST, 'text'))) : $lang['NoText'];
 
             if (filter_input(INPUT_POST, 's') == 1) {
                 doquery("INSERT INTO {{table}} SET owner={$user['id']}, time=$time, priority=$priority, title='$title', text='$text'", "notes");

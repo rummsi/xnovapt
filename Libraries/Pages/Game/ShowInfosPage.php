@@ -297,7 +297,7 @@ class ShowInfosPage extends AbstractGamePage {
         $QrySelectMoons = "SELECT * FROM {{table}} WHERE `planet_type` = '3' AND `id_owner` = '" . $CurrentUser['id'] . "';";
         $MoonList = doquery($QrySelectMoons, 'planets');
         $Combo = "";
-        while ($CurMoon = mysqli_fetch_assoc($MoonList)) {
+        while ($CurMoon = mysql_fetch_assoc($MoonList)) {
             if ($CurMoon['id'] != $CurrentPlanet['id']) {
                 $RestString = GetNextJumpWaitTime($CurMoon);
                 if ($CurMoon[$resource[43]] >= 1) {

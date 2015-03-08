@@ -67,7 +67,7 @@ class ShowAnnoncePage extends AbstractGamePage {
             $cristalsouhait = $_POST['cristalsouhait'];
             $deutsouhait = $_POST['deutsouhait'];
 
-            while ($v_annonce = mysqli_fetch_array($users)) {
+            while ($v_annonce = mysql_fetch_array($users)) {
                 $user = $v_annonce['username'];
                 $user_id = $v_annonce['id'];
                 $galaxie = $v_annonce['galaxy'];

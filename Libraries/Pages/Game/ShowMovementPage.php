@@ -86,7 +86,7 @@ class ShowMovementPage extends AbstractGamePage {
         @$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", "fleets");
         $i = 0;
         $page = '';
-        while ($f = mysqli_fetch_array($fq)) {
+        while ($f = mysql_fetch_array($fq)) {
             $i++;
             $page .= "<tr height=20>";
             // (01) Fleet ID

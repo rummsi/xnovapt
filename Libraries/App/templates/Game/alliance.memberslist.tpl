@@ -16,7 +16,7 @@
                     <th><a href="?page=alliance&mode=memberslist&sort1=4&sort2={$s}">{$lang['Member_from']}</a></th>
                     <th><a href="?page=alliance&mode=memberslist&sort1=5&sort2={$s}">{$lang['Online']}</a></th>
                 </tr>
-                {while $u = mysqli_fetch_array($listuser)}
+                {while $u = mysql_fetch_array($listuser)}
                     <!--{$i++}-->
                     <tr>
                         <th>{$i}</th>
