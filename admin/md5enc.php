@@ -38,9 +38,9 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse   = $lang;
 
-		if ($post['md5q'] != "") {
-			$parse['md5_md5'] = $post['md5q'];
-			$parse['md5_enc'] = md5 ($post['md5q']);
+		if ($_POST['md5q'] != "") {
+			$parse['md5_md5'] = $_POST['md5q'];
+			$parse['md5_enc'] = md5 ($_POST['md5q']);
 		} else {
 			$parse['md5_md5'] = "";
 			$parse['md5_enc'] = md5 ("");

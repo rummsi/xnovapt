@@ -241,8 +241,8 @@ class Legacies_Block_Image_Png
     }
 }
 
-if (isset($get['id'])) {
-    $id = (int) $get['id'];
+if (isset($_GET['id'])) {
+    $id = (int) $_GET['id'];
 } else {
     header('HTTP/1.1 412 Precondition Failed');
     die();

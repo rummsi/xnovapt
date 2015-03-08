@@ -37,28 +37,28 @@ class Database
 function doquery($query, $table, $fetch = false)
 {
     if (!isset(Database::$config)) {
-        $config = require dirname(dirname(__FILE__)) . '/Libraries/App/configs/config.php';
+        $config = require dirname(dirname(__FILE__)) . '/config.php';
     }
 
     if(!isset(Database::$dbHandle))
     {
-        Database::$dbHandle = mysqli_connect(
+        Database::$dbHandle = mysql_connect(
             $config['global']['database']['options']['hostname'],
             $config['global']['database']['options']['username'],
             $config['global']['database']['options']['password'])
-                or trigger_error(mysqli_error(Database::$dbHandle) . "$query<br />" . PHP_EOL, E_USER_WARNING);
+                or trigger_error(mysql_error() . "$query<br />" . PHP_EOL, E_USER_WARNING);
 
-        mysqli_select_db(Database::$dbHandle, $config['global']['database']['options']['database'])
-            or trigger_error(mysqli_error(Database::$dbHandle)."$query<br />" . PHP_EOL, E_USER_WARNING);
+        mysql_select_db($config['global']['database']['options']['database'], Database::$dbHandle)
+            or trigger_error(mysql_error()."$query<br />" . PHP_EOL, E_USER_WARNING);
     }
     $sql = str_replace("{{table}}", "{$config['global']['database']['table_prefix']}{$table}", $query);
 
-    if (false === ($sqlQuery = mysqli_query(Database::$dbHandle, $sql))) {
-        trigger_error(mysqli_error(Database::$dbHandle) . PHP_EOL . "<br /><pre></code>$sql<code></pre><br />" . PHP_EOL, E_USER_WARNING);
+    if (false === ($sqlQuery = mysql_query($sql, Database::$dbHandle))) {
+        trigger_error(mysql_error() . PHP_EOL . "<br /><pre></code>$sql<code></pre><br />" . PHP_EOL, E_USER_WARNING);
     }
 
     if($fetch) {
-        return mysqli_fetch_array($sqlQuery);
+        return mysql_fetch_array($sqlQuery);
     }else{
         return $sqlQuery;
     }

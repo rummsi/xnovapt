@@ -32,12 +32,12 @@ define('INSIDE' , true);
 define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 // Recup des variables
-$Attaquant = $get['current'];
-$NbreMip   = $post['SendMI'];
+$Attaquant = $_GET['current'];
+$NbreMip   = $_POST['SendMI'];
 
-$Galaxy    = $get['galaxy'];
-$System    = $get['system'];
-$Planet    = $get['planet'];
+$Galaxy    = $_GET['galaxy'];
+$System    = $_GET['system'];
+$Planet    = $_GET['planet'];
 
 $PlaneteAttaquant = doquery("SELECT * FROM {{table}} WHERE `id`='" . $Attaquant . "'", "planets", true);
 $PlaneteAdverse   = doquery("SELECT * FROM {{table}} WHERE galaxy = " . $Galaxy . " AND system = " . $System . " AND planet = " . $Planet . "", "planets", true);

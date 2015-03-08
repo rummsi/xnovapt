@@ -36,16 +36,16 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 		includeLang('admin');
 
-		$mode      = $post['mode'];
+		$mode      = $_POST['mode'];
 
 		$PageTpl   = gettemplate("admin/add_money");
 		$parse     = $lang;
 
 		if ($mode == 'addit') {
-			$id          = $post['id'];
-			$metal       = $post['metal'];
-			$cristal     = $post['cristal'];
-			$deut        = $post['deut'];
+			$id          = $_POST['id'];
+			$metal       = $_POST['metal'];
+			$cristal     = $_POST['cristal'];
+			$deut        = $_POST['deut'];
 
 			$QryUpdatePlanet  = "UPDATE {{table}} SET ";
 			$QryUpdatePlanet .= "`metal` = `metal` + '". $metal ."', ";

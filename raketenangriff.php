@@ -36,11 +36,11 @@ $iraks = $planet['interplanetary_misil'];
 
 
 
-$g = intval($get['galaxy']);
-$s = intval($get['system']);
-$i = intval($get['planet']);
-$anz = intval($post['SendMI']);
-$pziel = $post['Target'];
+$g = intval($_GET['galaxy']);
+$s = intval($_GET['system']);
+$i = intval($_GET['planet']);
+$anz = intval($_POST['SendMI']);
+$pziel = $_POST['Target'];
 
 
 $currentplanet = doquery("SELECT * FROM {{table}} WHERE id={$user['current_planet']}",'planets',true);
@@ -65,7 +65,7 @@ elseif ($user['impulse_motor_tech'] == 0) {;
 elseif ($tempvar1 >= $tempvar2 || $g != $currentplanet['galaxy']) {
 	$error = 1;
 }
-elseif (mysqli_num_rows($tempvar3) != 1) {
+elseif (mysql_num_rows($tempvar3) != 1) {
 	$error = 1;
 }
 elseif ($anz > $iraks) {

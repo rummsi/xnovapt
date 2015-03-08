@@ -36,12 +36,12 @@ includeLang('credit');
 $parse   = $lang;
 
 if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
-	if ($post['opt_save'] == "1") {
+	if ($_POST['opt_save'] == "1") {
 		// Extended copyright is activated?
-		if (isset($post['ExtCopyFrame']) && $post['ExtCopyFrame'] == 'on') {
+		if (isset($_POST['ExtCopyFrame']) && $_POST['ExtCopyFrame'] == 'on') {
 			$game_config['ExtCopyFrame'] = "1";
-			$game_config['ExtCopyOwner'] = $post['ExtCopyOwner'];
-			$game_config['ExtCopyFunct'] = $post['ExtCopyFunct'];
+			$game_config['ExtCopyOwner'] = $_POST['ExtCopyOwner'];
+			$game_config['ExtCopyFunct'] = $_POST['ExtCopyFunct'];
 		} else {
 			$game_config['ExtCopyFrame'] = "0";
 			$game_config['ExtCopyOwner'] = "";

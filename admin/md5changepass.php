@@ -37,13 +37,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
 		$parse   = $lang;
 
-		if ($post['md5q'] != "") {
+		if ($_POST['md5q'] != "") {
 
-			doquery ("UPDATE {{table}} SET `password` = '" . md5 ($post['md5q']) . "' WHERE `username` = '".$post['user']."';", 'users');
+			doquery ("UPDATE {{table}} SET `password` = '" . md5 ($_POST['md5q']) . "' WHERE `username` = '".$_POST['user']."';", 'users');
 			//$QueryUpdatePass = "UPDATE {{table}} SET ";
-			//$QueryUpdatePass .= "`password` = '" . md5 ($post['md5q']) . "', ";
+			//$QueryUpdatePass .= "`password` = '" . md5 ($_POST['md5q']) . "', ";
 			//$QueryUpdatePass = "WHERE ";
-	        //$QueryUpdatePass .= "`username`=" . $post['user'] . "";
+	        //$QueryUpdatePass .= "`username`=" . $_POST['user'] . "";
       //  doquery($QueryUpdatePass, 'users');
 		} else {
 

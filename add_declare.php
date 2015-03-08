@@ -35,7 +35,7 @@ require_once dirname(__FILE__) .'/common.php';
 
 		includeLang('admin');
 
-		$mode      = $post['mode'];
+		$mode      = $_POST['mode'];
 
 		$PageTpl   = gettemplate("add_declare");
 		$parse     = $lang;
@@ -43,10 +43,10 @@ require_once dirname(__FILE__) .'/common.php';
 		if ($mode == 'addit') {
 			$declarator              = $user['id'];
 			$declarator_name  = addslashes(htmlspecialchars($user['username']));
-			$decl1        	   		  = addslashes(htmlspecialchars($post['dec1']));
-			$decl2       		       = addslashes(htmlspecialchars($post['dec2']));
-			$decl3        		      = addslashes(htmlspecialchars($post['dec3']));
-			$reason1        	  	 = addslashes(htmlspecialchars($post['reason']));
+			$decl1        	   		  = addslashes(htmlspecialchars($_POST['dec1']));
+			$decl2       		       = addslashes(htmlspecialchars($_POST['dec2']));
+			$decl3        		      = addslashes(htmlspecialchars($_POST['dec3']));
+			$reason1        	  	 = addslashes(htmlspecialchars($_POST['reason']));
 
 			$QryDeclare  = "INSERT INTO {{table}} SET ";
 			$QryDeclare .= "`declarator` = '". $declarator ."', ";

@@ -19,3 +19,5 @@ $lang['Delete']                      = 'Delete';
 $lang['announce_status']             = 'Announce status';
 $lang['Your_announce_not_recorded']  = 'Your trade was not sent';
 $lang['Your_announce_was_deleted']   = 'Your trade was successfully deleted';
+
+?>

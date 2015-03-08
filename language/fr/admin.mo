@@ -142,4 +142,5 @@ $lang['adm_er_play']  = "Num&eacute;ro du joueur";
 $lang['adm_er_time']  = "Date";
 $lang['adm_er_delete']= "Supprimer";
 $lang['adm_er_nbs']   = "erreur(s) au total...";
-$lang['Reset'] = 'Effacer Univers';
+
+?>

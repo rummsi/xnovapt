@@ -38,7 +38,7 @@ $parse = $lang;
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN))) {
 
 		// Système de suppression
-		extract($get);
+		extract($_GET);
 		if (isset($delete)) {
 			doquery("DELETE FROM {{table}} WHERE `messageid`=$delete", 'chat');
 		} elseif ($deleteall == 'yes') {
@@ -48,7 +48,7 @@ $parse = $lang;
 		// Affichage des messages
 		$query = doquery("SELECT * FROM {{table}} ORDER BY messageid DESC LIMIT 25", 'chat');
 		$i = 0;
-		while ($e = mysqli_fetch_array($query)) {
+		while ($e = mysql_fetch_array($query)) {
 			$i++;
 			$parse['msg_list'] .= stripslashes("<tr><th class=b>" . date('h:i:s', $e['timestamp']) . "</th>".
 			"<th class=b>". $e['user'] . "</th>".

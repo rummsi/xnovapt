@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 
 
-$Id                  = $get['techid'];
+$Id                  = $_GET['techid'];
 $PageTPL             = gettemplate('techtree_details');
 $RowsTPL             = gettemplate('techtree_details_rows');
 
@@ -53,3 +53,5 @@ $parse['Liste'] = $Liste;
 $page = parsetemplate($PageTPL, $parse);
 
 display ($page, $lang['Tech'], false, '', false);
+
+?>

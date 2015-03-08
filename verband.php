@@ -33,7 +33,7 @@ define('INSTALL' , false);
 require_once dirname(__FILE__) .'/common.php';
 	includeLang('fleet');
 
-	$fleetid = $post['fleetid'];
+	$fleetid = $_POST['fleetid'];
 
 	if (!is_numeric($fleetid) || empty($fleetid)) {
 		header("Location: overview.php");
@@ -42,17 +42,17 @@ require_once dirname(__FILE__) .'/common.php';
 
 	$query = doquery("SELECT * FROM {{table}} WHERE fleet_id = '" . $fleetid . "'", 'fleets');
 
-	if (mysqli_num_rows($query) != 1) {
+	if (mysql_num_rows($query) != 1) {
 		message('Cette flotte n\'existe pas (ou plus)!', 'Erreur');
 	}
 
-	$daten = mysqli_fetch_array($query);
+	$daten = mysql_fetch_array($query);
 
 	if ($daten['fleet_start_time'] <= time() || $daten['fleet_end_time'] < time() || $daten['fleet_mess'] == 1) {
 		message('Votre flotte est d�j� sur le chemin du retour!', 'Erreur');
 	}
 
-	if (!isset($post['send'])) {
+	if (!isset($_POST['send'])) {
 		SetSelectedPlanet ( $user );
 
 		$planetrow = doquery("SELECT * FROM {{table}} WHERE `id` = '".$user['current_planet']."';", 'planets', true);
@@ -104,10 +104,10 @@ require_once dirname(__FILE__) .'/common.php';
 		id = '" . $fleet['fleet_group'] . "'"
 		, 'aks');
 
-		if (mysqli_num_rows($aks) != 1) {
+		if (mysql_num_rows($aks) != 1) {
 			message('AKS nicht gefunden!', 'Fehler');
 		}
-		$aks = mysqli_num_rows($aks);
+		$aks = mysql_num_rows($aks);
 	}
 
 	$missiontype = array(1 => 'Attaquer',
@@ -172,7 +172,7 @@ require_once dirname(__FILE__) .'/common.php';
 	$fq = doquery("SELECT * FROM {{table}} WHERE fleet_owner={$user[id]}", 'fleets');
 
 	$i = 0;
-	while ($f = mysqli_fetch_array($fq)) {
+	while ($f = mysql_fetch_array($fq)) {
 		$i++;
 
 		$page .= "<tr height=20><th>$i</th><th>";
@@ -290,11 +290,11 @@ require_once dirname(__FILE__) .'/common.php';
 	if (!$planetrow) {
 		message('WTF! FEHLER!', 'ERROR');
 	} //uno nunca sabe xD
-	$galaxy = intval($get['galaxy']);
-	$system = intval($get['system']);
-	$planet = intval($get['planet']);
-	$planettype = intval($get['planettype']);
-	$target_mission = intval($get['target_mission']);
+	$galaxy = intval($_GET['galaxy']);
+	$system = intval($_GET['system']);
+	$planet = intval($_GET['planet']);
+	$planettype = intval($_GET['planettype']);
+	$target_mission = intval($_GET['target_mission']);
 
 	foreach($reslist['fleet'] as $n => $i) {
 		if ($planetrow[$resource[$i]] > 0) {

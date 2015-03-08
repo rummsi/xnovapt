@@ -140,4 +140,5 @@ $lang['adm_er_play']  = "Numero giocatore";
 $lang['adm_er_time']  = "Data"; 
 $lang['adm_er_delete']= "Supprimer";
 $lang['adm_er_nbs']   = "errori totali...";
-$lang['Reset'] = 'Cancella Universe';
+
+?>

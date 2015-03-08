@@ -33,11 +33,11 @@ define('INSTALL' , false);
 define('IN_ADMIN', true);
 
 function mass_message_run($parent){
-	if($post["mode"] == "change"){
-		if(isset($post["tresc"])&& $post["tresc"] != ''){
+	if($_POST["mode"] == "change"){
+		if(isset($_POST["tresc"])&& $_POST["tresc"] != ''){
 			$game_config['tresc'] = $parent->safe_get_post_var("tresc");
 		}
-		if(isset($post["temat"])&& $post["temat"] != ''){
+		if(isset($_POST["temat"])&& $_POST["temat"] != ''){
 			$game_config['temat'] = $parent->safe_get_post_var("temat");
 		}
 		$kolor = 'red';

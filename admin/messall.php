@@ -34,12 +34,12 @@ define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
 
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
-		if ($post && $mode == "change") {
-			if (isset($post["tresc"]) && $post["tresc"] != '') {
-				$game_config['tresc'] = $post['tresc'];
+		if ($_POST && $mode == "change") {
+			if (isset($_POST["tresc"]) && $_POST["tresc"] != '') {
+				$game_config['tresc'] = $_POST['tresc'];
 			}
-			if (isset($post["temat"]) && $post["temat"] != '') {
-				$game_config['temat'] = $post['temat'];
+			if (isset($_POST["temat"]) && $_POST["temat"] != '') {
+				$game_config['temat'] = $_POST['temat'];
 			}
 			if ($user['authlevel'] == LEVEL_ADMIN) {
 				$kolor = 'red';
@@ -57,10 +57,10 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 				$From    = "<font color=\"". $kolor ."\">". $ranga ." ".$user['username']."</font>";
 				$Subject = "<font color=\"". $kolor ."\">". $game_config['temat'] ."</font>";
 				$Message = "<font color=\"". $kolor ."\"><b>". $game_config['tresc'] ."</b></font>";
-				while ($u = mysqli_fetch_array($sq)) {
+				while ($u = mysql_fetch_array($sq)) {
 					SendSimpleMessage ( $u['id'], $user['id'], $Time, 97, $From, $Subject, $Message);
 				}
-				message("<font color=\"lime\">Wys�a�e� wiadomo�� do wszystkich graczy</font>", "Complete", "../overview.php", 3);
+				message("<font color=\"lime\">Wys�a�e� wiadomo�� do wszystkich graczy</font>", "Complete", "../overview." . PHPEXT, 3);
 			}
 		} else {
 			$parse = $game_config;

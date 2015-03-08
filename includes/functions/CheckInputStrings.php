@@ -33,7 +33,9 @@ function CheckInputStrings ( $String ) {
 
 	$ValidString = $String;
 	for ($Mot = 0; $Mot < count($ListCensure); $Mot++) {
-		$ValidString = preg_replace( "/$ListCensure[$Mot]/i", "*", $ValidString );
+		$ValidString = eregi_replace( "$ListCensure[$Mot]", "*", $ValidString );
 	}
 	return ($ValidString);
 }
+
+?>

@@ -34,11 +34,11 @@ require_once dirname(__FILE__) .'/common.php';
 
 includeLang('fleet');
 
-	$Mode   = $get['mode'];
-	$Galaxy = $get['g'];
-	$System = $get['s'];
-	$Planet = $get['p'];
-	$TypePl = $get['t'];
+	$Mode   = $_GET['mode'];
+	$Galaxy = $_GET['g'];
+	$System = $_GET['s'];
+	$Planet = $_GET['p'];
+	$TypePl = $_GET['t'];
 
 	// Cadre liste de flottes ...
 	$missiontype = array(

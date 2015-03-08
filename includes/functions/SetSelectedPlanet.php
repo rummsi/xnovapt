@@ -30,14 +30,11 @@
 
 function SetSelectedPlanet ( &$CurrentUser )
 {
-    $getcp = filter_input(INPUT_GET, 'cp');
-    $getre = filter_input(INPUT_GET, 're');
-
-    if (!isset($getcp) || !isset($getre)) {
+    if (!isset($_GET['cp']) || !isset($_GET['re'])) {
         return;
     }
-	$SelectPlanet  = $getcp;
-	$RestorePlanet = $getre;
+	$SelectPlanet  = $_GET['cp'];
+	$RestorePlanet = $_GET['re'];
 
 	if (isset($SelectPlanet)      &&
 		is_numeric($SelectPlanet) &&

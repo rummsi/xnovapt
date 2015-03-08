@@ -46,11 +46,11 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
     $parse['adm_sub_form3'] = "";
 
     // Afficher les templates
-    if (isset($get['result'])) {
+    if (isset($_GET['result'])) {
 
-        switch ($get['result']){
+        switch ($_GET['result']){
             case 'usr_search':
-                $pattern = mysqli_real_escape_string(Database::$dbHandle, $get['player']);
+                $pattern = mysql_real_escape_string($_GET['player']);
                 $SelUser = doquery("SELECT * FROM {{table}} WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", 'users', true);
                 $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $SelUser['id_planet'] ."';", 'planets', true);
 
@@ -68,7 +68,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 break;
 
             case 'usr_data':
-                $pattern = mysqli_real_escape_string(Database::$dbHandle, $get['player']);
+                $pattern = mysql_real_escape_string($_GET['player']);
                 $SelUser = doquery("SELECT * FROM {{table}} WHERE `username` LIKE '%". $pattern ."%' LIMIT 1;", 'users', true);
                 $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $SelUser['id_planet'] ."';", 'planets', true);
 
@@ -87,7 +87,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 $parse['adm_sub_form2']  = "<table><tbody>";
                 $parse['adm_sub_form2'] .= "<tr><td colspan=\"4\" class=\"c\">".$lang['adm_colony']."</td></tr>";
                 $UsrColo = doquery("SELECT * FROM {{table}} WHERE `id_owner` = '". $SelUser['id'] ." ORDER BY `galaxy` ASC, `planet` ASC, `system` ASC, `planet_type` ASC';", 'planets');
-                while ( $Colo = mysqli_fetch_assoc($UsrColo) ) {
+                while ( $Colo = mysql_fetch_assoc($UsrColo) ) {
                     if ($Colo['id'] != $SelUser['id_planet']) {
                         $parse['adm_sub_form2'] .= "<tr><th>".$Colo['id']."</th>";
                         $parse['adm_sub_form2'] .= "<th>". (($Colo['planet_type'] == 1) ? $lang['adm_planet'] : $lang['adm_moon'] ) ."</th>";
@@ -109,15 +109,15 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 break;
 
             case 'usr_level':
-                if (!isset($get['s']) || !isset($_SESSION['CSRF']) || $get['s'] !== $_SESSION['CSRF']) {
+                if (!isset($_GET['s']) || !isset($_SESSION['CSRF']) || $_GET['s'] !== $_SESSION['CSRF']) {
                     AdminMessage(
                         'One have tried to overcome administration privilleges.',
                         'Hacking attempt');
                     break;
                 }
 
-                $player = isset($get['player']) ? mysqli_real_escape_string(Database::$dbHandle, $get['player']) : '';
-                $level  = isset($get['authlvl']) ? mysqli_real_escape_string(Database::$dbHandle, $get['authlvl']) : '';
+                $player = isset($_GET['player']) ? mysql_real_escape_string($_GET['player']) : '';
+                $level  = isset($_GET['authlvl']) ? mysql_real_escape_string($_GET['authlvl']) : '';
 
                 if ($level >= $user['authlevel'] && $user['authlevel'] != LEVEL_ADMIN) {
                     AdminMessage('Not enough privilleges to promote user.', $lang['adm_mod_level']);
@@ -138,11 +138,11 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
                 break;
 
             case 'ip_search':
-                $pattern = isset($get['ip']) ? mysqli_real_escape_string(Database::$dbHandle, $get['ip']) : '';
+                $pattern = isset($_GET['ip']) ? mysql_real_escape_string($_GET['ip']) : '';
                 $SelUser    = doquery("SELECT * FROM {{table}} WHERE `user_lastip` = '". $pattern ."' LIMIT 10;", 'users');
                 $bloc                   = $lang;
                 $bloc['adm_this_ip']    = $pattern;
-                while ( $Usr = mysqli_fetch_assoc($SelUser) ) {
+                while ( $Usr = mysql_fetch_assoc($SelUser) ) {
                     $UsrMain = doquery("SELECT `name` FROM {{table}} WHERE `id` = '". $Usr['id_planet'] ."';", 'planets', true);
                     $bloc['adm_plyer_lst'] .= "<tr><th>".$Usr['username']."</th><th>[".$Usr['galaxy'].":".$Usr['system'].":".$Usr['planet']."] ".$UsrMain['name']."</th></tr>";
                 }
@@ -155,13 +155,13 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
     }
 
     // Traiter les reponses aux formulaires
-    if (isset($get['action'])) {
+    if (isset($_GET['action'])) {
         $bloc = $lang;
 
         $_SESSION['CSRF'] = sha1(uniqid(null, true));
         $bloc['csrf_hack'] = $_SESSION['CSRF'];
 
-        switch ($get['action']){
+        switch ($_GET['action']){
             case 'usr_search':
                 $SubPanelTPL            = gettemplate('admin/admin_panel_frm1');
                 break;

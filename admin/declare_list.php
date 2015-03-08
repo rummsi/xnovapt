@@ -35,11 +35,11 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 
     if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR))) {
 		includeLang('admin');
-		if ($get['cmd'] == 'dele') {
-			DeleteSelectedUser ( $get['user'] );
+		if ($_GET['cmd'] == 'dele') {
+			DeleteSelectedUser ( $_GET['user'] );
 		}
-		if ($get['cmd'] == 'sort') {
-			$TypeSort = $get['type'];
+		if ($_GET['cmd'] == 'sort') {
+			$TypeSort = $_GET['type'];
 		} else {
 			$TypeSort = "id";
 		}
@@ -53,7 +53,7 @@ require_once dirname(dirname(__FILE__)) .'/common.php';
 		$parse['adm_ul_table'] = "";
 		$i                     = 0;
 		$Color                 = "lime";
-		while ($u = mysqli_fetch_assoc ($query) ) {
+		while ($u = mysql_fetch_assoc ($query) ) {
 			if ($PrevIP != "") {
 				if ($PrevIP == $u['declarator']) {
 					$Color = "red";

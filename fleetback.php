@@ -36,8 +36,8 @@ require_once dirname(__FILE__) .'/common.php';
 	$BoxTitle   = $lang['fl_error'];
 	$TxtColor   = "red";
 	$BoxMessage = $lang['fl_notback'];
-	if ( is_numeric($post['fleetid']) ) {
-		$fleetid  = intval($post['fleetid']);
+	if ( is_numeric($_POST['fleetid']) ) {
+		$fleetid  = intval($_POST['fleetid']);
 
 		$FleetRow = doquery("SELECT * FROM {{table}} WHERE `fleet_id` = '". $fleetid ."';", 'fleets', true);
 		$i = 0;
@@ -84,7 +84,7 @@ require_once dirname(__FILE__) .'/common.php';
 		}
 	}
 
-	message ("<font color=\"".$TxtColor."\">". $BoxMessage ."</font>", $BoxTitle, "fleet.php", 2);
+	message ("<font color=\"".$TxtColor."\">". $BoxMessage ."</font>", $BoxTitle, "fleet.". PHPEXT, 2);
 
 // -----------------------------------------------------------------------------------------------------------
 // History version

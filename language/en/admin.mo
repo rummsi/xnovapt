@@ -142,4 +142,5 @@ $lang['adm_er_play']  = "Player Number";
 $lang['adm_er_time']  = "Date";
 $lang['adm_er_delete']= "Remove";
 $lang['adm_er_nbs']   = "error(s) total...";
-$lang['Reset'] = 'Reset Univers';
+
+?>

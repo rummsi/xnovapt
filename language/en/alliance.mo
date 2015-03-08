@@ -164,6 +164,6 @@ $lang['Want_go_out'] = 'Want to get out of this alliance?';
 
 
 $lang['Denied_access'] = 'You do not have the rights necessary!';
-$lang['New_tag'] = 'New Tag';
 
 // Created by Ichigo. All rights reversed (C) 2006 
+?>
