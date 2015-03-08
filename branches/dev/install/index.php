@@ -90,13 +90,13 @@ switch ($mode) {
             $prefix = $_POST['prefix'];
             $db     = $_POST['db'];
 
-            $connection = @mysql_connect($host, $user, $pass);
+            $connection = mysqli_connect($host, $user, $pass);
             if (!$connection) {
                 header("Location: ?mode=ins&page=1&error=1");
                 exit();
             }
 
-            $dbselect = @mysql_select_db($db);
+            $dbselect = mysqli_select_db($db);
             if (!$dbselect) {
                 header("Location: ?mode=ins&page=1&error=1");
                 exit();
@@ -193,13 +193,13 @@ EOF;
             $db_db     = $config['global']['database']['options']['database'];
             $db_prefix = $config['global']['database']['table_prefix'];
 
-            $connection = @mysql_connect($db_host, $db_user, $db_pass);
+            $connection = mysqli_connect($db_host, $db_user, $db_pass);
                 if (!$connection) {
                 header("Location: ?mode=ins&page=1&error=1");
                 exit();
                 }
 
-            $dbselect = @mysql_select_db($db_db);
+            $dbselect = mysqli_select_db($db_db);
                 if (!$dbselect) {
                 header("Location: ?mode=ins&page=1&error=1");
                 exit();
@@ -289,12 +289,12 @@ EOF;
             $prefix = $_POST['prefix'];
             $db     = $_POST['db'];
 
-            if (!mysql_connect($host, $user, $pass)) {
+            if (!mysqli_connect($host, $user, $pass)) {
                 header("Location: ?mode=goto&page=2&error=1");
                 exit();
             }
 
-            if (!mysql_select_db($db)) {
+            if (!mysqli_select_db($db)) {
                 header("Location: ?mode=goto&page=2&error=1");
                 exit();
             }

@@ -31,7 +31,7 @@
                         <td class=c></td>
                     </tr>
                 {/if}
-                {while $b = mysql_fetch_array($buddyrow)}
+                {while $b = mysqli_fetch_array($buddyrow)}
                     <!--{$i++}-->
                     {if (isset($i) && isset($a))}
                         <tr>
