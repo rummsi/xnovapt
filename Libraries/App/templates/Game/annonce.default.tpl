@@ -28,7 +28,7 @@
                     <th>Deuterium</th>
                     <th>Delet</th>
                 </tr>
-                {while ($b = mysql_fetch_array($annonce))}
+                {while ($b = mysqli_fetch_array($annonce))}
                 <tr><tr>
                     <th>
                         <a href=game.php?page=messages&mode=write&id={$b['user_id']}>

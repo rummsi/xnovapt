@@ -62,7 +62,7 @@ class ShowMessagesPage extends AbstractGamePage {
             }
         }
 
-        while ($CurMess = mysql_fetch_array($UsrMess)) {
+        while ($CurMess = mysqli_fetch_array($UsrMess)) {
             $MessType = $CurMess['message_type'];
             $TotalMess[$MessType] += 1;
             $TotalMess[100] += 1;

@@ -20,7 +20,7 @@
                     <th>{$lang['adm_ul_actio']}</th>
                 </tr>
                 <!--{$i = 0}-->
-                {while $u = mysql_fetch_assoc($query)}
+                {while $u = mysqli_fetch_assoc($query)}
                     {*$PrevIP = $u['user_lastip']}
                     {if $PrevIP != ""}
                         {if $PrevIP == $u['user_lastip']}

@@ -45,7 +45,7 @@ class ShowSearchPage extends AbstractGamePage {
 
         $i = 0;
         //creamos la query
-        $searchtext = mysql_real_escape_string(filter_input(INPUT_POST, 'searchtext'));
+        $searchtext = mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'searchtext'));
         switch ($type) {
             case "playername":
                 $table = $this->getTemplate('search.user_table.tpl');
@@ -78,7 +78,7 @@ class ShowSearchPage extends AbstractGamePage {
           ...pero ahora no... porque tengo sueño ;P
          */
         if (isset($searchtext) && isset($type)) {
-            while ($r = mysql_fetch_array($search, MYSQL_BOTH)) {
+            while ($r = mysqli_fetch_array($search, MYSQL_BOTH)) {
                 if ($type == 'playername' || $type == 'planetname') {
                     $s = $r;
                     //para obtener el nombre del planeta
@@ -90,7 +90,7 @@ class ShowSearchPage extends AbstractGamePage {
                     }
                     if ($type == "planetname") {
                         $pquery = doquery("SELECT * FROM {{table}} WHERE id = {$s['id_owner']}", "users", true);
-                        /* 			$farray = mysql_fetch_array($pquery); */
+                        /* 			$farray = mysqli_fetch_array($pquery); */
                         $s['planet_name'] = $s['name'];
                         $s['username'] = $pquery['username'];
                         $s['ally_name'] = ($pquery['ally_name'] != '') ? "<a href=\"game.php?page=alliance&mode=ainfo&tag={$pquery['ally_name']}\">{$pquery['ally_name']}</a>" : '';
