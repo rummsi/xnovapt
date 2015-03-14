@@ -29,7 +29,7 @@
  */
 
 $lang['Intergalactic_merchant'] = 'Demolitore intergalattico';
-$lang['Merchant_text_decript'] = '&Egrave; passato un demolitore intergalattico. Gli si possono vendere le Sonde spia per 1000 di cristallo l\'una.';
+$lang['Merchant_text_decript'] = 'È passato un demolitore intergalattico. Gli si possono vendere le Sonde spia per 1000 di cristallo l\'una.';
 $lang['How_much_want_exchange'] = 'Quante sonde vuoi demolire?';
 $lang['Merchant_give_you'] = 'Il Demolitore ti offre %n di cristallo';
 $lang['Spionagesonde'] = 'Sonde spia';
