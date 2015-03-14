@@ -78,7 +78,7 @@ $lang['lft_Rules']        = 'Regole';
 $lang['lft_devlp']        = 'Sviluppo';
 $lang['lft_navig']        = 'Navigazione';
 $lang['lft_observ']       = 'Osservazione';
-$lang['lft_commun']       = 'Comunit&agrave;';
+$lang['lft_commun']       = 'Comunità';
 $lang['lft_infog']        = 'Informazioni';
 
 // Administrator menu links

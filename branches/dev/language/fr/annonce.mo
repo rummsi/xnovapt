@@ -29,10 +29,10 @@
  */
 
 $lang['annonce_title'] = "Petites Annonces";
-$lang['annonce_del_ok'] = "An&uacute;ncio eliminado correctamente!";
+$lang['annonce_del_ok'] = "Anúncio eliminado correctamente!";
 $lang['annonce_info']  = "Informa&ccedil;&atilde;o";
 $lang['annonce_error']  = "Error";
-$lang['annonce_add_ok']  = "Votre Annonce a bien &eacute;t&eacute; enregistr&eacute;e!";
+$lang['annonce_add_ok']  = "Votre Annonce a bien été enregistrée!";
 
 $lang['annonce_seller_info'] = "Infos de livraison";
-$lang['annonce_sell_res'] = "Ressources &agrave; vendre";
+$lang['annonce_sell_res'] = "Ressources à vendre";
