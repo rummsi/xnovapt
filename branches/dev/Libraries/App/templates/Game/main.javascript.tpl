@@ -1,7 +1,15 @@
 
 
                     <!-- JAVASCRIPT -->
-                    <script type="text/javascript" src="scripts/2877496c6e1403db8b8098af144a49.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_1.11.1.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_UI.js"></script>
+                    <script type="text/javascript" src="scripts/AnythingSlider.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_bbq.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_hashchange_event.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_cookie_plugin.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_mousewheel.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_spinners.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_tooltip.js"></script>
                     <script type="text/javascript">
                         var session = "{$smarty.session.user_id}";
                         var vacation = 0;
