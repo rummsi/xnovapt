@@ -40,6 +40,6 @@
                                 <li>
                                     <a href="javascript:top.location.href='index.php?page=logout'">{$lang['lft_Logout']}</a>
                                 </li>
-                                <li class="OGameClock">14.03.2015 <span>11:59:17</span></li>
+                                <li class="OGameClock"></li>
                             </ul>
                         </div>

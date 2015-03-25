@@ -108,6 +108,7 @@ abstract class AbstractGamePage {
             'lang' => $lang,
             'game_config' => $game_config,
             'lm_tx_queue' => MAX_FLEET_OR_DEFS_PER_ROW,
+            'energy_available' => $planetrow["energy_max"] + $planetrow["energy_used"],
         ));
 
         if ($user) {

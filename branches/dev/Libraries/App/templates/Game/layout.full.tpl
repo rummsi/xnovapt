@@ -27,4 +27,5 @@
                     </div>
                     <!-- END CONTENT AREA -->
 {include file="main.rightmenu.tpl"}
+{include file="main.javascript.tpl"}
 {include file="main.footer.tpl"}
