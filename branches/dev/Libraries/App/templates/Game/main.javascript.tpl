@@ -1,7 +1,7 @@
 
 
                     <!-- JAVASCRIPT -->
-                    <script type="text/javascript" src="scripts/jquery_1.11.1.js"></script>
+                    <script type="text/javascript" src="scripts/jquery_Librarie.js"></script>
                     <script type="text/javascript" src="scripts/jquery_UI.js"></script>
                     <script type="text/javascript" src="scripts/AnythingSlider.js"></script>
                     <script type="text/javascript" src="scripts/jquery_bbq.js"></script>
