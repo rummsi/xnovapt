@@ -349,5 +349,211 @@
                                 {if !empty($page_scripts)}{$page_scripts}{/if}
                                         
                         });
+                        var planetMoveLoca = {
+                                "askTitle": "Resettle Planet",
+                                "askCancel": "Are you sure that you wish to cancel this planet relocation? The normal waiting time will thereby be maintained.",
+                                "yes": "yes",
+                                "no": "No",
+                                "success": "The planet relocation was successfully cancelled.",
+                                "error": "Error"
+                        };
+
+                        function openPlanetRenameGiveupBox() {
+                                openOverlay("http:\/\/s671-en.ogame.gameforge.com\/game.php?page=planetlayer", {
+                                        title: "{$lang['Planet_menu']}",
+                                        'class': "planetRenameOverlay"
+                                });
+                        }
+                        var textContent = [];
+                        textContent[0] = "{$lang['Diameter']}:";
+                        textContent[1] = "{pretty_number($planetrow['diameter'])}km (<span>{$planetrow['field_current']}<\/span>\/<span>{CalculateMaxPlanetFields($planetrow)}<\/span>)";
+                        textContent[2] = "{$lang['Temperature']}:";
+                        textContent[3] = "{$planetrow['temp_min']}{$lang['ov_temp_unit']} {$lang['ov_temp_to']} {$planetrow['temp_max']}{$lang['ov_temp_unit']}";
+                        textContent[4] = "{$lang['Position']}:";
+                        textContent[5] = "<a  href=\"game.php?page=galaxy&action=0&galaxy={$planetrow['galaxy']}&system={$planetrow['system']}\" >[{$planetrow['galaxy']}:{$planetrow['system']}:{$planetrow['planet']}]<\/a>";
+                        textContent[6] = "{$lang['Points']}:";
+                        textContent[7] = "<a href='game.php?page=statistics'>{pretty_number($StatRecord['total_points'])} ({$lang['Rank']} {$StatRecord['total_rank']} {$lang['of']} {$game_config['users_amount']})<\/a>";
+                        textContent[8] = "{$lang['NumberOfRaids']}:";
+                        textContent[9] = "{$user['raids']}";
+                        var textDestination = [];
+                        textDestination[0] = "diameterField";
+                        textDestination[1] = "diameterContentField";
+                        textDestination[2] = "temperatureField";
+                        textDestination[3] = "temperatureContentField";
+                        textDestination[4] = "positionField";
+                        textDestination[5] = "positionContentField";
+                        textDestination[6] = "scoreField";
+                        textDestination[7] = "scoreContentField";
+                        textDestination[8] = "honorField";
+                        textDestination[9] = "honorContentField";
+                        var currentIndex = 0;
+                        var currentChar = 0;
+                        var linetwo = 0;
+                        var locaPremium = {
+                                "buildingHalfOverlay": "Do you want to reduce the construction time by 50% of the total construction time () for <b>750 Dark Matter<\/b>?",
+                                "buildingFullOverlay": "Do you want to immediately complete the construction order for <b>750 Dark Matter<\/b>?",
+                                "shipsHalfOverlay": "Do you want to reduce the construction time by 50% of the total construction time () for <b>750 Dark Matter<\/b>?",
+                                "shipsFullOverlay": "Do you want to immediately complete the construction order for <b>750 Dark Matter<\/b>?",
+                                "researchHalfOverlay": "Do you want to reduce the research time by 50% of the total research time () for <b>750 Dark Matter<\/b>?",
+                                "researchFullOverlay": "Do you want to immediately complete the research order for <b>750 Dark Matter<\/b>?"
+                        };
+                        var priceBuilding = 750;
+                        var priceResearch = 750;
+                        var priceShips = 750;
+                        var loca = loca || {};
+                        loca = $.extend({}, loca, {
+                                "error": "Error",
+                                "errorNotEnoughDM": "Not enough Dark Matter available! Do you want to buy some now?",
+                                "notice": "Reference",
+                                "planetGiveupQuestion": "Are you sure you want to give up the planet %planetName% %planetCoordinates%?",
+                                "moonGiveupQuestion": "Are you sure you want to give up the moon %planetName% %planetCoordinates%?"
+                        });
+
+                        function type() {
+                                var destination = document.getElementById(textDestination[currentIndex]);
+                                if (destination) {
+                                        if (textContent[currentIndex].substr(currentChar, 1) == "<" && linetwo != 1) {
+                                                while (textContent[currentIndex].substr(currentChar, 1) != ">") {
+                                                        currentChar++;
+                                                }
+                                        }
+                                        if (linetwo == 1) {
+                                                destination.innerHTML = textContent[currentIndex];
+                                                currentChar = destination.innerHTML = textContent[currentIndex].length + 1;
+                                        } else {
+                                                destination.innerHTML = textContent[currentIndex].substr(0, currentChar) + "_";
+                                                currentChar++;
+                                        }
+                                        if (currentChar > textContent[currentIndex].length) {
+                                                destination.innerHTML = textContent[currentIndex];
+                                                currentIndex++;
+                                                currentChar = 0;
+                                                if (currentIndex < textContent.length) {
+                                                        type();
+                                                }
+                                        } else {
+                                                setTimeout("type()", 15);
+                                        }
+                                }
+                        }
+
+                        function planetRenamed(data) {
+                                var data = $.parseJSON(data);
+                                if (data["status"]) {
+                                        $("#planetNameHeader").html(data["newName"]);
+                                        reloadRightmenu("http://s671-en.ogame.gameforge.com/game/index.php?page=rightmenu&renamed=1&pageToLink=overview");
+                                        $(".overlayDiv.planetRenameOverlay").dialog('close');
+                                }
+                                errorBoxAsArray(data["errorbox"]);
+                        }
+
+                        function reloadPage() {
+                                location.href = "game.php?page=overview";
+                        }
+                        var demolish_id;
+                        var buildUrl;
+
+                        function loadDetails(type) {
+                                url = "game.php?page=overview&ajax=1";
+                                if (typeof(detailUrl) != 'undefined') {
+                                        url = detailUrl;
+                                }
+                                $.get(url, {
+                                        type: type
+                                }, function(data) {
+                                        $("#detail").html(data);
+                                        $("#techDetailLoading").hide();
+                                        $("input[type='text']:first", document.forms["form"]).focus();
+                                });
+                        }
+
+                        function sendBuildRequest(url, ev, showSlotWarning) {
+                                if (ev != undefined) {
+                                        var keyCode;
+                                        if (window.event) {
+                                                keyCode = window.event.keyCode;
+                                        } else if (ev) {
+                                                keyCode = ev.which;
+                                        } else {
+                                                return true;
+                                        }
+                                        if (keyCode != 13) {
+                                                return true;
+                                        }
+                                }
+
+                                function build() {
+                                        if (url == null) {
+                                                sendForm();
+                                        } else {
+                                                fastBuild();
+                                        }
+                                }
+                                if (url == null) {
+                                        fallBackFunc = sendForm;
+                                } else {
+                                        fallBackFunc = build;
+                                        buildUrl = url;
+                                }
+                                if (showSlotWarning) {
+                                        build();
+                                } else {
+                                        build();
+                                }
+                                return false;
+                        }
+
+                        function fastBuild() {
+                                location.href = buildUrl;
+                                return false;
+                        }
+
+                        function sendForm() {
+                                document.form.submit();
+                                return false;
+                        }
+
+                        function demolishBuilding(id, question) {
+                                demolish_id = id;
+                                question += "<br/><br/>" + $("#demolish" + id).html();
+                                errorBoxDecision("Caution", "" + question + "", "yes", "No", demolishStart);
+                        }
+
+                        function demolishStart() {
+                                window.location.replace("http://s671-en.ogame.gameforge.com/game/index.php?page=overview&modus=3&token=e2897dbbc66b227034a005cc3f64ed82&type=" + demolish_id);
+                        }
+                        gfSlider = new GFSlider(getElementByIdWithCache('detailWrapper'));
+                        var detailUrl = "http:\/\/s671-en.ogame.gameforge.com\/game\/index.php?page=buffActivation&ajax=1";
+                        var cancelProduction_id;
+                        var production_listid;
+
+                        function cancelProduction(id, listid, question) {
+                                cancelProduction_id = id;
+                                production_listid = listid;
+                                errorBoxDecision("Caution", "" + question + "", "yes", "No", cancelProductionStart);
+                        }
+
+                        function cancelProductionStart() {
+                                window.location.replace("game.php?page=overview");
+                        }
+
+                        function initType() {
+                                type();
+                        }
+                        new baulisteCountdown(getElementByIdWithCache("moveCountdown"), -1426334306);
+                        $('#planet').find('h2 a').hover(function() {
+                                $('#planet').find('h2 a img').toggleClass('hinted');
+                        }, function() {
+                                $('#planet').find('h2 a img').toggleClass('hinted');
+                        });
+                
+                        
+                        
                     </script>
                     <!-- END JAVASCRIPT -->
+                    
+                    
+                    
+                    
+                    
+                    
