@@ -98,7 +98,7 @@ class ShowOverviewPage extends AbstractGamePage {
                     }
                 }
             }
-            
+
             $StatRecord = doquery("SELECT * FROM {{table}} WHERE `stat_type` = '1' AND `stat_code` = '1' AND `id_owner` = '" . $user['id'] . "';", 'statpoints', true);
             $ile = $StatRecord['total_old_rank'] - $StatRecord['total_rank'];
             if ($ile >= 1) {
@@ -141,6 +141,10 @@ class ShowOverviewPage extends AbstractGamePage {
                 'RestTime' => $planetrow['b_building'] - time(),
                 'PlanetID' => $planetrow['id'],
                 'StatRecord' => $StatRecord,
+                'page_scripts' => "initOverview();
+                    initBuffBar();
+                    initType();
+                    tabletInitOverviewAdvice();",
             ));
 
             $this->render('overview.default.tpl');
