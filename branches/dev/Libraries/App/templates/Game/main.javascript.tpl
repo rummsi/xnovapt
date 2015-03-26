@@ -98,17 +98,6 @@
                         var startpageUrl = "http:\/\/ogame.org";
                         var nodePort = 10077;
                         var nodeUrl = "http:\/\/s671-en.ogame.gameforge.com:10077\/socket.io\/socket.io.js";
-                        var chatUrl = "http:\/\/s671-en.ogame.gameforge.com\/game\/index.php?page=ajaxChat";
-                        var chatLoca = {
-                                "TEXT_EMPTY": "Where is the message?",
-                                "TEXT_TOO_LONG": "The message is too long.",
-                                "SAME_USER": "You cannot write to yourself.",
-                                "IGNORED_USER": "You are ignoring this player.",
-                                "NO_DATABASE_CONNECTION": "A previously unknown error has occurred. Unfortunately your last action couldn`t be executed!",
-                                "INVALID_PARAMETERS": "A previously unknown error has occurred. Unfortunately your last action couldn`t be executed!",
-                                "SEND_FAILED": "A previously unknown error has occurred. Unfortunately your last action couldn`t be executed!",
-                                "X_NEW_CHATS": "#+# unread conversation(s)"
-                        };
                         var eventboxLoca = {
                                 "mission": "Mission",
                                 "missions": "Missions",
@@ -343,8 +332,6 @@
                         };
                         $(document).ready(function() {
                                 initIndex();
-                                ogame.chat.initChatBar();
-                                ogame.chat.initChat();
                                 initAjaxEventbox();
                                 {if !empty($page_scripts)}{$page_scripts}{/if}
                                         

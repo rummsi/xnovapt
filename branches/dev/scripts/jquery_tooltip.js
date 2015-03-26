@@ -1104,8 +1104,7 @@ ogame.buddies = {
             cssDesc: "ct_sort_desc"
         });
         $("#buddylist").off(".buddyList");
-        $("#buddylist").on("click.buddyList", ".deleteBuddy", deleteBuddy);
-        $("#chatContent").on("click.chat_info", ".deleteBuddy", deleteBuddy)
+        $("#buddylist").on("click.buddyList", ".deleteBuddy", deleteBuddy)
     },
     initBuddies: function () {
         $(".zebra tr").mouseover(function () {
@@ -1296,729 +1295,6 @@ function initChangelog() {
     });
     $("#changelog dt:first").click()
 }
-ogame.chat = {
-    socket: null,
-    connected: false,
-    connecting: false,
-    timeout: null,
-    retryInterval: 5000,
-    data: {},
-    initConnection: function () {
-        console.log("initConnection");
-        var c = ogame.chat;
-        if (c.connecting || c.connected) {
-            c.socket.disconnect()
-        }
-        c.connecting = true;
-        try {
-            c.socket = io.connect("/chat", {
-                port: nodePort
-            });
-            c.socket.on("connect", function () {
-                clearTimeout(this.timeout);
-                console.log(session);
-                c.socket.emit("authorize", session, function (a) {
-                    c.connecting = false;
-                    console.log("connected with nodeJS? " + a);
-                    if (a) {
-                        c.connected = true
-                    } else {
-                        c.socket.disconnect()
-                    }
-                })
-            });
-            c.socket.on("chat", function (a) {
-                console.log("chat");
-                c.messageReceived(a)
-            });
-            c.socket.on("disconnect", function () {
-                console.log("disconnect");
-                c.connected = false;
-                c.connecting = false
-            })
-        } catch (d) {
-            console.log("got exception @chat.initConnection(): " + d);
-            c.connecting = false
-        }
-    },
-    initialize: function () {
-        console.log("initialize");
-        var b = ogame.chat;
-        loadScript(nodeUrl, b.initConnection);
-        $(".js_playerlist").on("click", ".playerlist_item", function () {
-            var a = $(this).hasClass("nothingThere");
-            if (!a) {
-                b.loadChatLogWithPlayer(this)
-            }
-        });
-        $("#chatMsgList").on("click", ".msg", function () {
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chattab, $(this).data("playerid"));
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chatbar, $(this).data("playerid"));
-            b.saveMessageCounter(0, $(this).data("playerid"));
-            b.loadChatLogWithPlayer(this)
-        });
-        $("body").on("click", ".js_openChat", function () {
-            b.loadChatLogWithPlayer(this)
-        })
-    },
-    retryConnection: function () {
-        var b = ogame.chat;
-        setTimeout(function () {
-            b.initConnection()
-        }, 5000)
-    },
-    sendMessage: function (p, l) {
-        var m = ogame.chat;
-
-        function o() {
-            $.ajax({
-                url: chatUrl,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    playerId: p,
-                    text: l,
-                    mode: 1,
-                    ajax: 1
-                },
-                success: function (a) {
-                    n(a)
-                },
-                error: function (c, a, b) {
-                    console.log(c + ", " + a + ", " + b)
-                }
-            })
-        }
-        function h(a) {
-            m.addChatItem(a.targetId, a.text, a.id, false)
-        }
-        function k(a) {
-            errorBoxNotify(LocalizationStrings.error, chatLoca[a], LocalizationStrings.ok)
-        }
-        function n(a) {
-            switch (a.status) {
-                case "NOT_AUTHORIZED":
-                    o();
-                    break;
-                case "OK":
-                    h(a);
-                    break;
-                default:
-                    console.log(a);
-                    k(a.status)
-            }
-        }
-        if (false && m.connected) {
-            m.socket.emit("chat", {
-                playerId: p,
-                text: l
-            }, n)
-        } else {
-            o()
-        }
-    },
-    messageReceived: function (d) {
-        console.log("message received");
-        console.log(d);
-        var f = ogame.chat;
-        if (typeof f.data[d.senderId] == "undefined" && !(f.data[d.senderId])) {
-            f.loadChatLogWithPlayer(d.senderId, function () {
-                f.addChatItem(d.senderId, d.text, d.id, true)
-            })
-        } else {
-            f.addChatItem(d.senderId, d.text, d.id, true)
-        }
-        if (!f.isOpen(d.senderId)) {
-            if ($.cookie("messageCount" + d.senderId) == null) {
-                f.saveMessageCounter(0, d.senderId)
-            }
-            if ($.cookie("messageCount" + d.senderId) < 1) {
-                ogame.messagecounter.initialize(ogame.messagecounter.type_chat, d.senderId)
-            }
-            ogame.messagemarker.toggle(ogame.messagemarker.action_add, ogame.messagemarker.type_chatbar, d.senderId, $.cookie("messageCount" + d.senderId));
-            ogame.messagemarker.toggle(ogame.messagemarker.action_add, ogame.messagemarker.type_chattab, d.senderId, $.cookie("messageCount" + d.senderId));
-            var e = parseInt($.cookie("messageCount" + d.senderId)) + 1;
-            f.saveMessageCounter(e, d.senderId)
-        } else {
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chattab, $(this).data("playerid"));
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chatbar, $(this).data("playerid"));
-            f.saveMessageCounter(0, $(this).data("playerid"))
-        }
-    },
-    saveMessageCounter: function (c, d) {
-        $.cookie("messageCount" + d, c, {
-            expires: 1
-        })
-    },
-    isOpen: function (e) {
-        console.log("isOpen?");
-        var f = ogame.chat;
-        var d = false;
-        $(".chat_box").each(function () {
-            if ($(this).attr("data-playerid") == e) {
-                if ($(this).css("display") == "block") {
-                    d = true
-                }
-            }
-        });
-        return d
-    },
-    loadChatLogWithPlayer: function (f, g) {
-        var h = ogame.chat;
-        var e;
-        if (typeof f == "number") {
-            e = f
-        } else {
-            e = $(f).attr("data-playerId")
-        }
-        $.ajax({
-            url: chatUrl,
-            type: "POST",
-            data: {
-                playerId: e,
-                mode: 2,
-                ajax: 1
-            },
-            success: function (a) {
-                a = JSON.parse(a);
-                h.data[a.playerId] = {
-                    playerstatus: a.playerstatus,
-                    playerName: a.playerName,
-                    playerId: a.playerId,
-                    chatItems: a.chatItems,
-                    chatItemsByDateAsc: a.chatItemsByDateAsc
-                };
-                if (typeof g == "function") {
-                    g()
-                } else {
-                    if (isMobile) {
-                        alert("todo deep link to chat page")
-                    } else {
-                        if ($(f).parents("#chatBarPlayerList").length || $("body")[0].id != "chat") {
-                            h.showChat(a)
-                        } else {
-                            h.showChatHistory(a)
-                        }
-                    }
-                }
-            },
-            error: function (c, a, b) {
-                console.log(c + ", " + a + ", " + b)
-            }
-        })
-    },
-    initChat: function () {
-        console.log("initChat");
-        ogame.chat.initPlayerlist();
-        ogame.chat.initialize();
-        ogame.chat.toggleVisibility();
-        ogame.chat.setVisibilityState();
-        ogame.chat.initMaximize();
-        ogame.chat.getInMaxChat()
-    },
-    getLastChatItemData: function () {
-        var l = ogame.chat;
-        var h = null;
-        $(".chat_box_ctn .mCustomScrollBox .mCSB_container").each(function () {
-            var a = $(this).children("ul.chat").children("li:last");
-            if (h === null || a.attr("data-chat-id") > h.attr("data-chat-id")) {
-                h = a
-            }
-        });
-        var k = h.children(".msg_head").find(".msg_date").html();
-        var f = h.find(".msg_content").html();
-        var g = {
-            date: k,
-            text: f
-        };
-        return g
-    },
-    addChatItem: function (y, u, w, q) {
-        console.log("addChatItem: ");
-        var p = ogame.chat;
-        var n = $(".chat_bar_list").find("[data-playerid='" + y + "']");
-        var s = {};
-        s.date = getFormatedDate(serverTime.getTime(), "[d].[m].[Y] <span>[H]:[i]:[s]</span>");
-        s.newClass = "new";
-        if (q) {
-            s.playerName = p.data[y].playerName;
-            s.altClass = ""
-        } else {
-            s.playerName = playerName;
-            s.altClass = "odd"
-        }
-        s.chatID = w;
-        s.chatContent = u;
-        if (!n.length) {
-            var x = p.createChatBarContainer(y);
-            p.updateChatBar(x)
-        }
-        var r = p.createChatItem(s);
-        var o = p.getLastChatItemData();
-        if (s.date != o.date || s.chatContent != o.text) {
-            n.find(".chat").append(r);
-            p.updateCustomScrollbar(n.find(".chat_box_ctn"));
-            var v = $(".js_chatHistory");
-            if (v.length && v.data("chatplayerid") == y) {
-                console.info("user == " + y);
-                v.find(".chat.clearfix").append(r.clone())
-            }
-        }
-    },
-    addToMoreBox: function (m) {
-        console.log("addToMoreBox: ");
-        var l = ogame.chat;
-        var k = m.length;
-        if (k && $(".more_chat_bar_items").length < 1) {
-            $(".chat_bar_list").append(l.createMoreBox("more_chat_bar_items"))
-        }
-        var g = $(".more_chat_bar_items .more_items");
-        var h = $(".more_chat_bar_items .chat_box");
-        for (var n = 0; n <= k; n++) {
-            g.append(m.pop())
-        }
-        l.updateCustomScrollbar(h)
-    },
-    createChatBarContainer: function (f) {
-        console.log("createChatBarContainer with playerid = %s", f);
-        var g = ogame.chat;
-        if (!f) {
-            return
-        }
-        var h = g.data[f];
-        g.data.playerId = f;
-        var e = $('<li class="chat_bar_list_item open" data-playerid="' + f + '"></li>');
-        e.append('<span class="playerstatus ' + h.playerstatus + '"></span>');
-        e.append('<span class="cb_playername">' + h.playerName + "</span>");
-        e.append('<span class="icon icon_close fright"></span>');
-        e.prepend(g.createChatBox(f));
-        return e
-    },
-    closeChatBox: function (c) {
-        var d = $(".chat_bar_list_item");
-        $.each(d, function (b, a) {
-            if ($(a).data("playerid") == c) {
-                $(a).addClass("outOfChatbar");
-                $(a).removeClass("open")
-            }
-        })
-    },
-    getVisibleChats: function () {
-        if (typeof visibleChats == "undefined") {
-            visibleChats = []
-        }
-        return visibleChats
-    },
-    getVisibleChatPlayerIds: function () {
-        var k = ogame.chat;
-        var l = k.getVisibleChats();
-        var h = {};
-        var g = 0;
-        for (var f = 0; f < l.length; f++) {
-            if ($.inArray(l[f]["partnerId"], h) == -1) {
-                h[g] = l[f]["partnerId"];
-                g++
-            }
-        }
-        return h
-    },
-    setVisibilityState: function () {
-        var k = ogame.chat;
-        var l = k.getVisibleChatPlayerIds();
-        var g = $("#chatBar .chat_bar_list .chat_bar_list_item");
-        for (var n = 0; n < g.length; n++) {
-            var m = g.get(n);
-            var h = $(m).data("playerid");
-            if (!k.isInJson(h, l)) {
-                k.closeChatBox(h)
-            }
-        }
-    },
-    isInJson: function (f, d) {
-        var e = null;
-        if ($.isEmptyObject(d)) {
-            e = false
-        }
-        if (e !== false) {
-            $.each(d, function (a, b) {
-                console.log(b);
-                console.log();
-                if (b == f) {
-                    e = true
-                }
-            });
-            if (e !== true) {
-                false
-            }
-        }
-        return e
-    },
-    toggleVisibility: function () {
-        $(".chat_bar_list_item .icon_close").on("click", function () {
-            var b = $(this).parent().data("playerid");
-            $.ajax({
-                type: "POST",
-                url: "/game/index.php?page=ajaxChatToggleVisibility",
-                data: {
-                    playerid: b,
-                    showState: 0
-                },
-                success: function (a) {
-                    console.log("success")
-                },
-                error: function (a, e, f) {
-                    console.log("failed to set visibility false");
-                    console.log(a + ", " + e + ", " + f)
-                }
-            })
-        });
-        $(".cb_playerlist_box .playerlist_item").on("click", function () {
-            var b = $(this).data("playerid");
-            $.ajax({
-                type: "POST",
-                url: "/game/index.php?page=ajaxChatToggleVisibility",
-                data: {
-                    playerid: b,
-                    showState: 1
-                },
-                success: function (a) {
-                    console.log("success")
-                },
-                error: function (a, e, f) {
-                    console.log("failed to set visibility false");
-                    console.log(a + ", " + e + ", " + f)
-                }
-            })
-        })
-    },
-    initMaximize: function () {
-        console.log("initMaximize");
-        $(".chat_box .chat_box_title .icon_maximize").on("click", function () {
-            var c = $(this).parent();
-            var d = $(c).parent().data("playerid");
-            console.log(d);
-            $.cookie("maximizeId", d);
-            $(".chat_bar_list_item.open .chat_box_title .icon_close").trigger("click");
-            window.location = bigChatLink
-        })
-    },
-    getInMaxChat: function () {
-        var b = location.href;
-        if (typeof bigChatLink == "undefined") {
-            bigChatLink = ""
-        }
-        if (bigChatLink == b) {
-            if ($.cookie("maximizeId") !== null) {
-                console.log($("#chatMsgList .msg[data-playerId=" + $.cookie("maximizeId") + "]"));
-                $("#chatMsgList .msg[data-playerId=" + $.cookie("maximizeId") + "]").trigger("click")
-            }
-        }
-        $.cookie("maximizeId", null)
-    },
-    createChatBox: function (l) {
-        var n = ogame.chat;
-        if (!l) {
-            return
-        }
-        var p = n.data[l];
-        var r = $('<div class="chat_box_title"></div>');
-        r.append('<span class="icon icon_close fright"></span>');
-        r.append('<span class="icon icon_maximize fright"></span>');
-        var m = $('<div class="chat_box_ctn"><ul class="chat clearfix"></ul></div>');
-        var k = {};
-        for (var q = 0; q < p.chatItemsByDateAsc.length; q++) {
-            k = p.chatItems[p.chatItemsByDateAsc[q]];
-            m.find(".chat").append(n.createChatItem(k))
-        }
-        var o = $('<div class="chat_box" data-playerid="' + l + '"></div>');
-        o.append(r);
-        o.append(m);
-        o.append('<textarea name="text" class="chat_box_textarea"></textarea>');
-        return o
-    },
-    createChatItem: function (f) {
-        console.log(f);
-        if (!f) {
-            console.warn("no chatItem given");
-            return
-        }
-        var d = $('<div class="msg_head"></div>');
-        d.append('<span class="msg_date fright">' + f.date + "</span>");
-        d.append('<span class="msg_title blue_txt ' + f.newClass + '">' + f.playerName + "</span>");
-        var e = $('<li class="chat_msg ' + f.altClass + '" data-chat-id="' + f.chatID + '"></li>');
-        e.append(d);
-        e.append('<span class="msg_content">' + f.chatContent + "</span>");
-        e.append('<div class="speechbubble_arrow"></div>');
-        return e
-    },
-    createMoreBox: function (d) {
-        var c = $('<li class="chat_bar_list_item ' + d + '">mehr zeigen</li>');
-        c.prepend($('<div class="chat_box"><ul class="more_items clearfix"></ul></div>'));
-        return c
-    },
-    filterPlayerlist: function () {
-        var l = [];
-        var h;
-        var k = $("#playerlistFilters").find('input[type="checkbox"]');
-        k.each(function () {
-            l.push($(this).attr("id"))
-        });
-        $(".playerlist_item").show();
-        h = false;
-        k.each(function () {
-            if ($(this).prop("checked")) {
-                h = true
-            }
-        });
-        if (!h) {
-            return
-        }
-        var f;
-        var g;
-        $(".playerlist_item").filter(function () {
-            f = false;
-            g = $(this);
-            $.each(l, function (b, a) {
-                if (g.data(a) === "off" && $("#" + a).prop("checked")) {
-                    f = true
-                }
-            });
-            (f === true) ? g.hide() : g.show()
-        })
-    },
-    initChatBar: function () {
-        var e = ogame.chat;
-        $("html").off(".chatBar");
-        $(window).resize(function () {
-            e.updateChatBar()
-        });
-        var d = [];
-        $("#chatBarPlayerList li.playerlist_item").each(function (a) {
-            d[a] = $(this).data("playerid")
-        });
-        var f = ogame.messagemarker.initMarker(d);
-        ogame.messagecounter.initChatCounter(f);
-        $(".chat_bar_list").on("click.chatBar", "#chatBarPlayerList", function (a) {
-            if ($(a.target).attr("id") !== "chatBarPlayerList" && !$(a.target).hasClass("onlineCount")) {
-                return
-            }
-            $(".cb_playerlist_box").toggle()
-        }).on("click.chatBar", ".chat_bar_list_item", function (a) {
-            a.stopPropagation();
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chattab, $(this).data("playerid"));
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chatbar, $(this).data("playerid"));
-            e.saveMessageCounter(0, $(this).data("playerid"));
-            console.log("on: .chat_bar_list_item", $(this).closest(".more_items").length);
-            if ($(this).closest(".more_items").length) {
-                e.swapChatBarItem($(this))
-            } else {
-                e.toggleChatBox($(a.target), $(this))
-            }
-            e.updateVisibleState()
-        }).on("click.chatBar", ".chat_bar_list_item > .icon_close", function (a) {
-            a.stopPropagation();
-            var b = $(this).closest(".chat_bar_list_item");
-            ogame.chat.closeChatBox(b.attr("data-playerid"));
-            b.remove("open");
-            e.updateChatBar()
-        }).on("keyup.chatBar", ".chat_box_textarea", function (a) {
-            if ((a.ctrlKey || a.keyCode == 10) && a.keyCode == 13) {
-                a.preventDefault();
-                var b = $(this).val();
-                $(this).val(b + "\n")
-            } else {
-                e.submitChatBarMsg($(a.currentTarget), a.which, a.shiftKey, a.delegateTarget.scrollHeight)
-            }
-        }).on("click.chatBar", ".chat_box_textarea", function (a) {
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chattab, $(this).parent().parent().parent().data("playerid"));
-            ogame.messagemarker.toggle(ogame.messagemarker.action_remove, ogame.messagemarker.type_chatbar, $(this).parent().parent().parent().data("playerid"));
-            e.saveMessageCounter(0, $(this).data("playerid"))
-        });
-        e.updateCustomScrollbar($(".chat_box_ctn"))
-    },
-    initPlayerlist: function () {
-        console.log("initPlayerlist");
-        var c = ogame.chat;
-        var d = ogame.tools;
-        $(".js_accordion").accordion({
-            collapsible: true,
-            heightStyle: "content"
-        });
-        $(".playerlist_item:odd").addClass("odd");
-        d.addHover(".playerlist_item, .msg");
-        $(".js_playerlist").on("click.playerList", ".pl_filter_set", function () {
-            c.filterPlayerlist()
-        })
-    },
-    showChat: function (h) {
-        var e = false;
-        var g = ogame.chat;
-        $(".chat_bar_list_item").each(function () {
-            var a = $(this);
-            if (a.data("playerid") === h.playerId) {
-                e = true;
-                if (a.hasClass("outOfChatbar")) {
-                    a.removeClass("outOfChatbar")
-                }
-                if (!a.hasClass("open")) {
-                    a.click()
-                } else {
-                    a.fadeTo("400", 0.3).fadeTo("400", 1)
-                }
-            }
-        });
-        if (!e) {
-            var f = g.createChatBarContainer(h.playerId);
-            g.updateChatBar(f)
-        }
-    },
-    showChatHistory: function (e) {
-        var d = $(".js_chatHistory");
-        var f = e.data;
-        if (d.length) {
-            d.remove()
-        }
-        $("#chatList").remove();
-        $(f).insertAfter("#planet");
-        initBBCodeEditor(locaKeys, itemNames, false, ".new_msg_textarea", 2000, true)
-    },
-    submitChatBarMsg: function (p, l, h, m) {
-        var o = ogame.chat;
-        var n = parseInt($(".chat_box_textarea").css("max-height"));
-        var k = parseInt($(".chat_box_textarea").css("padding-top")) + parseInt($(".chat_box_textarea").css("padding-bottom"));
-        if (l === 13 && h) {
-            if (m <= (n + k)) {
-                p.css("height", m - k)
-            }
-            return
-        }
-        if (l === 13) {
-            o.sendMessage(p.parent(".chat_box").data("playerid"), p.val());
-            p.val("")
-        }
-    },
-    swapChatBarItem: function (d) {
-        console.log("swapChatBarItem: ");
-        var f = ogame.chat;
-        var e = $(".more_chat_bar_items").prev().remove();
-        e.removeClass("open").find(".icon_close").hide().end().find(".chat_box").hide();
-        itemToSwapIn.addClass("open").find(".icon_close").show().end().find(".chat_box").show().end().insertBefore(".more_chat_bar_items");
-        f.addToMoreBox([e]);
-        f.updateChatBar();
-        f.updateCustomScrollbar(itemToSwapIn.find(".chat_box_ctn"))
-    },
-    toggleChatBox: function (f, l) {
-        console.log("toggleChatBox: ", f);
-        var h = ogame.chat;
-        if (f.parents(".chat_box").length && !f.hasClass("icon_close")) {
-            return
-        }
-        var k = l.children(".chat_box");
-        if (k.is(":visible")) {
-            k.hide();
-            l.removeClass("open")
-        } else {
-            if (!l.hasClass("more_chat_bar_items")) {
-                l.addClass("open");
-                h.updateChatBar()
-            }
-            k.show();
-            var g = k.find(".chat_box_ctn");
-            if (l.hasClass("more_chat_bar_items")) {
-                g = k
-            }
-            h.updateCustomScrollbar(g);
-            k.find("textarea").focus()
-        }
-        ogame.messagecounter.resetCounterByType(ogame.messagecounter.type_chat)
-    },
-    handleTooMuchWindows: function (o, l, u, s, p, r) {
-        var q = ogame.chat;
-        var n = true;
-        var m = [];
-        $($(".chat_bar_list > .chat_bar_list_item").get().reverse()).each(function () {
-            var a = $(this);
-            if (n) {
-                if (a.hasClass("more_chat_bar_items") || a.attr("id") === "chatBarPlayerList") {
-                    return
-                }
-                if (a.hasClass("open")) {
-                    o--
-                } else {
-                    l--
-                }
-                a.removeClass("open").find(".icon_close").hide().end().find(".chat_box").hide();
-                m.push(a);
-                a.remove();
-                widthTotal = s * l + u * o + p;
-                n = (widthTotal >= r) ? true : false
-            }
-        });
-        q.addToMoreBox(m)
-    },
-    getItemFromMorelist2Chatbar: function () {
-        var b = $(".more_items .chat_bar_list_item").first().remove();
-        b.addClass("open").find(".icon_close").show().end().find(".chat_box").show().end().insertBefore(".more_chat_bar_items");
-        if ($(".more_items .chat_bar_list_item").length <= 0) {
-            $(".more_chat_bar_items").remove()
-        }
-        $this.updateCustomScrollbar($(".more_chat_bar_items>.chat_box"));
-        $this.updateCustomScrollbar(b.find(".chat_box_ctn"))
-    },
-    updateChatBar: function (n) {
-        var r = ogame.chat;
-        var o = $(".chat_bar_list > .chat_bar_list_item.open").length;
-        var v = $(".more_chat_bar_items").length;
-        var m = $(".chat_bar_list").children().length - o - v;
-        var u = 180;
-        var w = 270;
-        var q = 190;
-        var s = $("body").innerWidth();
-        if (n) {
-            o++
-        }
-        var p = u * m + w * o + q * v;
-        if (p >= s) {
-            r.handleTooMuchWindows(o, m, w, u, q, s)
-        } else {
-            if ((p + w) <= s && $(".more_chat_bar_items").length > 0) {
-                r.getItemFromMorelist2Chatbar()
-            }
-        }
-        if (n) {
-            n.insertAfter("#chatBarPlayerList");
-            r.updateCustomScrollbar(n.find(".chat_box_ctn"))
-        }
-    },
-    updateCustomScrollbar: function (b) {
-        if (!b || b.length == 0) {
-            return
-        }
-        if (b.hasClass("mCustomScrollbar")) {
-            b.mCustomScrollbar("destroy")
-        }
-        b.mCustomScrollbar();
-        b.mCustomScrollbar("scrollTo", "bottom", {
-            scrollInertia: 0
-        })
-    },
-    updateVisibleState: function () {
-        var b = [];
-        $(".chat_bar_list>.chat_bar_list_item").each(function () {
-            var a = $(this);
-            if (a.attr("id") === "chatBarPlayerList" && a.children(".cb_playerlist_box").is(":visible")) {
-                b.push(0)
-            } else {
-                if (a.data("playerid") && a.children(".chat_box").is(":visible")) {
-                    b.push(a.data("playerid"))
-                }
-            }
-        });
-        $.cookie("visibleChats", JSON.stringify(b), {
-            expires: 7
-        })
-    }
-};
 
 function countdown(l, g, f) {
     if (g == null || g == "") {
@@ -5691,11 +4967,9 @@ if (typeof KeyEvent == "undefined") {
 })(jQuery);
 ogame.messagecounter = {
     countData: {
-        chat: 0,
         messages: 0,
         buddy: 0
     },
-    type_chat: 10,
     type_message: 11,
     type_buddy: 12,
     currentLinkSelector: null,
@@ -5703,20 +4977,11 @@ ogame.messagecounter = {
     currentPlayer: null,
     initialize: function (d, e) {
         var f = ogame.messagecounter;
-        if (typeof e == "undefined" && d !== f.type_chat) {
-            f.currentPlayer = 0
-        }
-        if (typeof e == "undefined" && d == f.type_chat) {
-            return false
-        }
         if (typeof e !== "undefined") {
             f.currentPlayer = e
         }
         f.currentType = d;
         switch (d) {
-            case f.type_chat:
-                f.currentLinkSelector = $("a.comm_menu.chat");
-                break;
             case f.type_message:
                 f.currentLinkSelector = $("a.comm_menu.messages");
                 break;
@@ -5727,13 +4992,6 @@ ogame.messagecounter = {
                 return false
         }
         f.update()
-    },
-    initChatCounter: function (d) {
-        var c = ogame.messagecounter;
-        c.currentLinkSelector = $("a.comm_menu.chat");
-        c.currentType = c.type_chat;
-        c.setCount(d);
-        c.update()
     },
     update: function () {
         var b = ogame.messagecounter;
@@ -5747,21 +5005,16 @@ ogame.messagecounter = {
                 b.setNewCounter(b.getCountSelectorByType(b.currentType), b.getCount())
             }
         }
-        changeTooltip(b.currentLinkSelector, chatLoca.X_NEW_CHATS.replace("#+#", b.getCount()))
     },
     resetCounterByType: function (d) {
         var f = ogame.messagecounter;
         var e = f.getIconSelectorByType(d);
-        f.setNewCounter(e, "");
-        changeTooltip(e, chatLoca.X_NEW_CHATS.replace("#+#", 0))
+        f.setNewCounter(e, "")
     },
     getCountSelectorByType: function (e) {
         var f = ogame.messagecounter;
         var d = "";
         switch (e) {
-            case f.type_chat:
-                d = $("a.comm_menu.chat .new_msg_count");
-                break;
             case f.type_message:
                 d = $("a.comm_menu.messages .new_msg_count");
                 break;
@@ -5774,9 +5027,6 @@ ogame.messagecounter = {
         var f = ogame.messagecounter;
         var e = "";
         switch (d) {
-            case f.type_chat:
-                e = $("a.comm_menu.chat");
-                break;
             case f.type_message:
                 e = $("a.comm_menu.messages");
                 break;
@@ -5792,8 +5042,6 @@ ogame.messagecounter = {
     getCount: function () {
         var b = ogame.messagecounter;
         switch (b.currentType) {
-            case b.type_chat:
-                return b.countData.chat;
             case b.type_message:
                 return b.countData.messages;
             case b.type_buddy:
@@ -5803,9 +5051,6 @@ ogame.messagecounter = {
     setCount: function (d) {
         var c = ogame.messagecounter;
         switch (c.currentType) {
-            case c.type_chat:
-                c.countData.chat = d;
-                break;
             case c.type_message:
                 c.countData.messages = d;
                 break;
@@ -5846,15 +5091,6 @@ ogame.messagecounter = {
         var c = ogame.messagecounter;
         var d = false;
         switch (c.currentType) {
-            case c.type_chat:
-                $(".chat_box").each(function () {
-                    if ($(this).attr("data-playerid") == c.currentPlayer) {
-                        if ($(this).css("display") == "block") {
-                            d = true
-                        }
-                    }
-                });
-                break;
             case c.type_message:
                 d = (location.href.indexOf("page=messages") > -1);
                 break;
@@ -5866,8 +5102,6 @@ ogame.messagecounter = {
     }
 };
 ogame.messagemarker = {
-    type_chatbar: 10,
-    type_chattab: 11,
     action_remove: 20,
     action_add: 21,
     currentCount: "",
@@ -5883,10 +5117,8 @@ ogame.messagemarker = {
             d.setPartnerId(a);
             var c = $.cookie("messageCount" + a);
             if (c != null && c > 0) {
-                d.setSelectorByType(d.type_chatbar);
                 d.mark(d.currentSelector, d.currentPlayernameObject, c);
                 d.mark(d.currentListItemSelector, d.currentListPlayernameObject, c);
-                d.setSelectorByType(d.type_chattab);
                 d.mark(d.currentSelector, d.currentPlayernameObject, c)
             }
             f = f + 1
@@ -5940,12 +5172,6 @@ ogame.messagemarker = {
     },
     setSelectorByType: function (b) {
         selector = "";
-        if (b == this.type_chatbar) {
-            selector = 'ul.chat_bar_list li.chat_bar_list_item[data-playerid="' + this.currentPartnerId + '"]'
-        }
-        if (b == this.type_chattab) {
-            selector = 'ul#chatMsgList li.msg[data-playerid="' + this.currentPartnerId + '"]'
-        }
         this.currentListItemSelector = '.js_playerlist ul.playerlist li.playerlist_item[data-playerid="' + this.currentPartnerId + '"]';
         this.currentSelector = selector;
         this.currentPlayernameObject = $(selector).find(".cb_playername");
