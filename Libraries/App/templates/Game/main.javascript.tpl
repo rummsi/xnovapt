@@ -346,6 +346,8 @@
                                 ogame.chat.initChatBar();
                                 ogame.chat.initChat();
                                 initAjaxEventbox();
+                                {if !empty($page_scripts)}{$page_scripts}{/if}
+                                        
                         });
                     </script>
                     <!-- END JAVASCRIPT -->
