@@ -336,7 +336,8 @@
                                 {if !empty($page_scripts)}{$page_scripts}{/if}
                                         
                         });
-                        var planetMoveLoca = {
+                        {if $currentPage == 'overview'}
+                                                    var planetMoveLoca = {
                                 "askTitle": "Resettle Planet",
                                 "askCancel": "Are you sure that you wish to cancel this planet relocation? The normal waiting time will thereby be maintained.",
                                 "yes": "yes",
@@ -533,9 +534,7 @@
                         }, function() {
                                 $('#planet').find('h2 a img').toggleClass('hinted');
                         });
-                
-                        
-                        
+                        {/if}
                     </script>
                     <!-- END JAVASCRIPT -->
                     

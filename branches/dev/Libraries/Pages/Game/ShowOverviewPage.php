@@ -145,6 +145,7 @@ class ShowOverviewPage extends AbstractGamePage {
                     initBuffBar();
                     initType();
                     tabletInitOverviewAdvice();",
+                    'currentPage'=> 'overview',
             ));
 
             $this->render('overview.default.tpl');

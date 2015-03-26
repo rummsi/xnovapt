@@ -45,6 +45,7 @@ class ShowChangelogPage extends AbstractGamePage {
             'Description' => $lang['Description'],
             'changelog' => $lang['changelog'],
             'page_scripts'=> "initChangelog();",
+                    'currentPage'=> 'changelog',
         ));
 
         $this->render('changelog.default.tpl');
