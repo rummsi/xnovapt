@@ -207,7 +207,7 @@ require_once dirname(__FILE__) .'/common.php';
 		$page .= "<th><font color=\"lime\"><div id=\"time_0\"><font>" . pretty_time(floor($f['fleet_end_time'] + 1 - time())) . "</font></th><th>";
 
 		if ($f['fleet_mess'] == 0) {
-			$page .= "     <form action=\"fleetback.php\" method=\"post\">
+			$page .= "     <form action=\"game.php?page=Fleetback\" method=\"post\">
       <input name=\"zawracanie\" value=" . $f['fleet_id'] . " type=hidden>
          <input value=\" Retour \" type=\"submit\">
        </form></th>";
@@ -371,5 +371,3 @@ require_once dirname(__FILE__) .'/common.php';
 }
 
 display($page, "Flotten");
-
-?>

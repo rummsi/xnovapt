@@ -107,7 +107,6 @@ class ShowOverviewPage extends AbstractGamePage {
             } elseif ($ile == 0) {
                 $parse['ile'] = "<font color=lightblue>" . $ile . "</font>";
             }
-
             $parse['energy_used'] = $planetrow["energy_max"] - $planetrow["energy_used"];
 
             $query = doquery('SELECT username FROM {{table}} ORDER BY register_time DESC', 'users', true);
@@ -141,6 +140,11 @@ class ShowOverviewPage extends AbstractGamePage {
                 'RestTime' => $planetrow['b_building'] - time(),
                 'PlanetID' => $planetrow['id'],
                 'StatRecord' => $StatRecord,
+                'page_scripts' => "initOverview();
+                    initBuffBar();
+                    initType();
+                    tabletInitOverviewAdvice();",
+                    'currentPage'=> 'overview',
             ));
 
             $this->render('overview.default.tpl');

@@ -3,11 +3,10 @@
                     <div id="links">
                         <ul id="menuTable" class="leftmenu">
                             <li>
-                                <span class="menu_icon">{if count($fleet_list) == 0}
-                                    <div class="menuImage overview highlighted"></div>{else}
-                                    <a href="" class="eventToggle tooltipRight js_hideTipOnMobile" target="_self" title="{$lang['Events']}">
+                                <span class="menu_icon">
+                                    <a href="game.php?page=eventList" class="eventToggle tooltipRight js_hideTipOnMobile" target="_self" title="Events">
                                         <div class="menuImage overview active"></div>
-                                    </a>{/if}
+                                    </a>
                                 </span>
                                 <a class="menubutton  selected" href="game.php?page=overview" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Overview']}</span>
@@ -23,29 +22,27 @@
                                     <span class="textlabel">{$lang['lft_Buildings']}</span>
                                 </a>
                             </li>
-                     {*       <li>
+                            <li>
                                 <span class="menu_icon">
                                     <div class="menuImage station"></div>
                                 </span>
-                                <a class="menubutton " href="http://uni20.ogame.org/game/index.php?page=station" accesskey="" target="_self">
+                                <a class="menubutton " href="game.php?page=station" accesskey="" target="_self">
                                     <span class="textlabel">Facilities</span>
                                 </a>
-                            </li>*}
-                            {if $game_config['enable_marchand'] == 1}
-                            <li>
+                            </li>{if $game_config['enable_marchand'] == 1}
+                            <li>{if $game_config['enable_announces'] == 1}
                                 <span class="menu_icon">
-                                    <a href="game.php?page=marchand#page=traderResources&amp;animation=false" class="trader tooltipRight js_hideTipOnMobile" target="_self" title="Resource Market">
+                                    <a href="game.php?page=annonce" class="trader tooltipRight js_hideTipOnMobile" target="_self" title="{$lang['lft_Annonces']}">
                                         <div class="menuImage traderOverview"></div>
                                     </a>
-                                </span>
-                                <a class="menubutton officierHighligt" href="game.php?page=marchand" accesskey="" target="_self">
+                                </span>{/if}
+                                <a class="menubutton premiumHighligt" href="game.php?page=marchand" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Marchand']}</span>
                                 </a>
-                            </li>
-                            {/if}
+                            </li>{/if}
                             <li>
                                 <span class="menu_icon">
-                                    <a href="game.php?page=techtree&tab=3&open=all" class="overlay tooltipRight js_hideTipOnMobile" target="_blank" title="{$lang['lft_Technology']}">
+                                    <a href="game.php?page=techtree" class="overlay tooltipRight js_hideTipOnMobile" target="_blank" title="{$lang['lft_Technology']}">
                                         <div class="menuImage research"></div>
                                     </a>
                                 </span>
@@ -72,7 +69,7 @@
                             <li>
                                 <span class="menu_icon">
                                     <a href="game.php?page=movement" class="tooltipRight js_hideTipOnMobile" target="_self" title="{$lang['lft_movement']}">
-                                        <div class="menuImage fleet1"></div>
+                                        <div class="menuImage fleet1 active"></div>
                                     </a>
                                 </span>
                                 <a class="menubutton " href="game.php?page=fleet1" accesskey="" target="_self">
@@ -83,7 +80,7 @@
                                 <span class="menu_icon">
                                     <div class="menuImage galaxy"></div>
                                 </span>
-                                <a class="menubutton " href="game.php?page=galaxy{*&action=0*}" accesskey="" target="_self">
+                                <a class="menubutton " href="game.php?page=galaxy&action=0" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Galaxy']}</span>
                                 </a>
                             </li>
@@ -105,16 +102,14 @@
                                     <span class="textlabel">{$lang['lft_Alliance']}</span>
                                 </a>
                             </li>
-
                             <li>
                                 <span class="menu_icon">
-                                    <div class="menuImage officier"></div>
+                                    <div class="menuImage premium"></div>
                                 </span>
-                                <a class="menubutton officierHighligt officers" href="game.php?page=officier" accesskey="" target="_self">
+                                <a class="menubutton premiumHighligt officers" href="game.php?page=officier" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Officiers']}</span>
                                 </a>
-                            </li>
-                            {if $game_config['link_enable'] == 1}
+                            </li>{if $game_config['link_enable'] == 1}
                             <li>
                                 <span class="menu_icon">
                                  {*   <a href="http://uni20.ogame.org/game/index.php?page=shop#page=inventory&amp;category=d8d49c315fa620d9c7f1f19963970dea59a0e3be" class="tooltipRight js_hideTipOnMobile" target="_self" title="Inventory">*}
@@ -124,15 +119,16 @@
                                 <a class="menubutton officierHighligt" href="{$game_config['link_url']}" accesskey="" target="_self">
                                     <span class="textlabel">{stripslashes($game_config['link_name'])}</span>
                                 </a>
-                            </li>
-                            {/if}
+                            </li>{/if}
                             {if $user['authlevel'] > 0}
                             <li>
-                                <a class="menubutton officierHighligt" href="admin/overview.php" accesskey="" target="_self">
+                                <span class="menu_icon">
+                                    <div class="menuImage feedback"></div>
+                                </span>
+                                <a class="menubutton" href="admin.php?page=overview" target="_self">
                                     <span class="textlabel"><font color="lime">{$lang['user_level'][$user['authlevel']]}</font></span>
                                 </a>
-                            </li>
-                            {/if}
+                            </li>{/if}
                         </ul>
                         <div class="adviceWrapper">
                             <div id="promotionCountdownBox">

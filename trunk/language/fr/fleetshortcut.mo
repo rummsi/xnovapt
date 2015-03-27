@@ -31,12 +31,12 @@ $lang['fsc_s_moon'] = ' (L)';
 $lang['fsc_no_shortcuts'] = 'Pas de Raccourcis';
 $lang['fsc_return'] = 'Retour';
 
-$lang['fsc_title_add'] = 'Nom [Galaxie/Syst&egrave;me solaire/Plan&egrave;te]';
+$lang['fsc_title_add'] = 'Nom [Galaxie/Système solaire/Planète]';
 $lang['fsc_name'] = 'Nom';
 $lang['fsc_galaxy'] = 'Galaxie';
 $lang['fsc_solar_s'] = 'Système Solaire';
-$lang['fsc_planet'] = 'Plan&egrave;te';
-$lang['fsc_debris'] = 'D&eacute;bris';
+$lang['fsc_planet'] = 'Planète';
+$lang['fsc_debris'] = 'Débris';
 $lang['fsc_moon'] = 'Lune';
 $lang['fsc_save'] = 'Enregistrer';
 $lang['fsc_del'] = 'Effacer';
@@ -47,7 +47,7 @@ $lang['fsc_remove'] = 'Supprimer';
 
 $lang['fsc_edited_ok'] = 'Raccourci a été supprimé';
 $lang['fsc_deleted'] = 'Supprimé';
-$lang['fsc_edit_ok'] = 'Le raccourcis a &eacute;t&eacute; &eacute;dit&eacute; !';
+$lang['fsc_edit_ok'] = 'Le raccourcis a été édité !';
 $lang['fsc_editer'] = 'Editer';
-$lang['fsc_save_ok'] = 'Le raccourcis a &eacute;t&eacute; enregistr&eacute;!';
+$lang['fsc_save_ok'] = 'Le raccourcis a été enregistré!';
 $lang['fsc_anonymous'] = 'anonyme';

@@ -22,7 +22,6 @@
                                 <td class="k">{$game_config['deuterium_basic_income'] * $game_config['resource_multiplier']}</td>
                                 <td class="k">{$game_config['energy_basic_income']    * $game_config['resource_multiplier']}</td>
                             </tr>
-                            {*include file='resources.row.tpl'*}
                             {$resource_row}
                             <tr>
                                 <th height="22">{$lang['Stores_capacity']}</th>
