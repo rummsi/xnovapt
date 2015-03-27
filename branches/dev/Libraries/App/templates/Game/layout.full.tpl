@@ -5,7 +5,7 @@
 
                     <!-- CONTENT AREA -->
                     <div id="contentWrapper" class="with_chat_bar">
-                        <div id="eventboxContent"{if count($fleet_list) == 0} style="display: none;"{/if}>
+                        <div {if count($fleet_list) == 0} style="display: none;"{/if} id="eventboxContent">
                             <div id="eventListWrap">
                                 <div id="eventHeader">
                                     <a class="close_details eventToggle" href="javascript:void(0);">

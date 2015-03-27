@@ -94,7 +94,9 @@
                             </li>
                             <li>
                                 <span class="menu_icon">
-                                    <div class="menuImage alliance"></div>
+                                    <a href="game.php?page=alliance&mode=circular" class="tooltipRight js_hideTipOnMobile" target="_self" title="Circular message">
+                                        <div class="menuImage alliance"></div>
+                                    </a>
                                 </span>
                                 <a class="menubutton " href="game.php?page=alliance" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Alliance']}</span>

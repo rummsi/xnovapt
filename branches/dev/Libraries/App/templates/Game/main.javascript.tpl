@@ -524,7 +524,7 @@
                         function cancelProductionStart() {
                                 window.location.replace("game.php?page=overview");
                         }
-
+                        new baulisteCountdown(getElementByIdWithCache("Countdown"), 14372, "game.php?page=overview");
                         function initType() {
                                 type();
                         }

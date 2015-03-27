@@ -18,7 +18,7 @@
                                             <span class="planet-name  ">{$UserPlanet['name']}</span>
                                             <span class="planet-koords  ">[{$UserPlanet['galaxy']}:{$UserPlanet['system']}:{$UserPlanet['planet']}]</span>
                                         </a>
-                                        <a class="constructionIcon moon tooltip js_hideTipOnMobile" href="http://s671-en.ogame.gameforge.com/game/index.php?page=overview&amp;cp=33621079" title="Lunar Base">
+                                        <a class="constructionIcon tooltip js_hideTipOnMobile" href="game.php?page=overview&amp;cp=33621079" title="Lunar Base">
                                             <span class="icon12px icon_wrench"></span>
                                         </a>
                                     {else}
