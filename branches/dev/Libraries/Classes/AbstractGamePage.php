@@ -276,7 +276,7 @@ abstract class AbstractGamePage {
 						system = '" . $irak['system_angreifer'] . "' AND
 						planet = '" . $irak['planet_angreifer'] . "' AND
 						planet_type = '1'", 'planets', true);
-                    if (mysql_num_rows($planet_start) == 1) {
+                    if (mysqli_num_rows($planet_start) == 1) {
                         $planet = mysqli_fetch_array($planet_start);
                     }
                     $fpage[$irak['zeit']] .= "<tr><th><div id=\"bxxfs$i\" class=\"z\"></div><font color=\"lime\">" . gmdate("H:i:s", $irak['zeit'] + 1 * 60 * 60) . "</font> </th><th colspan=\"3\"><font color=\"#0099FF\">Une attaque de missiles (" . $irak['anzahl'] . ") de " . $user_planet['name'] . " ";
@@ -308,8 +308,8 @@ abstract class AbstractGamePage {
 						system = '" . $irak['system_angreifer'] . "' AND
 						planet = '" . $irak['planet_angreifer'] . "' AND
 						planet_type = '1'", 'planets', true);
-                    if (mysql_num_rows($planet_start) == 1) {
-                        $planet = mysql_fetch_array($planet_start);
+                    if (mysqli_num_rows($planet_start) == 1) {
+                        $planet = mysqli_fetch_array($planet_start);
                     }
                     $fpage[$irak['zeit']] .= "<tr><th><div id=\"bxxfs$i\" class=\"z\"></div><font color=\"lime\">" . gmdate("H:i:s", $irak['zeit'] + 1 * 60 * 60) . "</font> </th><th colspan=\"3\"><font color=\"#0099FF\">Une attaque de missiles (" . $irak['anzahl'] . ") de " . $user_planet['name'] . " ";
                     $fpage[$irak['zeit']] .= '<a href="game.php?page=galaxy&action=3&galaxy=' . $irak["galaxy_angreifer"] . '&system=' . $irak["system_angreifer"] . '&planet=' . $irak["planet_angreifer"] . '">[' . $irak["galaxy_angreifer"] . ':' . $irak["system_angreifer"] . ':' . $irak["planet_angreifer"] . ']</a>';

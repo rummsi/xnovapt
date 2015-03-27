@@ -28,7 +28,6 @@
  * documentation for further information about customizing XNova.
  *
  */
-
 define('INSIDE', true);
 define('INSTALL', false);
 require_once dirname(__FILE__) . '/common.php';

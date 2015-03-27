@@ -109,12 +109,23 @@
                                 <a class="menubutton premiumHighligt officers" href="game.php?page=officier" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Officiers']}</span>
                                 </a>
-                            </li>{if $user['authlevel'] > 0}
+                            </li>{if $game_config['link_enable'] == 1}
+                            <li>
+                                <span class="menu_icon">
+                                 {*   <a href="http://uni20.ogame.org/game/index.php?page=shop#page=inventory&amp;category=d8d49c315fa620d9c7f1f19963970dea59a0e3be" class="tooltipRight js_hideTipOnMobile" target="_self" title="Inventory">*}
+                                        <div class="menuImage shop"></div>
+                                    </a>
+                                </span>
+                                <a class="menubutton officierHighligt" href="{$game_config['link_url']}" accesskey="" target="_self">
+                                    <span class="textlabel">{stripslashes($game_config['link_name'])}</span>
+                                </a>
+                            </li>{/if}
+                            {if $user['authlevel'] > 0}
                             <li>
                                 <span class="menu_icon">
                                     <div class="menuImage feedback"></div>
                                 </span>
-                                <a class="menubutton overlay" href="admin.php?page=overview" target="_self" data-overlay-title="Feedback">
+                                <a class="menubutton" href="admin.php?page=overview" target="_self">
                                     <span class="textlabel"><font color="lime">{$lang['user_level'][$user['authlevel']]}</font></span>
                                 </a>
                             </li>{/if}
@@ -135,7 +146,9 @@
                             <div id="advice-bar">
                             </div>
                         </div>
-                        <div id="toolLinksWrapper"><ul id="menuTableTools" class="leftmenu"></ul></div>
+                        <div id="toolLinksWrapper">
+                            <ul id="menuTableTools" class="leftmenu"></ul>
+                        </div>
                         <br class="clearfloat">
                     </div>
                     <!-- END LEFTMENU -->
