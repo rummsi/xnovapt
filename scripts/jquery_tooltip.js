@@ -583,8 +583,19 @@ function initAlliance() {
 function initAllianceBroadcast() {
     $("#allianceBroadCast").submit(function () {
         var b = $(this);
-        $.post(b.attr("action"), b.serialize() + "&ajax=1", function (a) {
-            $("#eins").html(a)
+        if ($.trim(b.find('textarea[name="text"]').val()).length == 0) {
+            errorBoxNotify(LocalizationStrings.error, chatLoca.TEXT_EMPTY, LocalizationStrings.ok);
+            return false
+        }
+        $.post(b.attr("action"), b.serialize() + "&ajax=1", function (f) {
+            try {
+                var a = $.parseJSON(f);
+                if (typeof a.message != "undefined") {
+                    errorBoxNotify(LocalizationStrings.error, a.message, LocalizationStrings.ok)
+                }
+            } catch (e) {
+                $("#eins").html(f)
+            }
         });
         return false
     })
@@ -1055,6 +1066,9 @@ function initBBCodeEditor(s, H, C, E, D, v) {
             }
         });
         a.on("keyup.bbCodeEditor", function () {
+            if (a.val().length > D) {
+                a.val(a.val().substr(0, D))
+            }
             a.closest(".markItUpContainer").find(".cnt_chars").html(D - a.val().length)
         });
         $(".miu_preview_container").hide();
@@ -1081,7 +1095,6 @@ function initBBCodeEditor(s, H, C, E, D, v) {
 function initBBCodes() {
     $(document).undelegate(".spoilerHeader", "click").delegate(".spoilerHeader", "click", function () {
         var b = this;
-        console.log(this);
         $(this).next(".spoilerText").toggle(0, function () {
             Tipped.refresh(b)
         })
@@ -2387,7 +2400,7 @@ var exodus = {
         exodus.overlay.bind("click", exodus.closeDialog);
         f.bind("click", exodus.closeDialog);
         h.append($('<div id="exodus-header-content"/>').text(exodus.data.translations["exodus-dialog-title"]));
-        l.text(exodus.data.translations["exodus-period"] + " " + exodus.data["exodus-start"] + " – " + exodus.data["exodus-end"]);
+        l.text(exodus.data.translations["exodus-period"] + " " + exodus.data["exodus-start"] + " â€“ " + exodus.data["exodus-end"]);
         if (exodus.data["next-migration"] != "") {
             l.append($('<span id="exodus-next-migration"/>').text(exodus.data["next-migration"]));
             l.append($("<span/>").text(": " + exodus.data.translations["next-migration-processing"]))
@@ -3164,7 +3177,8 @@ function setSelected(b) {
             $("#holdtimeline").show();
             break;
         case 8:
-            $(".prioButton").show();
+            $("#expeditiontimeline").hide();
+            break;
         case 15:
             $("#expeditiontimeline").show();
             break
@@ -3450,12 +3464,9 @@ function addToTable(n, q, m) {
     var o = 'id="' + s + '"';
     var p = 'class="' + q + '"';
     var u = "<div " + o + " " + p + ">" + l + "</div>";
-    $(u).prependTo("#fleetstatusrow");
-    fadingDivs.push(s);
-    if (fadingDivs.length > 1) {
-        oldId = fadingDivs.shift();
-        $("#" + oldId).fadeOut(2000)
-    }
+    $(u).prependTo("#fleetstatusrow").fadeOut(3000, function () {
+        $(this).remove()
+    })
 }
 function setShips(d, e) {
     var f = document.getElementById(d);
@@ -5233,7 +5244,6 @@ ogame.messages = {
                 }
             },
             error: function (c, a, b) {
-                console.log(c + ", " + a + ", " + b)
             }
         })
     },
@@ -5279,7 +5289,6 @@ ogame.messages = {
         }
     },
     doInitAction: function (b) {
-        console.log(2, "doInitAction", b);
         if (typeof ogame.messages[ogame.messages.data.initActions[b]] === "function") {
             return ogame.messages[ogame.messages.data.initActions[b]]()
         } else {
@@ -5321,7 +5330,6 @@ ogame.messages = {
         })
     },
     initMessages: function () {
-        console.log("initMessages");
         $(".js_tabs .tabs_btn_img").each(function () {
             if ($(this).attr("rel")) {
                 $(this).attr("href", $(this).attr("rel"))
@@ -5330,9 +5338,7 @@ ogame.messages = {
         ogame.messages.initTabs($(".js_tabs"));
         var b = ogame.messages.getCurrentMessageTab();
         $("#contentWrapper #buttonz div.js_tabs.tabs_wrap.ui-tabs").on("click", "ul li.list_item", function () {
-            console.log("clicked on tab");
-            var a = ogame.messages.getCurrentMessageTab();
-            console.log(a)
+            var a = ogame.messages.getCurrentMessageTab()
         });
         $("body").on("click", ".msg_actions .icon_not_favorited", function (d) {
             var a = $(this).parents("li.msg").data("msg-id") || $(this).parents("div.detail_msg").data("msg-id");
@@ -5349,6 +5355,7 @@ ogame.messages = {
                 success: function (f) {
                     if (f == true) {
                         $(d.target).removeClass("icon_not_favorited").addClass("icon_favorited");
+                        changeTooltip($(d.target), loca.DELETE_FAV);
                         var c = $(".favoriteTabFreeSlotCount");
                         c.html(parseInt(c.html()) - 1)
                     } else {
@@ -5356,7 +5363,6 @@ ogame.messages = {
                     }
                 },
                 error: function () {
-                    console.log("error occurred. rtfm!")
                 }
             })
         }).on("click", ".msg_actions .icon_favorited", function (d) {
@@ -5374,6 +5380,7 @@ ogame.messages = {
                 success: function (f) {
                     if (f == true) {
                         $(d.target).removeClass("icon_favorited").addClass("icon_not_favorited");
+                        changeTooltip($(d.target), loca.ADD_FAV);
                         var c = $(".favoriteTabFreeSlotCount");
                         c.html(parseInt(c.html()) + 1)
                     } else {
@@ -5381,7 +5388,6 @@ ogame.messages = {
                     }
                 },
                 error: function () {
-                    console.log("error occurred. rtfm!")
                 }
             })
         }).on("click", ".js_actionKill", function (d) {
@@ -5403,7 +5409,27 @@ ogame.messages = {
                     }
                 },
                 error: function () {
-                    console.log("error occurred. rtfm!")
+                }
+            })
+        }).on("click", ".js_actionKillDetail", function (d) {
+            var a = $(".overlayDiv .detail_msg").data("msg-id");
+            $.ajax({
+                type: "POST",
+                url: "?page=messages",
+                dataType: "json",
+                data: {
+                    messageId: a,
+                    action: 103,
+                    ajax: 1
+                },
+                success: function (c) {
+                    if (c == true) {
+                        location.reload()
+                    } else {
+                        fadeBox(loca.LOCA_GALAXY_ERROR_OCCURED, 1)
+                    }
+                },
+                error: function () {
                 }
             })
         }).on("click", ".js_actionRevive", function (d) {
@@ -5426,13 +5452,11 @@ ogame.messages = {
                     }
                 },
                 error: function () {
-                    console.log("error occurred. rtfm!")
                 }
             })
         });
         $(window).scroll(function () {
             if ($(window).scrollTop() === $(document).height() - $(window).height()) {
-                console.log("we scrolled to the bottom");
                 b = ogame.messages.getCurrentMessageTab();
                 var a = ogame.messages.getCurrentEarliestMessage();
                 if (a) {
@@ -5511,7 +5535,6 @@ ogame.messages = {
                     }
                 },
                 error: function () {
-                    console.log("error occurred. rtfm!")
                 }
             })
         })
@@ -5543,7 +5566,6 @@ ogame.messages = {
         })
     },
     initTrash: function (b) {
-        console.log("initTrash");
         if (!b) {
             return
         }
@@ -5780,14 +5802,15 @@ ogame.messages.combatreport = {
         }],
     getCombatValueByCombatMember: function () {
         var d = ogame.messages.combatreport;
-        var c = d.data.activeMember;
+        var f = d.data.activeMember;
         result = {
             armorPercentage: 0,
             weaponPercentage: 0,
             shieldPercentage: 0
         };
+        var e = 0;
         $.each(d.data.combatArray, function (b, a) {
-            if (d.check(true, c, {
+            if (d.check(true, f, {
                 values: {
                     is: {
                         0: "all"
@@ -5796,23 +5819,28 @@ ogame.messages.combatreport = {
             })) {
                 result.armorPercentage += a.armorPercentage;
                 result.weaponPercentage += a.weaponPercentage;
-                result.shieldPercentage += a.shieldPercentage
+                result.shieldPercentage += a.shieldPercentage;
+                e++
             } else {
-                if (a.ownerName == c) {
+                if (a.ownerName == f) {
                     result.armorPercentage = a.armorPercentage;
                     result.weaponPercentage = a.weaponPercentage;
-                    result.shieldPercentage = a.shieldPercentage
+                    result.shieldPercentage = a.shieldPercentage;
+                    e++
                 }
             }
         });
+        result.armorPercentage = result.armorPercentage / e;
+        result.weaponPercentage = result.weaponPercentage / e;
+        result.shieldPercentage = result.shieldPercentage / e;
         return result
     },
     setCombatValue: function () {
         var c = ogame.messages.combatreport;
         var d = c.getCombatValueByCombatMember();
-        $("." + c.data.combatside + "Weapon").text(c.loca.weapon + " " + d.armorPercentage);
-        $("." + c.data.combatside + "Shield").text(c.loca.shield + " " + d.weaponPercentage);
-        $("." + c.data.combatside + "Cover").text(c.loca.cover + " " + d.shieldPercentage)
+        $("." + c.data.combatside + "Weapon").text(c.loca.weapon + " " + d.weaponPercentage + "%");
+        $("." + c.data.combatside + "Shield").text(c.loca.shield + " " + d.shieldPercentage + "%");
+        $("." + c.data.combatside + "Cover").text(c.loca.cover + " " + d.armorPercentage + "%")
     },
     setCombatLoca: function (f, e, g) {
         var h = ogame.messages.combatreport;
@@ -7166,22 +7194,6 @@ function tradeDone(b) {
     }
     errorBoxAsArray(b.errorbox)
 }
-function initSearch() {
-    $(document).ready(function () {
-        $("#searchText").focus();
-        $(".searchTabs .tab").unbind("click").bind("click", function () {
-            $(this).parents(".subsection_tabs").find("li").removeClass("ui-tabs-active");
-            $(this).parent().addClass("ui-tabs-active");
-            ajaxSearch(1, this)
-        });
-        $(".searchall .buttonSave").unbind("click").bind("click", function () {
-            ajaxSearch(1, this)
-        })
-    }).undelegate(".searchTabs .ajaxSearch", "click").delegate(".searchTabs .ajaxSearch", "click", function (b) {
-        b.stopPropagation();
-        ajaxSearch($(this).attr("ref"), this)
-    })
-}
 function closeSearch() {
     if (typeof (currentPage != "undefined")) {
         if (currentPage == "fleet1" || currentPage == "fleet2") {
@@ -8377,7 +8389,6 @@ function initTechtree(g) {
 }
 function readableVersionOfLabel(e, f) {
     e.location = (-0.05 * f + 0.85);
-    console.log(e);
     var d = e.label.indexOf("/");
     if (d) {
     }
@@ -10587,4 +10598,4 @@ function initTrader() {
         traderObj.selectTrader(e.page, undefined, e.tab)
     }
 }
-;                                                                                                                                                                                                                                          
+;                                                                                                                                 

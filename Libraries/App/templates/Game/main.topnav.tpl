@@ -58,24 +58,24 @@
                                 {/if}
                             </a>
                             <!-- Neue Chatnachrichten-Zähler -->
-                    <!--        <a class=" comm_menu chat tooltip js_hideTipOnMobile" href="game.php?page=chat" title="">
-                                <span class="new_msg_count">1</span>
-                            </a>-->
+                    <!--        <a class=" comm_menu chat tooltip js_hideTipOnMobile" href="game.php?page=chat" title="">-->
+                                <!-- js modification !-->
+                    <!--        </a>-->
                             <div id="messages_collapsed">
-                                <div id="eventboxFilled" class="eventToggle" style="display: none;">
+                                <div id="eventboxFilled" class="eventToggle eventboxHover" style="">
                                     <p class="event_list">2 Missions: 
                                         <span class="undermark">2 own</span>
                                         <p class="event_list">
                                             <span class="next_event">Next: 
-                                                <span class="countdown" id="tempcounter" name="countdown">9m 37s</span>
+                                                <span class="countdown" id="tempcounter" name="countdown">11m 30s</span>
                                             </span>
                                             <span class="next_event">Type: 
                                                 <span class="undermark">Transport</span>
                                             </span>
                                         </p>
                                     </p>
-                                    <a style="display: none;" id="js_eventDetailsClosed" class="tooltipRight js_hideTipOnMobile" href="javascript:void(0);" title="More details"></a>
-                                    <a style="display: inline;" id="js_eventDetailsOpen" class="tooltipRight open js_hideTipOnMobile" href="javascript:void(0);" title="Less detail"></a>
+                                    <a style="display: block;" id="js_eventDetailsClosed" class="tooltipRight js_hideTipOnMobile" href="javascript:void(0);" title="More details"></a>
+                                    <a style="display: none;" id="js_eventDetailsOpen" class="tooltipRight open js_hideTipOnMobile" href="javascript:void(0);" title="Less detail"></a>
                                 </div>
                                 <div id="eventboxLoading" class="textCenter textBeefy" style="display: none;">
                                     <img src="images/3f9884806436537bdec305aa26fc60.gif" height="16" width="16">
