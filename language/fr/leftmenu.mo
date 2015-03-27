@@ -35,15 +35,15 @@ $lang['qry'] = 'Executer commande SQL';
 
 $lang['Multiverse'] = '<b>XNova</b> Uni';
 
-$lang['lft_Overview'] = 'Vue g&eacute;n&eacute;rale';
+$lang['lft_Overview'] = 'Vue générale';
 $lang['lft_Officiers'] = 'Officiers';
 
 $lang['lft_Buildings'] = 'B&acirc;timents';
 $lang['lft_Research'] = 'Laboratoire';
 $lang['lft_Shipyard'] = 'Chantier spatial';
-$lang['lft_Defense'] = 'D&eacute;fense';
+$lang['lft_Defense'] = 'Défense';
 
-$lang['lft_multi'] = 'D&eacute;claration de multi';
+$lang['lft_multi'] = 'Déclaration de multi';
 
 $lang['lft_Resources'] = 'Ressources';
 $lang['lft_Imperium'] = 'Empire';
@@ -69,33 +69,33 @@ $lang['lft_Board'] = 'Forum';
 $lang['lft_Contact'] = 'Contact';
 $lang['lft_Options'] = 'Options';
 
-$lang['lft_Logout'] = 'D&eacute;connexion';
+$lang['lft_Logout'] = 'Déconnexion';
 
 $lang['lft_Help'] = 'Aide';
-$lang['lft_Rules'] = 'R&egrave;gles';
+$lang['lft_Rules'] = 'Règles';
 
 // User menu titles
-$lang['lft_devlp'] = 'D&eacute;veloppement';
+$lang['lft_devlp'] = 'Développement';
 $lang['lft_navig'] = 'Navigation';
 $lang['lft_observ'] = 'Observatoire';
-$lang['lft_commun'] = 'Communaut&eacute;';
+$lang['lft_commun'] = 'Communauté';
 $lang['lft_infog'] = 'Informations';
 
 // Administrator menu links
-$lang['adm_over'] = 'Vue g&eacute;n&eacute;rale';
+$lang['adm_over'] = 'Vue générale';
 $lang['adm_conf'] = 'Configuration';
-$lang['adm_reset'] = 'Remise &agrave; z&eacute;ro';
-$lang['adm_extcopy'] = 'Copyright &eacute;tendus';
+$lang['adm_reset'] = 'Remise à zéro';
+$lang['adm_extcopy'] = 'Copyright étendus';
 
 $lang['adm_multi'] = 'Liste multi-comptes';
-$lang['multis_declared'] = 'Multicomptes d&eacute;clar&eacute;s';
+$lang['multis_declared'] = 'Multicomptes déclarés';
 
 $lang['adm_plrlst'] = 'Liste des joueurs';
 $lang['adm_plrsch'] = 'Chercher un joueur';
 $lang['adm_addres'] = 'Ajout de ressources';
 
-$lang['adm_pltlst'] = 'Liste des plan&egrave;tes';
-$lang['adm_actplt'] = 'Plan&egrave;tes actives';
+$lang['adm_pltlst'] = 'Liste des planètes';
+$lang['adm_actplt'] = 'Planètes actives';
 
 $lang['adm_moonlst'] = 'Liste des lunes';
 $lang['adm_addmoon'] = 'Ajout de lunes';
@@ -103,7 +103,7 @@ $lang['adm_addmoon'] = 'Ajout de lunes';
 $lang['adm_fleet'] = 'Flottes en vol';
 
 $lang['adm_ban'] = 'Bannir';
-$lang['adm_unban'] = 'D&eacute;bannir';
+$lang['adm_unban'] = 'Débannir';
 
 $lang['adm_chat'] = 'Administration chat';
 $lang['adm_updpt'] = 'Actualiser points';

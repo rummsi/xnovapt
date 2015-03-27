@@ -108,6 +108,7 @@ abstract class AbstractGamePage {
             'lang' => $lang,
             'game_config' => $game_config,
             'lm_tx_queue' => MAX_FLEET_OR_DEFS_PER_ROW,
+            'energy_available' => $planetrow["energy_max"] + $planetrow["energy_used"],
         ));
 
         if ($user) {
@@ -345,7 +346,7 @@ abstract class AbstractGamePage {
                 'LvlUpRaid' => $LvlUpRaid,
                 'XpMinier' => $XpMinier,
                 'XpMinierUp' => $XpMinierUp,
-                'XPRaid' => $XPRaid, 
+                'XPRaid' => $XPRaid,
                 'XpRaidUp' => $XpRaidUp,
             ));
         }
@@ -483,13 +484,13 @@ abstract class AbstractGamePage {
             'MissionType' => $MissionType,
             'FleetStyle' => $FleetStyle,
             'StartType' => $StartType,
-            'TargetType'=>$TargetType,
+            'TargetType' => $TargetType,
             'StartPlanet' => $StartPlanet,
-            'TargetPlanet'=>$TargetPlanet,
+            'TargetPlanet' => $TargetPlanet,
             'FleetRow' => $FleetRow,
             'Status' => $Status,
             'FleetContent' => $FleetContent,
-            'FleetCapacity'=>$FleetCapacity,
+            'FleetCapacity' => $FleetCapacity,
         ));
 
         return $this->tplObj->fetch('event.fleet.tpl');

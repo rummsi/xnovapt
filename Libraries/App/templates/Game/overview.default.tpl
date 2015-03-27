@@ -1,7 +1,226 @@
 {block name="title" prepend}{/block}
 {block name="content"}
+                            <div id="planet" style="background-image:url({$dpath}planeten/redesign/{$planetrow['image']}.jpg);">
+                                <div id="detailWrapper">
+                                    <div id="header_text">
+                                        <h2>
+                                            <a href="javascript:void(0);" class="openPlanetRenameGiveupBox">
+                                                <p class="planetNameOverview">{$title} -</p>
+                                                <span id="planetNameHeader">{$planetrow['name']}</span>
+                                                <img class="hinted tooltip" title="{$lang['Planet_menu']}" src="images/1f57d944fff38ee51d49c027f574ef.gif" height="16" width="16">
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div id="detail" class="detail_screen">
+                                        <div id="techDetailLoading"></div>
+                                    </div>
+                                    <div id="planetdata">
+                                        <div class="overlay"></div>
+                                        <div id="planetDetails">
+                                            <table cellpadding="0" cellspacing="0" width="100%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="desc">
+                                                            <span id="diameterField"></span>
+                                                        </td>
+                                                        <td class="data">
+                                                            <span id="diameterContentField"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="desc">
+                                                            <span id="temperatureField"></span>
+                                                        </td>
+                                                        <td class="data">
+                                                            <span id="temperatureContentField"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="desc">
+                                                            <span id="positionField"></span>
+                                                        </td>
+                                                        <td class="data">
+                                                            <span id="positionContentField"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="desc">
+                                                            <span id="scoreField"></span></td>
+                                                        <td class="data">
+                                                            <span id="scoreContentField"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="desc">
+                                                            <span id="honorField"></span></td>
+                                                        <td class="data ">
+                                                            <span id="honorContentField"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="planetOptions">
+                                            <div class="planetMoveStart fleft" style="display: inline;">
+                                                <a class="tooltipLeft dark_highlight_tablet fleft" style="display: inline-block" href="http://s671-en.ogame.gameforge.com/game/index.php?page=galaxy" title="The relocation allows you to move your planets to a different position in another preferred system far away. &lt;br /&gt;&lt;br /&gt;
+                                                   The actual relocation takes place 24 hours after activation. During this time you can use your planets as per normal. A countdown shows you the time remaining before the relocation.&lt;br /&gt;&lt;br /&gt;
+                                                   Once the countdown finishes and the planet is to be moved, none of your fleets that are stationed here will be able to be active. Nothing will be able to be built or researched either. Should a construction contract or a fleet still be active once the countdown finishes, the relocation will be cancelled.&lt;br /&gt;&lt;br /&gt;
+                                                   If the move is successful, 240.000 Dark Matter will be deducted from your account. The moon, buildings and all stored resources will move with planet/moon immediately. Your fleets will fly automatically to new coordinates on speed of slowest ship. The jump gate of a relocated moon will be deactivated for 24 hours." data-tooltip-button="To galaxy">
+                                                    <span class="planetMoveIcons planetMoveDefault icon"></span>
+                                                    <span class="planetMoveOverviewMoveLink">Relocate</span>
+                                                </a>
+                                            </div>
+                                            <a class="dark_highlight_tablet float_right openPlanetRenameGiveupBox" href="javascript:void(0);">
+                                                <span class="planetMoveOverviewGivUpLink">give up/rename</span>
+                                                <span class="planetMoveIcons settings planetMoveGiveUp icon"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="buffBar" class="sliderWrapper">
+                                    <div data-uuid="" data-id="" class="add_item">
+                                        <a class="activate_item border3px" href="javascript:void(0);" ref="1"></a>
+                                    </div>
+                                    <div style="width: 532px; height: 36px;" class="anythingSlider anythingSlider-default activeSlider">
+                                        <div class="anythingWindow">
+                                            <ul style="width: 532px; left: 0px;" class="active_items anythingBase horizontal">
+                                                <li style="width: 532px; height: 36px;" class="panel activePage">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <span style="display: none;" class="arrow back disabled">
+                                            <a href="#"><span>«</span></a>
+                                        </span>
+                                        <span style="display: none;" class="arrow forward disabled">
+                                            <a href="#"><span>»</span></a>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div id="moon">            
+                                    <a href="http://s671-en.ogame.gameforge.com/game/index.php?page=overview&amp;cp=33621079" class="tooltipBottom js_hideTipOnMobile" title="Switch to Moon  Moon">
+                                        <img alt="Moon" src="images/b6fbbe98ca42ef920c23590da28a5f.gif">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="c-left"></div>
+                            <div class="c-right"></div>
+                            <div id="overviewBottom">
+                                <div class="content-box-s">
+                                    <div class="header">
+                                        <h3>{$lang['Buildings']}</h3>
+                                    </div>
+                                    <div class="content">
+                                        <table class="construction active" cellpadding="0" cellspacing="0">
+                                        {if $planetrow['b_building'] != 0}
+                                        {*UpdatePlanetBatimentQueueList($planetrow, $user)*}
+                                        {if $planetrow['b_building'] != 0}
+                                        {InsertBuildListScript("buildings")}
+                                            <tr>
+                                                <th colspan="2">{$lang['tech'][$CurrBuild[0]]}</th>
+                                            </tr>
+                                            <tr class="data">
+                                                <td class="first" rowspan="3">
+                                                    <div>
+                                                        <img class="queuePic" width="40" height="40" src="{$dpath}gebaeude/{$CurrBuild[0]}.gif" alt="{$lang['tech'][$CurrBuild[0]]}">
+                                                    </div>
+                                                </td>
+                                                <td class="desc ausbau">Improve to 
+                                                    <span class="level">Level {$CurrBuild[1]}</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="data">
+                                                <td class="desc">Duration:</td>
+                                            </tr>
+                                            <tr class="data">
+                                                <td class="desc timer">
+                                                    <div id="blc" class="z">{pretty_time($RestTime)}</div>
+                                                </td>
+                                            </tr>
+                                            <script language="JavaScript">
+                                                pp = "{$RestTime}";
+                                                pk = "{1}";
+                                                pm = "cancel";
+                                                pl = "{$PlanetID}";
+                                                t();
+                                            </script>
+                                        {else}
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" class="idle">
+                                                        <a class="tooltip js_hideTipOnMobile
+                                                           " title="" href="game.php?page=buildings">
+                                                            {$lang['Free']}.<br>(To resources)
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        {/if}
+                                        {else}
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" class="idle">
+                                                        <a class="tooltip js_hideTipOnMobile
+                                                           " title="" href="game.php?page=buildings">
+                                                            {$lang['Free']}.<br>(To resources)
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        {/if}
+                                        </table>
+                                    </div>
+                                    <div class="footer"></div>
+                                </div>
+                                <div class="content-box-s">
+                                    <div class="header">
+                                        <h3>{$lang['Research']}</h3>
+                                    </div>
+                                    <div class="content">    
+                                        <table class="construction active" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" class="idle">
+                                                        <a class="tooltip js_hideTipOnMobile
+                                                           " title="There is no research done at the moment. Click here to get to your research lab." href="http://s671-en.ogame.gameforge.com/game/index.php?page=research">
+                                                            There is no research in progress at the moment.<br>(To research)
+                                                        </a>
+                                                    </td>
+                                                </tr>   
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="footer"></div>
+                                </div>
+                                <div class="content-box-s">
+                                    <div class="header">
+                                        <h3>{$lang['Shipyard']}</h3>
+                                    </div>
+                                    <div class="content">    
+                                        <table class="construction active" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2" class="idle">
+                                                        <a class="tooltip js_hideTipOnMobile
+                                                           " title="At the moment there are no ships or defence being built on this planet. Click here to get to the shipyard." href="http://s671-en.ogame.gameforge.com/game/index.php?page=shipyard">
+                                                            No ships/defence in construction.<br>(To shipyard)
+                                                        </a>
+                                                    </td>
+                                                </tr>   
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="footer"></div>
+                                </div>
+                                <div class="clearfloat"></div>
+                                <div class="clearfloat"></div>
+                            </div><!-- #overviewBottom -->
+    
+    
+    
+    
+    
+    
         <center>
-            <script language="JavaScript" type="text/javascript" src="scripts/time.js"></script>
             <br>
             <table width="519">
                 <tr>
@@ -37,10 +256,6 @@
                     {/if}
                 {/if}
 		<tr>
-                    <th>{$lang['Server_time']}</th>
-                    <th colspan="3"><div id="dateheure"></div></th>
-		</tr>
-		<tr>
                     <th>{$lang['MembersOnline']}</th>
                     <th colspan="3">{$OnlineUsers[0]}</th>
 		</tr>
@@ -50,9 +265,6 @@
                         <th colspan="3">{stripslashes($game_config['OverviewNewsText'])}</th>
                     </tr>
                 {/if}
-		<tr>
-                    <td colspan="4" class="c">{$lang['Events']}</td>
-		</tr>
 		<tr>
                     <th>
                         {if $lunarow['id'] <> 0}
@@ -68,40 +280,11 @@
                     <th colspan="2">
                         <img src="{$dpath}planeten/{$planetrow['image']}.jpg" height="200" width="200">
                         <br>
-                        {if $planetrow['b_building'] != 0}
-                            {*UpdatePlanetBatimentQueueList($planetrow, $user)*}
-                            {if $planetrow['b_building'] != 0}
-                                {InsertBuildListScript("buildings")}
-                                {$lang['tech'][$CurrBuild[0]]} ({$CurrBuild[1]})
-                                <br />
-                                <div id="blc" class="z">{pretty_time($RestTime)}</div>
-                                <script language="JavaScript">
-                                    pp = "{$RestTime}";
-                                    pk = "{1}";
-                                    pm = "cancel";
-                                    pl = "{$PlanetID}";
-                                    t();
-                                </script>
-                            {else}
-                                {$lang['Free']}
-                            {/if}
-                        {else}
-                            {$lang['Free']}
-                        {/if}
                     </th>
                     <th class="s">
                         <table class="s" align="top" border="0">
                             <tr>{$anothers_planets}</tr>
 			</table>
-                    </th>
-		</tr>
-		<tr>
-                    <th>{$lang['Diameter']}</th>
-                    <th colspan="3">
-                        {pretty_number($planetrow['diameter'])} km (
-                        <a title="{$lang['Developed_fields']}">{$planetrow['field_current']}</a> / 
-                        <a title="{$lang['max_eveloped_fields']}">{CalculateMaxPlanetFields($planetrow)}</a>
-                        {$lang['fields']})
                     </th>
 		</tr>
 		<tr>
@@ -154,19 +337,6 @@
 			</th>
                     </tr>
                     <tr>
-			<th>{$lang['Temperature']}</th>
-			<th colspan="3">
-                            {$lang['ov_temp_from']} {$planetrow['temp_min']}{$lang['ov_temp_unit']} {$lang['ov_temp_to']} {$planetrow['temp_max']}{$lang['ov_temp_unit']}</th>
-                    </tr>
-                    <tr>
-			<th>{$lang['Position']}</th>
-			<th colspan="3">
-                            <a href="game.php?page=galaxy&action=0&galaxy={$planetrow['galaxy']}&system={$planetrow['system']}">
-                                [{$planetrow['galaxy']}:{$planetrow['system']}:{$planetrow['planet']}]
-                            </a>
-			</th>
-                    </tr>
-                    <tr>
 			<th>{$lang['ov_local_cdr']}</th>
 			<th colspan="3">
                             {$lang['Metal']} : {pretty_number($galaxyrow['metal'])} / {$lang['Crystal']} : {pretty_number($galaxyrow['crystal'])}
@@ -177,87 +347,6 @@
                             {/if}
                         </th>
                     </tr>
-                    <tr>
-			<th>{$lang['Points']}</th>
-			<th colspan="3">
-                            <table border="0" width="100%">
-				<tbody>
-                                    <tr>
-					<td align="right" width="50%" style="background-color: transparent;">
-                                            <b>{$lang['ov_pts_build']} :</b>
-                                        </td>
-					<td align="left" width="50%" style="background-color: transparent;">
-                                            <b>{pretty_number($StatRecord['build_points'])}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-					<td align="right" width="50%" style="background-color: transparent;">
-                                            <b>{$lang['ov_pts_fleet']} :</b>
-                                        </td>
-					<td align="left" width="50%" style="background-color: transparent;">
-                                            <b>{pretty_number($StatRecord['fleet_points'])}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-					<td align="right" width="50%" style="background-color: transparent;">
-                                            <b>{$lang['ov_pts_reche']} :</b>
-                                        </td>
-					<td align="left" width="50%" style="background-color: transparent;">
-                                            <b>{pretty_number($StatRecord['tech_points'])}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-					<td align="right" width="50%" style="background-color: transparent;">
-                                            <b>{$lang['ov_pts_total']} :</b>
-                                        </td>
-					<td align="left" width="50%" style="background-color: transparent;">
-                                            <b>{pretty_number($StatRecord['total_points'])}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-					<td colspan="2" align="center" width="100%" style="background-color: transparent;">
-                                            <b>({$lang['Rank']} 
-                                                <a href="game.php?page=statistics&range={$StatRecord['total_rank']}">
-                                                    {$StatRecord['total_rank']}
-                                                </a> {$lang['of']} {$game_config['users_amount']})
-                                            </b>
-					</td>
-                                    </tr>
-				</tbody>
-                            </table>
-			</th>
-                    </tr>
-                    <th>{$lang['Raids']}</th>
-                    <th colspan="3">
-			<table border="0" width="100%">
-                            <tbody>
-				<tr>
-                                    <td align="right" width="50%" style="background-color: transparent;">
-                                        <b>{$lang['NumberOfRaids']} :</b>
-                                    </td>
-                                    <td align="left" width="50%" style="background-color: transparent;">
-                                        <b>{$user['raids']}</b>
-                                    </td>
-				</tr>
-				<tr>
-                                    <td align="right" width="50%" style="background-color: transparent;">
-                                        <b>{$lang['RaidsWin']} :</b>
-                                    </td>
-                                    <td align="left" width="50%" style="background-color: transparent;">
-                                        <b>{$user['raidswin']}</b>
-                                    </td>
-                                </tr>
-				<tr>
-                                    <td align="right" width="50%" style="background-color: transparent;">
-                                        <b>{$lang['RaidsLoose']} :</b>
-                                    </td>
-                                    <td align="left" width="50%" style="background-color: transparent;">
-                                        <b>{$user['raidsloose']}</b>
-                                    </td>
-				</tr>
-                            </tbody>
-			</table>
-                    </th>
                     {if $game_config['ForumBannerFrame'] == '1'}
                         <tr>
                             <th colspan="4">

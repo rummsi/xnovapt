@@ -80,7 +80,7 @@ class ShowResourcesPage extends AbstractGamePage {
         $planetrow['crystal_max'] = (floor(BASE_STORAGE_SIZE * pow(1.5, $planetrow[$resource[23]]))) * (1 + ($user['rpg_stockeur'] * 0.5));
         $planetrow['deuterium_max'] = (floor(BASE_STORAGE_SIZE * pow(1.5, $planetrow[$resource[24]]))) * (1 + ($user['rpg_stockeur'] * 0.5));
         // -------------------------------------------------------------------------------------------------------
-        $parse['resource_row'] = "";
+        $resource_row = "";
         $planetrow['metal_perhour'] = 0;
         $planetrow['crystal_perhour'] = 0;
         $planetrow['deuterium_perhour'] = 0;
@@ -103,35 +103,21 @@ class ShowResourcesPage extends AbstractGamePage {
                 $planetrow['metal_perhour'] += $metal;
                 $planetrow['crystal_perhour'] += $crystal;
                 $planetrow['deuterium_perhour'] += $deuterium;
-                $metal1 = $metal * 0.01 * $post_porcent;
-                $crystal = $crystal * 0.01 * $post_porcent;
-                $deuterium = $deuterium * 0.01 * $post_porcent;
-                $energy = $energy * 0.01 * $post_porcent;
-                $Field = $resource[$ProdID] . "_porcent";
-                $CurrRow = array();
-                $CurrRow['name'] = $resource[$ProdID];
-                $CurrRow['porcent'] = $planetrow[$Field];
-                for ($Option = 10; $Option >= 0; $Option--) {
-                    $OptValue = $Option * 10;
-                    if ($Option == $CurrRow['porcent']) {
-                        $OptSelected = " selected=selected";
-                    } else {
-                        $OptSelected = "";
-                    }
-                    @$CurrRow['option'] .= "<option value=\"" . $OptValue . "\"" . $OptSelected . ">" . $OptValue . "%</option>";
-                }
-                $CurrRow['type'] = $lang['tech'][$ProdID];
-                $CurrRow['level'] = ($ProdID > 200) ? $lang['quantity'] : $lang['level'];
-                $CurrRow['level_type'] = $planetrow[$resource[$ProdID]];
-                $CurrRow['metal_type1'] = pretty_number($metal1);
-                $CurrRow['crystal_type'] = pretty_number($crystal);
-                $CurrRow['deuterium_type'] = pretty_number($deuterium);
-                $CurrRow['energy_type'] = pretty_number($energy);
-                $CurrRow['metal_type'] = colorNumber($CurrRow['metal_type1']);
-                $CurrRow['crystal_type'] = colorNumber($CurrRow['crystal_type']);
-                $CurrRow['deuterium_type'] = colorNumber($CurrRow['deuterium_type']);
-                $CurrRow['energy_type'] = colorNumber($CurrRow['energy_type']);
-                $parse['resource_row'] .= parsetemplate($this->gettemplate('resources.row.tpl'), $CurrRow);
+
+                $this->tplObj->assign(array(
+                    'ProdID' => $ProdID,
+                    'lang' => $lang,
+                    'resource' => $resource,
+                    'planetrow' => $planetrow,
+                    'metal_type' => colorNumber(pretty_number($metal * 0.01 * $post_porcent)),
+                    'crystal_type' => colorNumber(pretty_number($crystal * 0.01 * $post_porcent)),
+                    'deuterium_type' => colorNumber(pretty_number($deuterium * 0.01 * $post_porcent)),
+                    'energy_type' => colorNumber(pretty_number($energy * 0.01 * $post_porcent)),
+                    'name' => $resource[$ProdID],
+                    'porcent'=>$planetrow[$resource[$ProdID] . "_porcent"],
+                ));
+
+                $resource_row .= $this->tplObj->fetch('resources.row.tpl');
             }
         }
 
@@ -159,7 +145,7 @@ class ShowResourcesPage extends AbstractGamePage {
 
         $this->tplObj->assign(array(
             'title' => $lang['Resources'],
-            'resource_row' => $parse['resource_row'],
+            'resource_row' => $resource_row,
             'metal_total' => colorNumber(pretty_number(floor(($planetrow['metal_perhour'] * 0.01 * $parse['production_level']) + ($game_config['metal_basic_income'] * $game_config['resource_multiplier'])))),
             'crystal_total' => colorNumber(pretty_number(floor(($planetrow['crystal_perhour'] * 0.01 * $parse['production_level']) + ($game_config['crystal_basic_income'] * $game_config['resource_multiplier'])))),
             'deuterium_total' => colorNumber(pretty_number(floor(($planetrow['deuterium_perhour'] * 0.01 * $parse['production_level']) + ($game_config['deuterium_basic_income'] * $game_config['resource_multiplier'])))),
@@ -173,18 +159,15 @@ class ShowResourcesPage extends AbstractGamePage {
             'daily_deuterium' => colorNumber(pretty_number(floor($planetrow['deuterium_perhour'] * 24 * 0.01 * $parse['production_level'] + ($game_config['deuterium_basic_income'] * $game_config['resource_multiplier']) * 24))),
             'weekly_deuterium' => colorNumber(pretty_number(floor($planetrow['deuterium_perhour'] * 24 * 7 * 0.01 * $parse['production_level'] + ($game_config['deuterium_basic_income'] * $game_config['resource_multiplier']) * 24 * 7))),
             'monthly_deuterium' => colorNumber(pretty_number(floor($planetrow['deuterium_perhour'] * 24 * 30 * 0.01 * $parse['production_level'] + ($game_config['deuterium_basic_income'] * $game_config['resource_multiplier']) * 24 * 30))),
-            'OptValue' => $Option * 10,
             'metal_storage' => floor($planetrow['metal'] / $planetrow['metal_max'] * 100) . $lang['o/o'],
             'crystal_storage' => floor($planetrow['crystal'] / $planetrow['crystal_max'] * 100) . $lang['o/o'],
             'deuterium_storage' => floor($planetrow['deuterium'] / $planetrow['deuterium_max'] * 100) . $lang['o/o'],
             'metal_storage_bar' => floor(($planetrow['metal'] / $planetrow['metal_max'] * 100) * 2.5),
             'crystal_storage_bar' => floor(($planetrow['crystal'] / $planetrow['crystal_max'] * 100) * 2.5),
             'deuterium_storage_bar' => floor(($planetrow['deuterium'] / $planetrow['deuterium_max'] * 100) * 2.5),
-            'CurrRow' => $CurrRow,
             'reslist' => $reslist,
             'resource' => $resource,
             'ProdGrid' => $ProdGrid,
-            'metal_type' => $CurrRow['metal_type'],
         ));
 
         $this->render('resources.default.tpl');
