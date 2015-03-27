@@ -54,11 +54,10 @@
                 </div>
             </noscript>
             <div id="ie_message">
-                <p><img src="ficheiros/e621aa80dbd4746a9f4f114c8d3853.gif" height="16" width="16">Your
-                    currently used browser is outdated and may cause display errors on this
-                    website. Please update your browser to a newer version: 
-                    <a href="http://www.microsoft.com/upgrade/">Internet Explorer</a> or 
-                    <a href="http://www.mozilla-europe.org/de/firefox/">Mozilla Firefox</a>
+                <p>
+                    <img src="images/e621aa80dbd4746a9f4f114c8d3853.gif" height="16" width="16">{$lang['tpn_update_browser']}
+                    <a href="http://www.microsoft.com/upgrade/">{$lang['tpn_IE']}</a>{$lang['tpn_or']}
+                    <a href="http://www.mozilla-europe.org/de/firefox/">{$lang['tpn_FF']}</a>.
                 </p>
             </div>
             <script type="text/javascript">isIE = false;</script>

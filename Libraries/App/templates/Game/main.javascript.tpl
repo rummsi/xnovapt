@@ -1,5 +1,4 @@
 
-
                     <!-- JAVASCRIPT -->
                     <script type="text/javascript" src="scripts/jquery_Librarie.js"></script>
                     <script type="text/javascript" src="scripts/jquery_UI.js"></script>
@@ -19,7 +18,7 @@
                         }
                         var playerId = "{$user['id']}";
                         var playerName = "{$user['username']}";
-                        var session = "{$smarty.session.user_id}";
+                        var session = "{session_id()}";
                         var isMobile = false;
                         var isMobileApp = false;
                         var isMobileOnly = false;
@@ -29,11 +28,11 @@
                         var isRTLEnabled = 0;
                         var activateToken = "766687f01473fd5f8bf03c5d0ba583da";
                         var miniFleetToken = "335cbe6571359f9ad02f43ee3ea7e256";
-                        var currentPage = "{$smarty.get.page}";
+                        var currentPage = "{ucfirst($smarty.get.page)}";
                         var bbcodePreviewUrl = "game.php?page=bbcodePreview";
                         var popupWindows = ["notices", "combatreport"];
                         var honorScore = 0;
-                        var darkMatter = 2079873;
+                        var darkMatter = {$user['new_message']};
                         var serverTime = new Date();
                         var localTime = new Date();
                         var timeDiff = serverTime - localTime;
@@ -134,8 +133,8 @@
                                         "metal": {
                                                 "resources": {
                                                         "actualFormat": "{pretty_number($planetrow["metal"])}",
-                                                        "actual": 682029,
-                                                        "max": 10000,
+                                                        "actual": {$planetrow["metal"]},
+                                                        "max": {$planetrow["metal_max"]},
                                                         "production": 0
                                                 },
                                                 "tooltip": "{$lang['Metal']}|<table class=\"resourceTooltip\">\n            <tr>\n         <th>Available:<\/th>\n             <td><span class=\"{if $planetrow["metal"] > $planetrow["metal_max"]}overmark{/if}\">{pretty_number($planetrow["metal"])}<\/span><\/td>\n              <\/tr>\n            <tr>\n         <th>Storage capacity:<\/th>\n           <td><span class=\"{if $planetrow["metal"] > $planetrow["metal_max"]}overmark{else}middlemark{/if}\">{pretty_number($planetrow["metal_max"])}<\/span><\/td>\n              <\/tr>\n       <tr>\n         <\/tr>\n       <\/table>",
@@ -144,8 +143,8 @@
                                         "crystal": {
                                                 "resources": {
                                                         "actualFormat": "{pretty_number($planetrow["crystal"])}",
-                                                        "actual": 5859305,
-                                                        "max": 10000,
+                                                        "actual": {$planetrow["crystal"]},
+                                                        "max": {$planetrow["crystal_max"]},
                                                         "production": 0
                                                 },
                                                 "tooltip": "{$lang['Crystal']}|<table class=\"resourceTooltip\">\n          <tr>\n         <th>Available:<\/th>\n             <td><span class=\"{if $planetrow["crystal"] > $planetrow["crystal_max"]}overmark{/if}\">{pretty_number($planetrow["crystal"])}<\/span><\/td>\n        <\/tr>\n            <tr>\n         <th>Storage capacity:<\/th>\n           <td><span class=\"{if $planetrow["crystal"] > $planetrow["crystal_max"]}overmark{else}middlemark{/if}\">{pretty_number($planetrow["crystal_max"])}<\/span><\/td>\n        <\/tr>\n       <tr>\n         <\/tr>\n       <\/table>",
@@ -154,8 +153,8 @@
                                         "deuterium": {
                                                 "resources": {
                                                         "actualFormat": "{pretty_number($planetrow["deuterium"])}",
-                                                        "actual": 145532,
-                                                        "max": 10000,
+                                                        "actual": {$planetrow["deuterium"]},
+                                                        "max": {$planetrow["deuterium_max"]},
                                                         "production": 0
                                                 },
                                                 "tooltip": "{$lang['Deuterium']}|<table class=\"resourceTooltip\">\n        <tr>\n         <th>Available:<\/th>\n             <td><span class=\"{if $planetrow["deuterium"] > $planetrow["deuterium_max"]}overmark{/if}\">{pretty_number($planetrow["deuterium"])}<\/span><\/td>\n  <\/tr>\n            <tr>\n         <th>Storage capacity:<\/th>\n           <td><span class=\"{if $planetrow["deuterium"] > $planetrow["deuterium_max"]}overmark{else}middlemark{/if}\">{pretty_number($planetrow["deuterium_max"])}<\/span><\/td>\n  <\/tr>\n       <tr>\n         <\/tr>\n       <\/table>",
@@ -163,7 +162,7 @@
                                         },
                                         "energy": {
                                                 "resources": {
-                                                        "actual": 0,
+                                                        "actual": {$planetrow["energy_used"]},
                                                         "actualFormat": "{pretty_number($planetrow["energy_used"])}"
                                                 },
                                                 "tooltip": "{$lang['Energy']}|<table class=\"resourceTooltip\">\n           <tr>\n         <th>Available:<\/th>\n             <td><span class=\"{if $planetrow["energy_max"] > $planetrow["energy_used"]}overmark{/if}\">{pretty_number($energy_available)}<\/span><\/td>\n         <\/tr>\n            <tr>\n         <th>Current production:<\/th>\n         <td><span class=\"undermark\">{pretty_number($planetrow["energy_max"])}<\/span><\/td>\n        <\/tr>\n            <tr>\n         <th>Consumption:<\/th>\n           <td><span class=\"overmark\">{pretty_number($energy_available)}<\/span><\/td>\n      <\/tr>\n  <\/table>",
@@ -171,8 +170,8 @@
                                         },
                                         "darkmatter": {
                                                 "resources": {
-                                                        "actual": 2079873,
-                                                        "actualFormat": "{if $user['new_message'] > 0}{$user['new_message']}{else}0{/if}"
+                                                        "actual": {$user['rpg_points']},
+                                                        "actualFormat": "{pretty_number($user['rpg_points'])}"
                                                 },
                                                 "string": "2.079M Dark Matter",
                                                 "tooltip": "{$lang['Message']}|<table class=\"resourceTooltip\">\n          <tr>\n         <td><span class=\"\">[ {$user['new_message']} ]<\/span><\/td>\n       <\/tr>\n  <\/table>",
@@ -537,9 +536,3 @@
                         {/if}
                     </script>
                     <!-- END JAVASCRIPT -->
-                    
-                    
-                    
-                    
-                    
-                    

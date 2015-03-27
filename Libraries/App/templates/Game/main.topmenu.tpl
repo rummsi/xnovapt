@@ -3,7 +3,9 @@
                 <div id="box">
                     <a name="anchor"></a>
                     <div id="info" class="header normal">
-                        <a href="game.php?page=overview"><img src="images/pixel.gif" id="logoLink"></a>
+                        <a href="game.php?page=overview">
+                            <img src="images/pixel.gif" id="logoLink">
+                        </a>
                         <div id="star"></div>
                         <div id="star1"></div>
                         <div id="star2"></div>
