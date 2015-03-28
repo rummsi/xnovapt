@@ -62,7 +62,7 @@
                                 <!-- js modification !-->
                     <!--        </a>-->
                             <div id="messages_collapsed">
-                                <div id="eventboxFilled" class="eventToggle eventboxHover" style="">
+                                <div id="eventboxFilled" class="eventToggle eventboxHover" style="display: none;">
                                     <p class="event_list">2 Missions: 
                                         <span class="undermark">2 own</span>
                                         <p class="event_list">
