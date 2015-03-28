@@ -2,12 +2,15 @@
                     <!-- LEFTMENU -->
                     <div id="links">
                         <ul id="menuTable" class="leftmenu">
-                            <li>
+                            <li>{if count($fleet_list) == 0}
+                                <span class="menu_icon">
+                                    <div class="menuImage overview"></div>
+                                </span>{else}
                                 <span class="menu_icon">
                                     <a href="game.php?page=eventList" class="eventToggle tooltipRight js_hideTipOnMobile" target="_self" title="Events">
                                         <div class="menuImage overview active"></div>
                                     </a>
-                                </span>
+                                </span>{/if}
                                 <a class="menubutton  selected" href="game.php?page=overview" accesskey="" target="_self">
                                     <span class="textlabel">{$lang['lft_Overview']}</span>
                                 </a>
