@@ -1,29 +1,32 @@
 <?php
 
-/**
- *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
- *
+/*
+ * XNovaPT
+ * Copyright (C) 2012
+ * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * 
+ * You should read the GNU General Public License, see <http://www.gnu.org/licenses/>.
+ * 
+ * XNovaPT
+ * @author XNovaPT Team <xnovaptteam@gmail.com>
+ * @Database_Mysqli.php
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
- * @info $Id: Database_BC.class.php 2766 2013-07-20 10:45:43Z slaver7 $
- * @link http://2moons.cc/
+ * @version 0.01  4/abr/2015 17:19:00
+ */
+
+/**
+ * Description of Database_Mysqli
+ *
+ * @author author XNovaPT Team <xnovaptteam@gmail.com>
  */
 class Database_BC extends mysqli {
 
@@ -57,7 +60,7 @@ class Database_BC extends mysqli {
         #parent::query("SET SESSION sql_mode = '';");
         parent::query("SET SESSION sql_mode = 'STRICT_ALL_TABLES';");
         include dirname(dirname(__FILE__)) . '/App/plugins/dbtables.php';
-      //  define('USERS', 'ptgamespt_users');
+        //  define('USERS', 'ptgamespt_users');
     }
 
     /**
@@ -252,5 +255,3 @@ class Database_BC extends mysqli {
     }
 
 }
-
-$dbh = new Database_BC();
