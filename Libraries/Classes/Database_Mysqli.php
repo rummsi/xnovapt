@@ -28,7 +28,7 @@
  *
  * @author author XNovaPT Team <xnovaptteam@gmail.com>
  */
-class Database_BC extends mysqli {
+class Database_Mysqli extends mysqli {
 
     protected $exception;
     private $queryCount = 0;

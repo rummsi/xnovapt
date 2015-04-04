@@ -48,7 +48,7 @@ class AbstractIndexPage {
         if (isset($this->tplObj)) {
             return true;
         }
-        $this->mysqli = new Database_BC();
+        $this->mysqli = new Database_Mysqli();
         $this->tplObj = new Template();
         list($tplDir) = $this->tplObj->getTemplateDir();
         $this->tplObj->setTemplateDir($tplDir . 'Index/');
