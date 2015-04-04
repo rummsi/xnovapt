@@ -111,3 +111,4 @@ include(ROOT_PATH . 'includes/functions/IsVacationMode.php');
 include(ROOT_PATH . 'Libraries/Classes/Display.php');
 include(ROOT_PATH . 'Libraries/Classes/HTTP.php');
 include(ROOT_PATH . 'Libraries/Classes/Template.php');
+include(ROOT_PATH . 'Libraries/Classes/Database_Mysqli.php');
