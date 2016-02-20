@@ -27,24 +27,27 @@
  * documentation for further information about customizing XNova.
  *
  */
-
+/*
 define('INSIDE' , true);
 define('INSTALL' , false);
 define('IN_ADMIN', true);
 require_once dirname(dirname(__FILE__)) .'/common.php';
-
-includeLang('leftmenu');
-
+*/
+function ShowAdminLeftMenu($Level) {
+	global $lang, $dpath, $game_config, $user;
+	includeLang('leftmenu');
 	if (in_array($user['authlevel'], array(LEVEL_ADMIN, LEVEL_OPERATOR, LEVEL_MODERATOR))) {
 		$parse                 = $lang;
-		$parse['mf']           = "Hauptframe";
+		$parse['mf']           = "_self";
 		$parse['dpath']        = $dpath;
 		$parse['XNovaRelease'] = VERSION;
 		$parse['servername']   = XNova;
-		$Page                  = parsetemplate(gettemplate('admin/left_menu'), $parse);
-		display( $Page, "", false, '', true);
+		$MenuTPL = parsetemplate(gettemplate('admin/left_menu'), $parse);
+		$Menu = parsetemplate($MenuTPL, $parse);
+		return $Menu;
 	} else {
 		message( $lang['sys_noalloaw'], $lang['sys_noaccess'] );
 	}
+}
 
 ?>
