@@ -57,11 +57,11 @@
                                 <option value="F">{$lang['Female']}</option>
                             </select>
                         </th>
-                    </tr>
+                    </tr>{if $game_config['secu'] == 1}
                     <tr>
                         {$code_secu}
                         <th>{$affiche}</th>
-                    </tr>
+                    </tr>{/if}
                     <tr>
                         <th>
                             <input name="rgt" type="checkbox">

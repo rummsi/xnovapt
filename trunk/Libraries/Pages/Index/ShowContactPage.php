@@ -37,6 +37,7 @@ class ShowContactPage extends AbstractIndexPage {
 
     function show() {
         global $lang;
+        
         includeLang('contact');
         $QrySelectUser = "SELECT `username`, `email`, `authlevel` ";
         $QrySelectUser .= "FROM {{table}} ";

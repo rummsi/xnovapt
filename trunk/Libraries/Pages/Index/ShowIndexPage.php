@@ -40,8 +40,8 @@ class ShowIndexPage extends AbstractIndexPage {
 
         if (filter_input_array(INPUT_POST)) {
             $userData = array(
-                'username' => mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'username')),
-                'password' => mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'password'))
+                'username' => Database::$dbHandle->real_escape_string(filter_input(INPUT_POST, 'username')),
+                'password' => Database::$dbHandle->real_escape_string(filter_input(INPUT_POST, 'password'))
             );
             $sql = <<<EOF
                 SELECT

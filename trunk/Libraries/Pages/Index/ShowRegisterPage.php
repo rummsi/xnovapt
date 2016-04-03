@@ -83,13 +83,13 @@ class ShowRegisterPage extends AbstractIndexPage {
                 $errors++;
             }
             // Le meilleur moyen de voir si un nom d'utilisateur est pris c'est d'essayer de l'appeler !!
-            $ExistUser = doquery("SELECT `username` FROM {{table}} WHERE `username` = '" . mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'character')) . "' LIMIT 1;", 'users', true);
+            $ExistUser = doquery("SELECT `username` FROM {{table}} WHERE `username` = '" . Database::$dbHandle->real_escape_string(filter_input(INPUT_POST, 'character')) . "' LIMIT 1;", 'users', true);
             if ($ExistUser) {
                 $errorlist .= $lang['error_userexist'];
                 $errors++;
             }
             // Si l'on verifiait que l'adresse email n'existe pas encore ???
-            $ExistMail = doquery("SELECT `email` FROM {{table}} WHERE `email` = '" . mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'email')) . "' LIMIT 1;", 'users', true);
+            $ExistMail = doquery("SELECT `email` FROM {{table}} WHERE `email` = '" . Database::$dbHandle->real_escape_string(filter_input(INPUT_POST, 'email')) . "' LIMIT 1;", 'users', true);
             if ($ExistMail) {
                 $errorlist .= $lang['error_emailexist'];
                 $errors++;
@@ -108,17 +108,17 @@ class ShowRegisterPage extends AbstractIndexPage {
                 $md5newpass = md5($newpass);
                 // Creation de l'utilisateur
                 $QryInsertUser = "INSERT INTO {{table}} SET ";
-                $QryInsertUser .= "`username` = '" . mysqli_real_escape_string(Database::$dbHandle, strip_tags($UserName)) . "', ";
-                $QryInsertUser .= "`email` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
-                $QryInsertUser .= "`email_2` = '" . mysqli_real_escape_string(Database::$dbHandle, $UserEmail) . "', ";
-                $QryInsertUser .= "`sex` = '" . mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'sex')) . "', ";
+                $QryInsertUser .= "`username` = '" . Database::$dbHandle->real_escape_string(strip_tags($UserName)) . "', ";
+                $QryInsertUser .= "`email` = '" . Database::$dbHandle->real_escape_string($UserEmail) . "', ";
+                $QryInsertUser .= "`email_2` = '" . Database::$dbHandle->real_escape_string($UserEmail) . "', ";
+                $QryInsertUser .= "`sex` = '" . Database::$dbHandle->real_escape_string(filter_input(INPUT_POST, 'sex')) . "', ";
                 $QryInsertUser .= "`ip_at_reg` = '" . filter_input(INPUT_SERVER, 'REMOTE_ADDR') . "', ";
                 $QryInsertUser .= "`id_planet` = '0', ";
                 $QryInsertUser .= "`register_time` = '" . time() . "', ";
                 $QryInsertUser .= "`password`='" . $md5newpass . "';";
                 doquery($QryInsertUser, 'users');
                 // On cherche le numero d'enregistrement de l'utilisateur fraichement cree
-                $NewUser = doquery("SELECT `id` FROM {{table}} WHERE `username` = '" . mysqli_real_escape_string(Database::$dbHandle, filter_input(INPUT_POST, 'character')) . "' LIMIT 1;", 'users', true);
+                $NewUser = doquery("SELECT `id` FROM {{table}} WHERE `username` = '" . Database::$dbHandle->real_escape_string(filter_input(INPUT_POST, 'character')) . "' LIMIT 1;", 'users', true);
                 $iduser = $NewUser['id'];
                 // Recherche d'une place libre !
                 $LastSettedGalaxyPos = $game_config['LastSettedGalaxyPos'];

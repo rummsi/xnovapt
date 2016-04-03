@@ -48,5 +48,3 @@ require(ROOT_PATH . 'Libraries/Pages/Index/' . $pageClass . '.php');
 $pageObj = new $pageClass;
 
 $pageObj->{$mode}();
-
-
